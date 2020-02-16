@@ -53,7 +53,7 @@ class Transaction implements Mappable{
 
   SignedTransaction sign (String private_key) {
     final sig = raw_sign(private_key);
-    final b64sig = Utf8Encoder().convert(base64Encode(sig));
+    final b64sig = base64Encode(sig);
     final stx = SignedTransaction(transaction: this, signature: b64sig);
     return stx;
 
@@ -122,7 +122,7 @@ class PaymentTxn extends Transaction {
 }
 
 class SignedTransaction implements Mappable{
-  Uint8List signature;
+  String signature;
   Transaction transaction;
 
   SignedTransaction({this.signature, this.transaction});
@@ -130,7 +130,7 @@ class SignedTransaction implements Mappable{
   @override
   SplayTreeMap<String, dynamic> dictify() {
     final d = SplayTreeMap<String, dynamic>();
-    d['sig'] = signature;
+    d['sig'] = base64Decode(signature);
     d['txn'] = transaction.dictify();
     return d;
   }

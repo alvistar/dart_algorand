@@ -14,7 +14,7 @@ dependencies:
   pinenacl: ^0.1.2
   collection: ^1.14.12
   openapi:
-    path: ../dart-algorand-rest
+    path: ../algorand-jaguar
 
 
 #  path: ^1.6.0
