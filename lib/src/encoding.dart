@@ -5,11 +5,12 @@ import 'dart:typed_data';
 
 import 'package:msgpack_dart/msgpack_dart.dart';
 
-import 'constants.dart';
+
 import 'package:base32/base32.dart';
 import 'package:pointycastle/pointycastle.dart';
 import 'package:collection/collection.dart';
 
+import 'constants.dart';
 import 'error.dart';
 
 

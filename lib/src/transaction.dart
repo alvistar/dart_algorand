@@ -5,10 +5,11 @@ import 'dart:typed_data';
 
 import 'package:pinenacl/api.dart';
 import 'package:base32/base32.dart';
+import 'package:convert/convert.dart';
 
 import 'constants.dart';
 import 'encoding.dart';
-import 'package:convert/convert.dart';
+
 
 class Mappable {
   SplayTreeMap <String, dynamic> dictify() {
