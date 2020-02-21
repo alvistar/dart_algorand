@@ -20,6 +20,13 @@ String from_private_key(String key) {
   return from_key(keyBytes.sublist(0, KEY_LEN_BYTES));
 }
 
+/// Return the public key for the mnemonic.
+String to_public_key(String mnemonic) {
+  final key_bytes = to_key(mnemonic);
+  final key = SigningKey(seed:key_bytes);
+  return encode_address(key.verifyKey);
+}
+
 /// Give the corresponding key for the mnemonic.
 @visibleForTesting
 Uint8List to_key(String mnemonic) {

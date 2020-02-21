@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:dart_algorand/dart_algorand.dart';
 import 'package:msgpack_dart/msgpack_dart.dart';
 
 
@@ -78,4 +79,14 @@ Uint8List checksum(Uint8List data) {
 
 Uint8List _checksum(Uint8List addr) {
   return checksum(addr).sublist(addr.length - CHECK_SUM_LEN_BYTES);
+}
+
+msgpack_decode(String enc) {
+  final decoded = deserialize(base64Decode(enc)).cast<String, dynamic>();
+
+  if (decoded.containsKey('type')) {
+    return Transaction.undictify(decoded);
+  }
+
+  throw Exception('Not implemented');
 }
