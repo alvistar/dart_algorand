@@ -22,7 +22,7 @@ class Transaction implements Mappable{
   int fee;
   int first_valid_round;
   int last_valid_round;
-  String note;
+  Uint8List note;
   String genesis_id;
   String genesis_hash;
   String lease;
@@ -48,6 +48,10 @@ class Transaction implements Mappable{
     m['lv'] = last_valid_round;
     m['type'] = type;
     m['snd'] = decode_address(sender);
+
+    if (note != null) {
+      m['note'] = note;
+    }
 
     return m;
   }
@@ -83,13 +87,13 @@ class PaymentTxn extends Transaction {
   int amt;
   int close_remainder_to;
 
-  PaymentTxn({sender,
-    fee,
-    first_valid_round,
-    last_valid_round,
-    note='',
-    genesis_id=Null,
-    genesis_hash,
+  PaymentTxn({String sender,
+    int fee,
+    int first_valid_round,
+    int last_valid_round,
+    Uint8List note,
+    String genesis_id,
+    String genesis_hash,
     lease='',
     this.amt,
     this.receiver,
@@ -113,7 +117,7 @@ class PaymentTxn extends Transaction {
     m['amt'] = amt;
     m['rcv'] = decode_address(receiver);
 
-    if (note != '') {
+    if (note != null) {
       m['note'] = note;
     }
 

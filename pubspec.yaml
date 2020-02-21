@@ -12,7 +12,7 @@ dependencies:
   base32: 1.1.1
   pointycastle: 1.0.2
   pinenacl: ^0.1.2
-  collection: ^1.14.12
+  collection: ^1.14.11
   openapi:
     path: ../algorand-jaguar
 

@@ -42,6 +42,22 @@ decode_address(String a) {
   }
 }
 
+/// Encode a byte address into a string composed of the encoded bytes and the
+/// checksum.
+String encode_address(Uint8List addr_bytes) {
+  if (addr_bytes == null) {
+    return null;
+  }
+
+  if (addr_bytes.length != KEY_LEN_BYTES) {
+    throw WrongKeyBytesLengthError;
+  }
+
+  final cksum = _checksum(addr_bytes);
+  final addr = base32.encode(Uint8List.fromList(addr_bytes+cksum));
+  return undo_padding(addr);
+}
+
 String _correct_padding(String a) {
   if (a.length % 8 == 0) {
     return a;
@@ -60,6 +76,6 @@ Uint8List checksum(Uint8List data) {
 
 }
 
-_checksum(Uint8List addr) {
+Uint8List _checksum(Uint8List addr) {
   return checksum(addr).sublist(addr.length - CHECK_SUM_LEN_BYTES);
 }
