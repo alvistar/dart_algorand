@@ -320,7 +320,6 @@ void main() {
           close_assets_to:
               "BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4");
 
-      print(txn.dictify());
 
       final signed_txn = txn.sign(sk);
 
@@ -358,12 +357,46 @@ void main() {
 
       final signed_txn = txn.sign(sk);
 
-      final         golden = ("gqNzaWfEQJ7q2rOT8Sb/wB0F87ld+1zMprxVlYqbUbe+oz0WM63FctIi+" +
-          "K9eYFSqT26XBZ4Rr3+VTJpBE+JLKs8nctl9hgijdHhuiKRhcmN2xCAJ+9" +
-          "J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aNmZWXNCOiiZnbOAAT" +
-          "sD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiKibHbO" +
-          "AATv96NzbmTEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tuH9p" +
-          "HR5cGWlYXhmZXKkeGFpZAE=");
+      final golden = 'gqNzaWfEQJ7q2rOT8Sb/wB0F87ld+1zMprxVlYqbUbe+oz0WM63FctIi+'
+          'K9eYFSqT26XBZ4Rr3+VTJpBE+JLKs8nctl9hgijdHhuiKRhcmN2xCAJ+9'
+          'J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aNmZWXNCOiiZnbOAAT'
+          'sD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiKibHbO'
+          'AATv96NzbmTEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tuH9p'
+          'HR5cGWlYXhmZXKkeGFpZAE=';
+
+      expect(msgpack_encode(signed_txn), golden);
+    });
+
+    test('Serialize asset revoke', () {
+      final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
+          'ven only coil atom any hospital uncover make any climb actor '
+          'armed measure need above hundred';
+
+      final sk = mnemonic.to_private_key(mn);
+      final pk = mnemonic.to_public_key(mn);
+
+      final txn = AssetTransferTxn(
+          sender: pk,
+          fee: 10,
+          first_valid_round: 322575,
+          last_valid_round: 323575,
+          genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+          receiver:
+              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+          amt: 1,
+          revocation_target:
+              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+          index: 1);
+
+      final signed_txn = txn.sign(sk);
+
+      final golden = 'gqNzaWfEQHsgfEAmEHUxLLLR9s+Y/yq5WeoGo/jAArCbany+7ZYwExMyS'
+          'zAhmV7M7S8+LBtJalB4EhzEUMKmt3kNKk6+vAWjdHhuiqRhYW10AaRhcm'
+          'N2xCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aRhc25kxCA'
+          'J+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aNmZWXNCqqiZnbO'
+          'AATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiKib'
+          'HbOAATv96NzbmTEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tu'
+          'H9pHR5cGWlYXhmZXKkeGFpZAE=';
 
       expect(msgpack_encode(signed_txn), golden);
     });
