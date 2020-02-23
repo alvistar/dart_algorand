@@ -13,9 +13,9 @@ dependencies:
   pointycastle: 1.0.2
   pinenacl: ^0.1.2
   collection: ^1.14.11
-  openapi:
-    path: ../algorand-dio
-
+  dio: ^3.0.4
+  built_value: ^7.0.9
+  built_collection: ^4.3.2
 
 #  path: ^1.6.0
 
