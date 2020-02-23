@@ -14,7 +14,7 @@ dependencies:
   pinenacl: ^0.1.2
   collection: ^1.14.11
   openapi:
-    path: ../algorand-jaguar
+    path: ../algorand-dio
 
 
 #  path: ^1.6.0

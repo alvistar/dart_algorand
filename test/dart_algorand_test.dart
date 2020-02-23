@@ -130,6 +130,13 @@ void main() {
       final account = generate_account();
       expect(account.address, encode_address(decode_address(account.address)));
     });
+
+   test('Is valid', () {
+     final valid = 'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJI';
+     expect(is_valid_address(valid), isTrue);
+     final invalid = 'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJG';
+     expect(is_valid_address(invalid), isFalse);
+   });
   });
 
   group('MsgPack', () {

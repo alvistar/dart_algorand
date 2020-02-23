@@ -24,7 +24,7 @@ String msgpack_encode(obj) {
 }
 
 
-decode_address(String a) {
+Uint8List decode_address(String a) {
   if (a.length != ADDRESS_LEN) {
     throw WrongKeyLengthError();
   }
@@ -89,4 +89,20 @@ msgpack_decode(String enc) {
   }
 
   throw Exception('Not implemented');
+}
+
+/// Check if the string address is a valid Algorand address.
+bool is_valid_address(String addr) {
+
+  if (undo_padding(addr).length != ADDRESS_LEN) {
+    return false;
+  }
+
+  try {
+    final decoded = decode_address(addr);
+    return true;
+  } catch (e) {
+    return false;
+  }
+
 }
