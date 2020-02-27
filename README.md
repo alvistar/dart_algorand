@@ -1,22 +1,5 @@
-A library for Dart developers.
+Dart Algorand SDK 
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+An incomplete port of Algorand SDK.
 
-## Usage
-
-A simple usage example:
-
-```dart
-import 'package:dart_algorand/dart_algorand.dart';
-
-main() {
-  var awesome = new Awesome();
-}
-```
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
+This has been done mainly from Python SDK, and tried to be as close as possible.

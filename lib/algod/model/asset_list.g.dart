@@ -43,7 +43,7 @@ class _$AssetListSerializer implements StructuredSerializer<AssetList> {
           result.assets.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(Asset)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
       }
     }

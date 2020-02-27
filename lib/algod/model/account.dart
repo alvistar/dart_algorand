@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:dart_algorand/algod/model/asset_holding.dart';
 import 'package:dart_algorand/algod/model/participation.dart';
 
 import 'asset_params.dart';
@@ -27,7 +28,7 @@ abstract class Account implements Built<Account, AccountBuilder> {
   /* Assets specifies the holdings of assets by this account, indexed by the asset ID. */
   @nullable
   @BuiltValueField(wireName: r'assets')
-  JsonObject get assets;
+  BuiltMap<String, AssetHolding> get assets;
 
   @nullable
   @BuiltValueField(wireName: r'participation')

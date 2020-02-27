@@ -3,6 +3,7 @@ library serializers;
 import 'package:built_value/serializer.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:dart_algorand/algod/model/asset_holding.dart';
 import 'model/account.dart';
 import 'model/asset.dart';
 import 'model/asset_config_transaction_type.dart';
@@ -33,6 +34,7 @@ part 'serializers.g.dart';
   Account,
   Asset,
   AssetConfigTransactionType,
+  AssetHolding,
   AssetFreezeTransactionType,
   AssetList,
   AssetParams,
@@ -104,10 +106,11 @@ Serializers serializers = (_$serializers.toBuilder()
           const FullType(BuiltList, [FullType(TransactionParams)]),
           () => ListBuilder<TransactionParams>())
       ..addBuilderFactory(
-          const FullType(BuiltList, [FullType(TransactionResults)]),
-          () => ListBuilder<TransactionResults>())
+          const FullType(BuiltList, [FullType(AssetHolding)]),
+          () => ListBuilder<AssetHolding>())
       ..addBuilderFactory(const FullType(BuiltList, [FullType(Version)]),
           () => ListBuilder<Version>()))
+
     .build();
 
 Serializers standardSerializers =
