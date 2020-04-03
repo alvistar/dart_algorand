@@ -23,3 +23,6 @@ const ASSET_TRANSFER_TXN = 'axfer';
 
 /// maximum number of transaction in a transaction group
 const TX_GROUP_LIMIT = 16;
+
+/// length of leases
+const LEASE_LENGTH = 32;

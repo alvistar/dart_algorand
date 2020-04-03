@@ -59,9 +59,9 @@ void main() {
   group('Mnemonic', () {
     test('Private key from mnemonic', () {
       final mn =
-          ('awful drop leaf tennis indoor begin mandate discover uncle se' +
-              'ven only coil atom any hospital uncover make any climb actor ' +
-              'armed measure need above hundred');
+      ('awful drop leaf tennis indoor begin mandate discover uncle se' +
+          'ven only coil atom any hospital uncover make any climb actor ' +
+          'armed measure need above hundred');
 
       expect(mnemonic.to_private_key(mn),
           'hdhQ/fKNOVHg8D5kLzE21SKHKLyt7DSMAlYq4IUnepIJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/Q==');
@@ -70,7 +70,9 @@ void main() {
     test('Private key from/to', () {
       final account = generate_account();
       final mn = mnemonic.from_private_key(account.private_key);
-      expect(mn.split(' ').length, MNEMONIC_LEN);
+      expect(mn
+          .split(' ')
+          .length, MNEMONIC_LEN);
       expect(account.private_key, mnemonic.to_private_key(mn));
     });
 
@@ -106,7 +108,7 @@ void main() {
 
     test('Word list', () {
       final result =
-          mnemonic.mnemonicChecksum(Utf8Encoder().convert(WORD_LIST_RAW));
+      mnemonic.mnemonicChecksum(Utf8Encoder().convert(WORD_LIST_RAW));
 
       expect(result, 'venue');
     });
@@ -114,7 +116,8 @@ void main() {
     test('Wrong length', () {
       final mn = 'abandon abandon abandon';
       expect(
-          () => mnemonic.to_key(mn), throwsA(isA<WrongMnemonicLengthError>()));
+              () => mnemonic.to_key(mn),
+          throwsA(isA<WrongMnemonicLengthError>()));
     });
 
     test('Bytes wrong len', () {
@@ -132,12 +135,12 @@ void main() {
       expect(account.address, encode_address(decode_address(account.address)));
     });
 
-   test('Is valid', () {
-     final valid = 'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJI';
-     expect(is_valid_address(valid), isTrue);
-     final invalid = 'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJG';
-     expect(is_valid_address(invalid), isFalse);
-   });
+    test('Is valid', () {
+      final valid = 'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJI';
+      expect(is_valid_address(valid), isTrue);
+      final invalid = 'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJG';
+      expect(is_valid_address(invalid), isFalse);
+    });
   });
 
   group('MsgPack', () {
@@ -234,15 +237,15 @@ void main() {
       final gh = 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=';
 
       final txn = PaymentTxn(
-        sender: address,
-        fee: 3,
-        first_valid_round: 1,
-        last_valid_round: 100,
-        genesis_hash: gh,
-        receiver: address,
-        amt: 1000,
-        genesis_id: 'testnet-v1.0',
-        close_remainder_to: address
+          sender: address,
+          fee: 3,
+          first_valid_round: 1,
+          last_valid_round: 100,
+          genesis_hash: gh,
+          receiver: address,
+          amt: 1000,
+          genesis_id: 'testnet-v1.0',
+          close_remainder_to: address
       );
 
       final txid = txn.get_txid();
@@ -266,7 +269,6 @@ void main() {
       re_enc = msgpack_encode(msgpack_decode(enc));
 
       expect(re_enc, enc);
-
     });
 
     test('Sign', () {
@@ -327,12 +329,12 @@ void main() {
           last_valid_round: 13466,
           genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
           receiver:
-              'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
+          'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
           amt: 1000,
           note: base64Decode('6gAVR0Nsv5Y='),
           genesis_id: 'devnet-v33.0',
           close_remainder_to:
-              'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA');
+          'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA');
 
       final signed_txn = txn.sign(sk);
 
@@ -345,6 +347,47 @@ void main() {
           'D4TQaBHfnzHI2HixFV9GcdUaGFwgCQhmf0SVhwaKGkdHlwZaNwYXk=';
 
       expect(msgpack_encode(signed_txn), golden);
+    });
+
+    test('Serialize pay lease', () {
+      final mn = 'advice pudding treat near rule blouse same whisper inner elec'
+          'tric quit surface sunny dismiss leader blood seat clown cost '
+          'exist hospital century reform able sponsor';
+
+      final sk = mnemonic.to_private_key(mn);
+      final pk = address_from_private_key(sk);
+
+      // @formatter:off
+      final lease = Uint8List.fromList([1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3,
+        4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]);
+      // @formatter:on
+
+      final txn = PaymentTxn(
+        sender: pk,
+        fee: 4,
+        first_valid_round: 12466,
+        last_valid_round: 13466,
+        genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
+        receiver: 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
+        note: base64Decode('6gAVR0Nsv5Y='),
+        amt: 1000,
+        close_remainder_to:  'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA',
+        genesis_id: 'devnet-v33.0',
+        lease: lease
+      );
+
+      final signed_txn = txn.sign(sk);
+
+      final golden = 'gqNzaWfEQOMmFSIKsZvpW0txwzhmbgQjxv6IyN7BbV5sZ2aNgFbVcrWUn'
+          'qPpQQxfPhV/wdu9jzEPUU1jAujYtcNCxJ7ONgejdHhujKNhbXTNA+ilY2'
+          'xvc2XEIEDpNJKIJWTLzpxZpptnVCaJ6aHDoqnqW2Wm6KRCH/xXo2ZlZc0'
+          'FLKJmds0wsqNnZW6sZGV2bmV0LXYzMy4womdoxCAmCyAJoJOohot5WHIv'
+          'peVG7eftF+TYXEx4r7BFJpDt0qJsds00mqJseMQgAQIDBAECAwQBAgMEA'
+          'QIDBAECAwQBAgMEAQIDBAECAwSkbm90ZcQI6gAVR0Nsv5ajcmN2xCB7bO'
+          'JP61uswLFk4pwiLFf19j3Dh9Q5BIJYQRxf4Q98AqNzbmTEIOfw+E0GgR3'
+          '58xyNh4sRVfRnHVGhhcIAkIZn9ElYcGihpHR5cGWjcGF5';
+
+      expect(golden, msgpack_encode(signed_txn));
     });
 
     test('Serialize asset transfer', () {
@@ -362,11 +405,11 @@ void main() {
           last_valid_round: 323576,
           genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
           receiver:
-              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
           amt: 1,
           index: 1,
           close_assets_to:
-              "BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4");
+          "BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4");
 
 
       final signed_txn = txn.sign(sk);
@@ -397,7 +440,7 @@ void main() {
           last_valid_round: 323575,
           genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
           receiver:
-              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
           amt: 0,
           index: 1);
 
@@ -430,10 +473,10 @@ void main() {
           last_valid_round: 323575,
           genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
           receiver:
-              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
           amt: 1,
           revocation_target:
-              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
           index: 1);
 
       final signed_txn = txn.sign(sk);

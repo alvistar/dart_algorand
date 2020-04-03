@@ -27,7 +27,7 @@ class Transaction implements Mappable {
   Uint8List note;
   String genesis_id;
   String genesis_hash;
-  String lease;
+  Uint8List lease;
   String type;
   Uint8List group;
 
@@ -40,7 +40,13 @@ class Transaction implements Mappable {
       this.genesis_id,
       this.genesis_hash,
       this.lease,
-      this.type}) {}
+      this.type}) {
+    if (lease != null) {
+      if (lease.length != LEASE_LENGTH) {
+        throw WrongLeaseLengthError();
+      }
+    }
+  }
 
   SplayTreeMap<String, dynamic> dictify() {
     var m = SplayTreeMap<String, dynamic>();
@@ -63,6 +69,10 @@ class Transaction implements Mappable {
 
     if (group != null) {
       m['grp'] = group;
+    }
+
+    if (lease != null) {
+      m['lx'] = lease;
     }
 
     return m;
@@ -151,7 +161,7 @@ class PaymentTxn extends Transaction {
     Uint8List note,
     String genesis_id,
     String genesis_hash,
-    lease = '',
+    Uint8List lease,
     this.amt,
     this.receiver,
     this.close_remainder_to,
@@ -233,7 +243,7 @@ class AssetTransferTxn extends Transaction {
     Uint8List note,
     String genesis_id,
     String genesis_hash,
-    lease = '',
+    Uint8List lease,
     this.amt,
     this.receiver,
     this.index,

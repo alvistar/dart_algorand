@@ -29,3 +29,8 @@ class TransactionGroupSizeError implements Exception {
   @override
   String toString() => 'transaction groups are limited to 16 transactions';
 }
+
+class WrongLeaseLengthError implements Exception {
+  @override
+  String toString() => 'lease length must be 32 bytes';
+}
