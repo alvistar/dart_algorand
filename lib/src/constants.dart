@@ -18,6 +18,9 @@ const MIN_TXN_FEE = 1000;
 /// indicates a payment transaction
 const PAYMENT_TXN = 'pay';
 
+/// indicates a key registration transaction
+const KEYREG_TXN = 'keyreg';
+
 /// indicates an asset transfer transaction
 const ASSET_TRANSFER_TXN = 'axfer';
 

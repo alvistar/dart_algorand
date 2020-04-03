@@ -363,17 +363,17 @@ void main() {
       // @formatter:on
 
       final txn = PaymentTxn(
-        sender: pk,
-        fee: 4,
-        first_valid_round: 12466,
-        last_valid_round: 13466,
-        genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
-        receiver: 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
-        note: base64Decode('6gAVR0Nsv5Y='),
-        amt: 1000,
-        close_remainder_to:  'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA',
-        genesis_id: 'devnet-v33.0',
-        lease: lease
+          sender: pk,
+          fee: 4,
+          first_valid_round: 12466,
+          last_valid_round: 13466,
+          genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
+          receiver: 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
+          note: base64Decode('6gAVR0Nsv5Y='),
+          amt: 1000,
+          close_remainder_to: 'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA',
+          genesis_id: 'devnet-v33.0',
+          lease: lease
       );
 
       final signed_txn = txn.sign(sk);
@@ -421,6 +421,47 @@ void main() {
           'ds4ABOwPomdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6I'
           'qJsds4ABO/4o3NuZMQgCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH'
           '224f2kdHlwZaVheGZlcqR4YWlkAQ==';
+
+      expect(msgpack_encode(signed_txn), golden);
+    });
+
+    test('Serialize keyreg', () {
+      final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
+          'ven only coil atom any hospital uncover make any climb actor '
+          'armed measure need above hundred';
+
+      final sk = mnemonic.to_private_key(mn);
+      final pk = mnemonic.to_public_key(mn);
+
+      final votekey = encode_address(
+          base64Decode('Kv7QI7chi1y6axoy+t7wzAVpePqRq/rkjzWh/RMYyLo='));
+
+      final selpk = encode_address(
+          base64Decode('bPgrv4YogPcdaUAxrt1QysYZTVyRAuUMD4zQmCu9llc='));
+
+      final txn = KeyregTxn(
+        sender: pk,
+        fee: 1000,
+        first_valid_round: 322575,
+        last_valid_round: 323575,
+        genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+        votekey: votekey,
+        selkey: selpk,
+        votefst: 10000,
+        votelst: 10111,
+        votekd: 11,
+        flat_fee: true,
+      );
+
+      final signed_txn = txn.sign(sk);
+
+      final golden = 'gqNzaWfEQEA8ANbrvTRxU9c8v6WERcEPw7D/HacRgg4vICa61vEof60Ww'
+          'tx6KJKDyvBuvViFeacLlngPY6vYCVP0DktTwQ2jdHhui6NmZWXNA+iiZn'
+          'bOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiK'
+          'ibHbOAATv96ZzZWxrZXnEIGz4K7+GKID3HWlAMa7dUMrGGU1ckQLlDA+M'
+          '0JgrvZZXo3NuZMQgCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH224'
+          'f2kdHlwZaZrZXlyZWendm90ZWZzdM0nEKZ2b3Rla2QLp3ZvdGVrZXnEIC'
+          'r+0CO3IYtcumsaMvre8MwFaXj6kav65I81of0TGMi6p3ZvdGVsc3TNJ38=';
 
       expect(msgpack_encode(signed_txn), golden);
     });

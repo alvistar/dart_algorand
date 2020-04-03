@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'dart:collection';
 
 import 'dart:convert';
@@ -88,7 +89,7 @@ class Transaction implements Mappable {
       'note': m.containsKey('note') ? m['note'] : null,
       'gen': m.containsKey('gen') ? m['gen'] : null,
       'lease': m.containsKey('lx') ? m['lx'] : null,
-      'grp': m.containsKey('grp') ? m['grp']: null
+      'grp': m.containsKey('grp') ? m['grp'] : null
     };
 
     Transaction txn;
@@ -108,6 +109,26 @@ class Transaction implements Mappable {
         amt: args['amt'],
         receiver: args['receiver'],
         flat_fee: true,
+      );
+    }
+
+    if (m['type'] == KEYREG_TXN) {
+      args.addAll(KeyregTxn._undictify(m));
+      txn = KeyregTxn(
+        sender: args['sender'],
+        fee: args['fee'],
+        first_valid_round: args['first'],
+        last_valid_round: args['last'],
+        genesis_hash: args['gh'],
+        note: args['note'],
+        genesis_id: args['gen'],
+        lease: args['lx'],
+        flat_fee: true,
+        votelst: args['votelst'],
+        selkey: args['selkey'],
+        votekd: args['votekd'],
+        votekey: args['votekey'],
+        votefst: args['votefst'],
       );
     }
 
@@ -332,4 +353,85 @@ Uint8List calculate_group_id(List<Transaction> txns) {
   final gid = checksum(Uint8List.fromList(to_sign));
 
   return gid;
+}
+
+/// Represents a key registration transaction
+class KeyregTxn extends Transaction {
+  String votekey;
+  String selkey;
+  int votefst;
+  int votelst;
+  int votekd;
+
+  /// KeyregTxn Constructor
+  ///
+  /// sender: address of sender
+  /// fee: transaction fee (per byte if flat_fee is false)
+  /// first: first round for which the transaction is valid
+  /// last: last round for which the transaction is valid
+  /// gh: genesis_hash
+  /// votekey: participation public key
+  /// selkey: VRF public key
+  /// votefst: first round to vote
+  /// votelst: last round to vote
+  /// votekd: vote key dilution
+  /// note: arbitrary optional bytes
+  /// gen: genesis_id
+  /// flat_fee: whether the specified fee is a flat fee
+  /// lease: specifies a lease, and no other transaction
+  /// with the same sender and lease can be confirmed in this
+  /// transaction's valid rounds
+
+  KeyregTxn(
+      {@required String sender,
+      @required int fee,
+      @required int first_valid_round,
+      @required int last_valid_round,
+      Uint8List note,
+      String genesis_id,
+      @required String genesis_hash,
+      Uint8List lease,
+      bool flat_fee = false,
+      @required this.votekey,
+      @required this.selkey,
+      @required this.votefst,
+      @required this.votelst,
+      @required this.votekd})
+      : super(
+            sender: sender,
+            fee: fee,
+            first_valid_round: first_valid_round,
+            last_valid_round: last_valid_round,
+            note: note,
+            genesis_id: genesis_id,
+            genesis_hash: genesis_hash,
+            lease: lease,
+            type: KEYREG_TXN) {
+    this.fee = flat_fee
+        ? max(MIN_TXN_FEE, fee)
+        : max(estimate_size() * fee, MIN_TXN_FEE);
+  }
+
+  @override
+  SplayTreeMap<String, dynamic> dictify() {
+    var m = super.dictify();
+
+    m['selkey'] = decode_address(selkey);
+    m['votefst'] = votefst;
+    m['votekd'] = votekd;
+    m['votekey'] = decode_address(votekey);
+    m['votelst'] = votelst;
+
+    return m;
+  }
+
+  static Map<String, dynamic> _undictify(Map<String, dynamic> m) {
+    return {
+      'votekey': encode_address(m['votekey']),
+      'selkey': encode_address(m['selkey']),
+      'votefst': m['votefst'],
+      'votelst': m['votelst'],
+      'votekd': m['votekd']
+    };
+  }
 }
