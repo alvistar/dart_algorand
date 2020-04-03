@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:dart_algorand/dart_algorand.dart';
 import 'package:pinenacl/api.dart';
 import 'package:base32/base32.dart';
 import 'package:convert/convert.dart';
@@ -28,6 +29,7 @@ class Transaction implements Mappable {
   String genesis_hash;
   String lease;
   String type;
+  Uint8List group;
 
   Transaction(
       {this.sender,
@@ -59,6 +61,10 @@ class Transaction implements Mappable {
       m['note'] = note;
     }
 
+    if (group != null) {
+      m['grp'] = group;
+    }
+
     return m;
   }
 
@@ -66,17 +72,20 @@ class Transaction implements Mappable {
     final args = {
       'sender': encode_address(m['snd']),
       'fee': m['fee'],
-      'first': m.containsKey('fv') ? m['fv']: 0,
+      'first': m.containsKey('fv') ? m['fv'] : 0,
       'last': m['lv'],
       'gh': base64Encode(m['gh']),
-      'note': m.containsKey('note') ? m['note']: null,
-      'gen': m.containsKey('gen') ? m['gen']: null,
-      'lease': m.containsKey('lx') ? m['lx']: null
+      'note': m.containsKey('note') ? m['note'] : null,
+      'gen': m.containsKey('gen') ? m['gen'] : null,
+      'lease': m.containsKey('lx') ? m['lx'] : null,
+      'grp': m.containsKey('grp') ? m['grp']: null
     };
+
+    Transaction txn;
 
     if (m['type'] == PAYMENT_TXN) {
       args.addAll(PaymentTxn._undictify(m));
-      return PaymentTxn(
+      txn = PaymentTxn(
         sender: args['sender'],
         fee: args['fee'],
         first_valid_round: args['first'],
@@ -89,11 +98,12 @@ class Transaction implements Mappable {
         amt: args['amt'],
         receiver: args['receiver'],
         flat_fee: true,
-
       );
     }
 
-    throw Exception('not implemented');
+    txn.group = args['grp'];
+
+    return txn;
   }
 
   SignedTransaction sign(String private_key) {
@@ -112,6 +122,8 @@ class Transaction implements Mappable {
     return signed.signature;
   }
 
+  ///  Get the transaction's ID.
+  ///  Returns txid as string (encoded in base32)
   String get_txid() {
     final txn = msgpack_encode(this);
     final to_sign = Utf8Encoder().convert(TXID_PREFIX) + base64Decode(txn);
@@ -154,9 +166,9 @@ class PaymentTxn extends Transaction {
             genesis_hash: genesis_hash,
             lease: lease,
             type: PAYMENT_TXN) {
-
-    this.fee = flat_fee ? max(MIN_TXN_FEE, fee) : max(estimate_size() * fee, MIN_TXN_FEE);
-
+    this.fee = flat_fee
+        ? max(MIN_TXN_FEE, fee)
+        : max(estimate_size() * fee, MIN_TXN_FEE);
   }
 
   @override
@@ -175,7 +187,8 @@ class PaymentTxn extends Transaction {
 
   static _undictify(Map<String, dynamic> m) {
     return {
-      'close_remainder_to': m.containsKey('close') ? encode_address(m['close']): null,
+      'close_remainder_to':
+          m.containsKey('close') ? encode_address(m['close']) : null,
       'amt': m.containsKey('amt') ? m['amt'] : 0,
       'receiver': m.containsKey('rcv') ? encode_address(m['rcv']) : null
     };
@@ -228,17 +241,18 @@ class AssetTransferTxn extends Transaction {
     this.revocation_target,
     flat_fee = false,
   }) : super(
-      sender: sender,
-      fee: fee,
-      first_valid_round: first_valid_round,
-      last_valid_round: last_valid_round,
-      note: note,
-      genesis_id: genesis_id,
-      genesis_hash: genesis_hash,
-      lease: lease,
-      type: ASSET_TRANSFER_TXN) {
-
-    this.fee = flat_fee ? max(MIN_TXN_FEE, fee) : max(estimate_size() * fee, MIN_TXN_FEE);
+            sender: sender,
+            fee: fee,
+            first_valid_round: first_valid_round,
+            last_valid_round: last_valid_round,
+            note: note,
+            genesis_id: genesis_id,
+            genesis_hash: genesis_hash,
+            lease: lease,
+            type: ASSET_TRANSFER_TXN) {
+    this.fee = flat_fee
+        ? max(MIN_TXN_FEE, fee)
+        : max(estimate_size() * fee, MIN_TXN_FEE);
   }
 
   @override
@@ -248,7 +262,6 @@ class AssetTransferTxn extends Transaction {
     if (amt > 0) {
       m['aamt'] = amt;
     }
-
 
     m['arcv'] = decode_address(receiver);
 
@@ -264,5 +277,49 @@ class AssetTransferTxn extends Transaction {
 
     return m;
   }
+}
 
+class TxGroup {
+  List<Uint8List> txns;
+
+  TxGroup(this.txns) {
+    if (txns.length > TX_GROUP_LIMIT) {
+      throw TransactionGroupSizeError();
+    }
+  }
+
+  SplayTreeMap<String, dynamic> dictify() {
+    final od = SplayTreeMap<String, dynamic>();
+    od['txlist'] = txns;
+    return od;
+  }
+
+  static TxGroup undictify(Map<String, dynamic> m) {
+    return TxGroup(m['txlist'].cast<Uint8List>());
+  }
+}
+
+Uint8List calculate_group_id(List<Transaction> txns) {
+  if (txns.length > TX_GROUP_LIMIT) {
+    throw TransactionGroupSizeError();
+  }
+
+  String raw_txn;
+  Uint8List to_hash;
+  final txids = <Uint8List>[];
+
+  for (var txn in txns) {
+    raw_txn = msgpack_encode(txn);
+    to_hash = Uint8List.fromList(
+        Utf8Encoder().convert(TXID_PREFIX) + base64Decode(raw_txn));
+    txids.add(checksum(to_hash));
+  }
+
+  final group = TxGroup(txids);
+
+  final encoded = msgpack_encode(group);
+  final to_sign = Utf8Encoder().convert(TGID_PREFIX) + base64Decode(encoded);
+  final gid = checksum(Uint8List.fromList(to_sign));
+
+  return gid;
 }

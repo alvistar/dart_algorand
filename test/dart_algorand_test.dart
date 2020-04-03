@@ -7,6 +7,7 @@ import 'package:dart_algorand/src/account.dart';
 import 'package:dart_algorand/src/mnemonic.dart' as mnemonic;
 import 'package:dart_algorand/src/wordlist.dart';
 import 'package:test/test.dart';
+import 'package:base32/base32.dart';
 
 void main() {
   group('A group of tests', () {
@@ -226,6 +227,46 @@ void main() {
       final enc = msgpack_encode(txn);
       final re_enc = msgpack_encode(msgpack_decode(enc));
       expect(re_enc, enc);
+    });
+
+    test('Serialize txgroup', () {
+      final address = '7ZUECA7HFLZTXENRV24SHLU4AVPUTMTTDUFUBNBD64C73F3UHRTHAIOF6Q';
+      final gh = 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=';
+
+      final txn = PaymentTxn(
+        sender: address,
+        fee: 3,
+        first_valid_round: 1,
+        last_valid_round: 100,
+        genesis_hash: gh,
+        receiver: address,
+        amt: 1000,
+        genesis_id: 'testnet-v1.0',
+        close_remainder_to: address
+      );
+
+      final txid = txn.get_txid();
+      final txid_decoded = base32.decode(txid);
+
+      var txgroup = TxGroup([txid_decoded]);
+      var enc = msgpack_encode(txgroup);
+      var re_enc = msgpack_encode(msgpack_decode(enc));
+
+      expect(re_enc, enc);
+
+      txgroup = TxGroup(List.filled(11, txid_decoded));
+      enc = msgpack_encode(txgroup);
+      re_enc = msgpack_encode(msgpack_decode(enc));
+
+      expect(re_enc, enc);
+
+      final gid = calculate_group_id([txn, txn]);
+      txn.group = gid;
+      enc = msgpack_encode(txn);
+      re_enc = msgpack_encode(msgpack_decode(enc));
+
+      expect(re_enc, enc);
+
     });
 
     test('Sign', () {

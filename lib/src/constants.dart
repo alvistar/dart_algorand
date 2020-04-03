@@ -2,7 +2,14 @@ const ADDRESS_LEN = 58;
 const CHECK_SUM_LEN_BYTES = 4;
 
 const KEY_LEN_BYTES = 32;
+
+
+/// transaction prefix when signing
 const TXID_PREFIX = 'TX';
+
+/// transaction group prefix when computing the group ID
+const TGID_PREFIX = 'TG';
+
 const MNEMONIC_LEN = 25;
 
 /// minimum transaction fee
@@ -13,3 +20,6 @@ const PAYMENT_TXN = 'pay';
 
 /// indicates an asset transfer transaction
 const ASSET_TRANSFER_TXN = 'axfer';
+
+/// maximum number of transaction in a transaction group
+const TX_GROUP_LIMIT = 16;

@@ -88,6 +88,10 @@ msgpack_decode(String enc) {
     return Transaction.undictify(decoded);
   }
 
+  if (decoded.containsKey('txlist')) {
+    return TxGroup.undictify(decoded);
+  }
+
   throw Exception('Not implemented');
 }
 

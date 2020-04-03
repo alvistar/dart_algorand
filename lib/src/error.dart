@@ -23,3 +23,9 @@ class WordNotInList implements Exception {
   @override
   String toString() => 'word not in list';
 }
+
+
+class TransactionGroupSizeError implements Exception {
+  @override
+  String toString() => 'transaction groups are limited to 16 transactions';
+}
