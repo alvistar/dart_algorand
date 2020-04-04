@@ -214,7 +214,7 @@ class AssetConfigTxn extends Transaction {
       m['apar'] = apar;
     }
 
-    if (index != null) {
+    if (index != null && index != 0) {
       m['caid'] = index;
     }
 
@@ -250,11 +250,11 @@ class AssetConfigTxn extends Transaction {
       args['clawback'] =
           apar.containsKey('c') ? encode_address(apar['c']) : null;
 
-      args['url'] = apar.containsKey('au') ? apar['au']: null;
+      args['url'] = apar.containsKey('au') ? apar['au'] : null;
 
-      args['metadata_hash'] = apar.containsKey('am') ? apar['am']: null;
+      args['metadata_hash'] = apar.containsKey('am') ? apar['am'] : null;
 
-      args['decimals'] = apar.containsKey('decimal') ? apar['decimals']: null;
+      args['decimals'] = apar.containsKey('decimal') ? apar['decimals'] : null;
     }
 
     return args;

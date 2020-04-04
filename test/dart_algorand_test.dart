@@ -5,6 +5,7 @@ import 'package:convert/convert.dart';
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/account.dart';
 import 'package:dart_algorand/src/asset_config_txn.dart';
+import 'package:dart_algorand/src/asset_freeze_txn.dart';
 import 'package:dart_algorand/src/mnemonic.dart' as mnemonic;
 import 'package:dart_algorand/src/wordlist.dart';
 import 'package:test/test.dart';
@@ -569,7 +570,6 @@ void main() {
           'gCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH224f2kdHlwZaRhY2Zn';
 
       expect(msgpack_encode(signed_txn), golden);
-
     });
 
     test('Serialize asset destroy', () {
@@ -581,13 +581,13 @@ void main() {
       final pk = mnemonic.to_public_key(mn);
 
       final txn = AssetConfigTxn(
-        sender: pk,
-        fee: 10,
-        first_valid_round: 322575,
-        last_valid_round: 323575,
-        genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
-        index: 1,
-        strict_empty_address_check: false
+          sender: pk,
+          fee: 10,
+          first_valid_round: 322575,
+          last_valid_round: 323575,
+          genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+          index: 1,
+          strict_empty_address_check: false
       );
 
       final signed_txn = txn.sign(sk);
@@ -610,7 +610,28 @@ void main() {
 
       final sk = mnemonic.to_private_key(mn);
       final pk = mnemonic.to_public_key(mn);
-      
+
+      final txn = AssetFreezeTxn(
+        sender: pk,
+        fee: 10,
+        first_valid_round: 322575,
+        last_valid_round: 323576,
+        genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+        index: 1,
+        target: 'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+        new_freeze_state: true,
+      );
+
+      final signed_txn = txn.sign(sk);
+
+      final golden = 'gqNzaWfEQAhru5V2Xvr19s4pGnI0aslqwY4lA2skzpYtDTAN9DKSH5+qs'
+          'fQQhm4oq+9VHVj7e1rQC49S28vQZmzDTVnYDQGjdHhuiaRhZnJ6w6RmYW'
+          'RkxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aRmYWlkAaN'
+          'mZWXNCRqiZnbOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrCDe'
+          'xi9/cOUJOiKibHbOAATv+KNzbmTEIAn70nYsCPhsWua/bdenqQHeZnXXU'
+          'OB+jFx2mGR9tuH9pHR5cGWkYWZyeg==';
+
+      expect(msgpack_encode(signed_txn), golden);
     });
 
     test('Serialize asset transfer', () {
@@ -647,7 +668,6 @@ void main() {
 
       expect(msgpack_encode(signed_txn), golden);
     });
-
 
 
     test('Serialize asset accept', () {

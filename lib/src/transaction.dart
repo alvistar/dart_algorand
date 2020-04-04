@@ -1,4 +1,5 @@
 import 'package:dart_algorand/src/asset_config_txn.dart';
+import 'package:dart_algorand/src/asset_freeze_txn.dart';
 import 'package:meta/meta.dart';
 import 'dart:collection';
 
@@ -144,6 +145,7 @@ class Transaction implements Mappable {
         note: args['note'],
         genesis_id: args['gen'],
         lease: args['lx'],
+        flat_fee: true,
         index: args['index'],
         total: args['total'],
         default_frozen: args['default_frozen'],
@@ -155,6 +157,25 @@ class Transaction implements Mappable {
         url: args['url'],
         metadata_hash: args['metadata_hash'],
         decimals: args['decaimals']
+      );
+    }
+
+    if (m['type'] == ASSETFREEZE_TXN) {
+      args.addAll(AssetFreezeTxn.undictify(m));
+
+      txn = AssetFreezeTxn(
+        sender: args['sender'],
+        fee: args['fee'],
+        first_valid_round: args['first'],
+        last_valid_round: args['last'],
+        genesis_hash: args['gh'],
+        note: args['note'],
+        genesis_id: args['gen'],
+        lease: args['lx'],
+        flat_fee: true,
+        index: args['index'],
+        new_freeze_state: args['new_freeze_state'],
+        target: args['target']
       );
     }
 
