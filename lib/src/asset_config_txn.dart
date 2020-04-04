@@ -139,8 +139,10 @@ class AssetConfigTxn extends Transaction {
       }
     }
 
-    if (decimals < 0 || decimals > MAX_ASSET_DECIMALS) {
-      throw OutOfRangeDecimalsError();
+    if (decimals != null) {
+      if (decimals < 0 || decimals > MAX_ASSET_DECIMALS) {
+        throw OutOfRangeDecimalsError();
+      }
     }
 
     if (metadata_hash != null) {
@@ -155,7 +157,7 @@ class AssetConfigTxn extends Transaction {
     final m = super.dictify();
 
     if (total != null ||
-        default_frozen != null ||
+        default_frozen ||
         unit_name != null ||
         asset_name != null ||
         manager != null ||
@@ -201,7 +203,7 @@ class AssetConfigTxn extends Transaction {
         apar['r'] = decode_address(reserve);
       }
 
-      if (total != 0) {
+      if (total != null) {
         apar['t'] = total;
       }
 

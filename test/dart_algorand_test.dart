@@ -455,12 +455,52 @@ void main() {
         unit_name: 'tst',
         asset_name: 'testcoin',
         url: 'website',
-        metadata_hash:  AsciiCodec().encode('fACPO4nRgO55j1ndAK3W6Sgc4APkcyFh'),
+        metadata_hash: AsciiCodec().encode('fACPO4nRgO55j1ndAK3W6Sgc4APkcyFh'),
+        default_frozen: false,
+      );
+
+      final signed_txn = txn.sign(sk);
+
+      final golden = 'gqNzaWfEQEDd1OMRoQI/rzNlU4iiF50XQXmup3k5czI9hEsNqHT7K4Ksf'
+          'mA/0DUVkbzOwtJdRsHS8trm3Arjpy9r7AXlbAujdHhuh6RhcGFyiaJhbc'
+          'QgZkFDUE80blJnTzU1ajFuZEFLM1c2U2djNEFQa2N5RmiiYW6odGVzdGN'
+          'vaW6iYXWnd2Vic2l0ZaFjxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxc'
+          'dphkfbbh/aFmxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/'
+          'aFtxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aFyxCAJ+9'
+          'J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aF0ZKJ1bqN0c3SjZmV'
+          'lzQ+0omZ2zgAE7A+iZ2jEIEhjtRiks8hOyBDyLU8QgcsPcfBZp6wg3sYv'
+          'f3DlCToiomx2zgAE7/ejc25kxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgf'
+          'oxcdphkfbbh/aR0eXBlpGFjZmc=';
+
+      expect(msgpack_encode(signed_txn), golden);
+    });
+
+    test('Asset create decimal', () {
+      final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
+          'ven only coil atom any hospital uncover make any climb actor '
+          'armed measure need above hundred';
+
+      final sk = mnemonic.to_private_key(mn);
+      final pk = mnemonic.to_public_key(mn);
+
+      final txn = AssetConfigTxn(
+        sender: pk,
+        fee: 10,
+        first_valid_round: 322575,
+        last_valid_round: 323575,
+        genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+        total: 100,
+        manager: pk,
+        reserve: pk,
+        freeze: pk,
+        clawback: pk,
+        unit_name: 'tst',
+        asset_name: 'testcoin',
+        url: 'website',
+        metadata_hash: AsciiCodec().encode('fACPO4nRgO55j1ndAK3W6Sgc4APkcyFh'),
         default_frozen: false,
         decimals: 1,
       );
-
-      final tmp = txn.dictify();
 
       final signed_txn = txn.sign(sk);
 
@@ -476,7 +516,101 @@ void main() {
           'ddQ4H6MXHaYZH224f2kdHlwZaRhY2Zn';
 
       expect(msgpack_encode(signed_txn), golden);
+    });
 
+    test('Asset Empty address error', () {
+      final pk = 'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA';
+
+      expect(() =>
+          AssetConfigTxn(
+            sender: pk,
+            fee: 10,
+            first_valid_round: 322575,
+            last_valid_round: 323575,
+            genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+            reserve: pk,
+            freeze: pk,
+            clawback: pk,
+            index: 1234,
+          ), throwsA(isA<EmptyAddressError>()));
+    }
+    );
+
+    test('Asset serialize asset config', () {
+      final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
+          'ven only coil atom any hospital uncover make any climb actor '
+          'armed measure need above hundred';
+
+      final sk = mnemonic.to_private_key(mn);
+      final pk = mnemonic.to_public_key(mn);
+
+      final txn = AssetConfigTxn(
+        sender: pk,
+        fee: 10,
+        first_valid_round: 322575,
+        last_valid_round: 323575,
+        genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+        manager: pk,
+        reserve: pk,
+        freeze: pk,
+        clawback: pk,
+        index: 1234,
+      );
+
+      final signed_txn = txn.sign(sk);
+
+      final golden = 'gqNzaWfEQBBkfw5n6UevuIMDo2lHyU4dS80JCCQ/vTRUcTx5m0ivX68zT'
+          'KyuVRrHaTbxbRRc3YpJ4zeVEnC9Fiw3Wf4REwejdHhuiKRhcGFyhKFjxC'
+          'AJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aFmxCAJ+9J2LAj'
+          '4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aFtxCAJ+9J2LAj4bFrmv23X'
+          'p6kB3mZ111Dgfoxcdphkfbbh/aFyxCAJ+9J2LAj4bFrmv23Xp6kB3mZ11'
+          '1Dgfoxcdphkfbbh/aRjYWlkzQTSo2ZlZc0NSKJmds4ABOwPomdoxCBIY7'
+          'UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds4ABO/3o3NuZMQ'
+          'gCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH224f2kdHlwZaRhY2Zn';
+
+      expect(msgpack_encode(signed_txn), golden);
+
+    });
+
+    test('Serialize asset destroy', () {
+      final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
+          'ven only coil atom any hospital uncover make any climb actor '
+          'armed measure need above hundred';
+
+      final sk = mnemonic.to_private_key(mn);
+      final pk = mnemonic.to_public_key(mn);
+
+      final txn = AssetConfigTxn(
+        sender: pk,
+        fee: 10,
+        first_valid_round: 322575,
+        last_valid_round: 323575,
+        genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+        index: 1,
+        strict_empty_address_check: false
+      );
+
+      final signed_txn = txn.sign(sk);
+
+      final golden = 'gqNzaWfEQBSP7HtzD/Lvn4aVvaNpeR4T93dQgo4LvywEwcZgDEoc/WVl3'
+          'aKsZGcZkcRFoiWk8AidhfOZzZYutckkccB8RgGjdHhuh6RjYWlkAaNmZW'
+          'XNB1iiZnbOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9'
+          '/cOUJOiKibHbOAATv96NzbmTEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+'
+          'jFx2mGR9tuH9pHR5cGWkYWNmZw==';
+
+      final tmp = txn.dictify();
+
+      expect(msgpack_encode(signed_txn), golden);
+    });
+
+    test('Serialize asset freeze', () {
+      final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
+          'ven only coil atom any hospital uncover make any climb actor '
+          'armed measure need above hundred';
+
+      final sk = mnemonic.to_private_key(mn);
+      final pk = mnemonic.to_public_key(mn);
+      
     });
 
     test('Serialize asset transfer', () {
@@ -513,6 +647,7 @@ void main() {
 
       expect(msgpack_encode(signed_txn), golden);
     });
+
 
 
     test('Serialize asset accept', () {
