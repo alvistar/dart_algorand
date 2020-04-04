@@ -1,3 +1,4 @@
+import 'package:dart_algorand/src/asset_config_txn.dart';
 import 'package:meta/meta.dart';
 import 'dart:collection';
 
@@ -32,16 +33,15 @@ class Transaction implements Mappable {
   String type;
   Uint8List group;
 
-  Transaction(
-      {this.sender,
-      this.fee,
-      this.first_valid_round,
-      this.last_valid_round,
-      this.note,
-      this.genesis_id,
-      this.genesis_hash,
-      this.lease,
-      this.type}) {
+  Transaction({this.sender,
+    this.fee,
+    this.first_valid_round,
+    this.last_valid_round,
+    this.note,
+    this.genesis_id,
+    this.genesis_hash,
+    this.lease,
+    this.type}) {
     if (lease != null) {
       if (lease.length != LEASE_LENGTH) {
         throw WrongLeaseLengthError();
@@ -132,6 +132,32 @@ class Transaction implements Mappable {
       );
     }
 
+    if (m['type'] == ASSETFREEZE_TXN) {
+      args.addAll(AssetConfigTxn.undictify(m));
+
+      txn = AssetConfigTxn(
+        sender: args['sender'],
+        fee: args['fee'],
+        first_valid_round: args['first'],
+        last_valid_round: args['last'],
+        genesis_hash: args['gh'],
+        note: args['note'],
+        genesis_id: args['gen'],
+        lease: args['lx'],
+        index: args['index'],
+        total: args['total'],
+        default_frozen: args['default_frozen'],
+        unit_name: args['unit_name'],
+        manager: args['manager'],
+        reserve: args['reserve'],
+        freeze: args['freeze'],
+        clawback: args['clawback'],
+        url: args['url'],
+        metadata_hash: args['metadata_hash'],
+        decimals: args['decaimals']
+      );
+    }
+
     txn.group = args['grp'];
 
     return txn;
@@ -188,15 +214,15 @@ class PaymentTxn extends Transaction {
     this.close_remainder_to,
     flat_fee = false,
   }) : super(
-            sender: sender,
-            fee: fee,
-            first_valid_round: first_valid_round,
-            last_valid_round: last_valid_round,
-            note: note,
-            genesis_id: genesis_id,
-            genesis_hash: genesis_hash,
-            lease: lease,
-            type: PAYMENT_TXN) {
+      sender: sender,
+      fee: fee,
+      first_valid_round: first_valid_round,
+      last_valid_round: last_valid_round,
+      note: note,
+      genesis_id: genesis_id,
+      genesis_hash: genesis_hash,
+      lease: lease,
+      type: PAYMENT_TXN) {
     this.fee = flat_fee
         ? max(MIN_TXN_FEE, fee)
         : max(estimate_size() * fee, MIN_TXN_FEE);
@@ -219,7 +245,7 @@ class PaymentTxn extends Transaction {
   static _undictify(Map<String, dynamic> m) {
     return {
       'close_remainder_to':
-          m.containsKey('close') ? encode_address(m['close']) : null,
+      m.containsKey('close') ? encode_address(m['close']) : null,
       'amt': m.containsKey('amt') ? m['amt'] : 0,
       'receiver': m.containsKey('rcv') ? encode_address(m['rcv']) : null
     };
@@ -272,15 +298,15 @@ class AssetTransferTxn extends Transaction {
     this.revocation_target,
     flat_fee = false,
   }) : super(
-            sender: sender,
-            fee: fee,
-            first_valid_round: first_valid_round,
-            last_valid_round: last_valid_round,
-            note: note,
-            genesis_id: genesis_id,
-            genesis_hash: genesis_hash,
-            lease: lease,
-            type: ASSET_TRANSFER_TXN) {
+      sender: sender,
+      fee: fee,
+      first_valid_round: first_valid_round,
+      last_valid_round: last_valid_round,
+      note: note,
+      genesis_id: genesis_id,
+      genesis_hash: genesis_hash,
+      lease: lease,
+      type: ASSET_TRANSFER_TXN) {
     this.fee = flat_fee
         ? max(MIN_TXN_FEE, fee)
         : max(estimate_size() * fee, MIN_TXN_FEE);
@@ -382,31 +408,30 @@ class KeyregTxn extends Transaction {
   /// with the same sender and lease can be confirmed in this
   /// transaction's valid rounds
 
-  KeyregTxn(
-      {@required String sender,
-      @required int fee,
-      @required int first_valid_round,
-      @required int last_valid_round,
-      Uint8List note,
-      String genesis_id,
-      @required String genesis_hash,
-      Uint8List lease,
-      bool flat_fee = false,
-      @required this.votekey,
-      @required this.selkey,
-      @required this.votefst,
-      @required this.votelst,
-      @required this.votekd})
+  KeyregTxn({@required String sender,
+    @required int fee,
+    @required int first_valid_round,
+    @required int last_valid_round,
+    Uint8List note,
+    String genesis_id,
+    @required String genesis_hash,
+    Uint8List lease,
+    bool flat_fee = false,
+    @required this.votekey,
+    @required this.selkey,
+    @required this.votefst,
+    @required this.votelst,
+    @required this.votekd})
       : super(
-            sender: sender,
-            fee: fee,
-            first_valid_round: first_valid_round,
-            last_valid_round: last_valid_round,
-            note: note,
-            genesis_id: genesis_id,
-            genesis_hash: genesis_hash,
-            lease: lease,
-            type: KEYREG_TXN) {
+      sender: sender,
+      fee: fee,
+      first_valid_round: first_valid_round,
+      last_valid_round: last_valid_round,
+      note: note,
+      genesis_id: genesis_id,
+      genesis_hash: genesis_hash,
+      lease: lease,
+      type: KEYREG_TXN) {
     this.fee = flat_fee
         ? max(MIN_TXN_FEE, fee)
         : max(estimate_size() * fee, MIN_TXN_FEE);
@@ -414,7 +439,7 @@ class KeyregTxn extends Transaction {
 
   @override
   SplayTreeMap<String, dynamic> dictify() {
-    var m = super.dictify();
+    final m = super.dictify();
 
     m['selkey'] = decode_address(selkey);
     m['votefst'] = votefst;
@@ -435,3 +460,4 @@ class KeyregTxn extends Transaction {
     };
   }
 }
+

@@ -34,3 +34,20 @@ class WrongLeaseLengthError implements Exception {
   @override
   String toString() => 'lease length must be 32 bytes';
 }
+
+class EmptyAddressError implements Exception {
+  @override
+  String toString() => 'manager, freeze, reserve, and clawback '
+      'should not be empty unless '
+      'strict_empty_address_check is set to False';
+}
+
+class OutOfRangeDecimalsError implements Exception {
+  @override
+  String toString() => 'decimals must be between 0 and 19, inclusive';
+}
+
+class WrongMetadataLengthError implements Exception {
+  @override
+  String toString() => 'metadata length must be 32 bytes';
+}

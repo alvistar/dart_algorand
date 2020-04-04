@@ -21,6 +21,12 @@ const PAYMENT_TXN = 'pay';
 /// indicates a key registration transaction
 const KEYREG_TXN = 'keyreg';
 
+/// indicates an asset freeze transaction
+const ASSETFREEZE_TXN = 'afrz';
+
+/// indicates an asset configuration transaction
+const ASSETCONFIG_TXN = 'acfg';
+
 /// indicates an asset transfer transaction
 const ASSET_TRANSFER_TXN = 'axfer';
 
@@ -29,3 +35,9 @@ const TX_GROUP_LIMIT = 16;
 
 /// length of leases
 const LEASE_LENGTH = 32;
+
+/// int: maximum value for decimals in assets
+const MAX_ASSET_DECIMALS = 19;
+
+/// length of asset metadata
+const METADATA_LENGTH = 32;

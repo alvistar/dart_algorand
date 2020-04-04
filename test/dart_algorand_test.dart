@@ -4,6 +4,7 @@ import 'package:convert/convert.dart';
 
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/account.dart';
+import 'package:dart_algorand/src/asset_config_txn.dart';
 import 'package:dart_algorand/src/mnemonic.dart' as mnemonic;
 import 'package:dart_algorand/src/wordlist.dart';
 import 'package:test/test.dart';
@@ -390,40 +391,6 @@ void main() {
       expect(golden, msgpack_encode(signed_txn));
     });
 
-    test('Serialize asset transfer', () {
-      final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
-          'ven only coil atom any hospital uncover make any climb actor '
-          'armed measure need above hundred';
-
-      final sk = mnemonic.to_private_key(mn);
-      final pk = mnemonic.to_public_key(mn);
-
-      final txn = AssetTransferTxn(
-          sender: pk,
-          fee: 10,
-          first_valid_round: 322575,
-          last_valid_round: 323576,
-          genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
-          receiver:
-          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
-          amt: 1,
-          index: 1,
-          close_assets_to:
-          "BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4");
-
-
-      final signed_txn = txn.sign(sk);
-
-      final golden = 'gqNzaWfEQNkEs3WdfFq6IQKJdF1n0/hbV9waLsvojy9pM1T4fvwfMNdjG'
-          'QDy+LeesuQUfQVTneJD4VfMP7zKx4OUlItbrwSjdHhuiqRhYW10AaZhY2'
-          'xvc2XEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tuH9pGFyY3b'
-          'EIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tuH9o2ZlZc0KvqJm'
-          'ds4ABOwPomdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6I'
-          'qJsds4ABO/4o3NuZMQgCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH'
-          '224f2kdHlwZaVheGZlcqR4YWlkAQ==';
-
-      expect(msgpack_encode(signed_txn), golden);
-    });
 
     test('Serialize keyreg', () {
       final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
@@ -465,6 +432,88 @@ void main() {
 
       expect(msgpack_encode(signed_txn), golden);
     });
+
+    test('Serialize asset create', () {
+      final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
+          'ven only coil atom any hospital uncover make any climb actor '
+          'armed measure need above hundred';
+
+      final sk = mnemonic.to_private_key(mn);
+      final pk = mnemonic.to_public_key(mn);
+
+      final txn = AssetConfigTxn(
+        sender: pk,
+        fee: 10,
+        first_valid_round: 322575,
+        last_valid_round: 323575,
+        genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+        total: 100,
+        manager: pk,
+        reserve: pk,
+        freeze: pk,
+        clawback: pk,
+        unit_name: 'tst',
+        asset_name: 'testcoin',
+        url: 'website',
+        metadata_hash:  AsciiCodec().encode('fACPO4nRgO55j1ndAK3W6Sgc4APkcyFh'),
+        default_frozen: false,
+        decimals: 1,
+      );
+
+      final tmp = txn.dictify();
+
+      final signed_txn = txn.sign(sk);
+
+      final golden = 'gqNzaWfEQCj5xLqNozR5ahB+LNBlTG+d0gl0vWBrGdAXj1ibsCkvAwOsX'
+          's5KHZK1YdLgkdJecQiWm4oiZ+pm5Yg0m3KFqgqjdHhuh6RhcGFyiqJhbc'
+          'QgZkFDUE80blJnTzU1ajFuZEFLM1c2U2djNEFQa2N5RmiiYW6odGVzdGN'
+          'vaW6iYXWnd2Vic2l0ZaFjxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxc'
+          'dphkfbbh/aJkYwGhZsQgCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZ'
+          'H224f2hbcQgCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH224f2hcs'
+          'QgCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH224f2hdGSidW6jdHN'
+          '0o2ZlZc0P3KJmds4ABOwPomdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaes'
+          'IN7GL39w5Qk6IqJsds4ABO/3o3NuZMQgCfvSdiwI+Gxa5r9t16epAd5md'
+          'ddQ4H6MXHaYZH224f2kdHlwZaRhY2Zn';
+
+      expect(msgpack_encode(signed_txn), golden);
+
+    });
+
+    test('Serialize asset transfer', () {
+      final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
+          'ven only coil atom any hospital uncover make any climb actor '
+          'armed measure need above hundred';
+
+      final sk = mnemonic.to_private_key(mn);
+      final pk = mnemonic.to_public_key(mn);
+
+      final txn = AssetTransferTxn(
+          sender: pk,
+          fee: 10,
+          first_valid_round: 322575,
+          last_valid_round: 323576,
+          genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+          receiver:
+          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+          amt: 1,
+          index: 1,
+          close_assets_to:
+          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4');
+
+
+      final signed_txn = txn.sign(sk);
+
+      final golden = 'gqNzaWfEQNkEs3WdfFq6IQKJdF1n0/hbV9waLsvojy9pM1T4fvwfMNdjG'
+          'QDy+LeesuQUfQVTneJD4VfMP7zKx4OUlItbrwSjdHhuiqRhYW10AaZhY2'
+          'xvc2XEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tuH9pGFyY3b'
+          'EIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tuH9o2ZlZc0KvqJm'
+          'ds4ABOwPomdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6I'
+          'qJsds4ABO/4o3NuZMQgCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH'
+          '224f2kdHlwZaVheGZlcqR4YWlkAQ==';
+
+      expect(msgpack_encode(signed_txn), golden);
+    });
+
 
     test('Serialize asset accept', () {
       final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
