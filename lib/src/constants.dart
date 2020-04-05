@@ -13,6 +13,9 @@ const TGID_PREFIX = 'TG';
 /// bid prefix when signing
 const BID_PREFIX = 'aB';
 
+/// prefix for multisig addresses
+const MSIG_ADDR_PREFIX = 'MultisigAddr';
+
 const MNEMONIC_LEN = 25;
 
 /// minimum transaction fee
@@ -44,3 +47,6 @@ const MAX_ASSET_DECIMALS = 19;
 
 /// length of asset metadata
 const METADATA_LENGTH = 32;
+
+/// maximum number of addresses in a multisig account
+const MULTISIG_ACCOUNT_LIMIT = 255;

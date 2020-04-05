@@ -51,3 +51,38 @@ class WrongMetadataLengthError implements Exception {
   @override
   String toString() => 'metadata length must be 32 bytes';
 }
+
+class UnknownMsigVersionError implements Exception {
+  @override
+  String toString() => 'unknown multisig version != 1';
+}
+
+class InvalidThresholdError implements Exception {
+  @override
+  String toString() => 'invalid multisig threshold';
+}
+
+class MultisigAccountSizeError implements Exception {
+  @override
+  String toString() => 'multisig accounts are limited to 256 addresses';
+}
+
+class BadTxnSenderError implements Exception {
+  @override
+  String toString() => 'transaction sender does not match multisig parameters';
+}
+
+class InvalidSecretKeyError implements Exception {
+  @override
+  String toString() => 'secret key has no corresponding public key in multisig';
+}
+
+class MergeKeysMismatchError implements Exception {
+  @override
+  String toString() => 'multisig parameters do not match';
+}
+
+class DuplicateSigMismatchError implements Exception {
+  @override
+  String toString() => 'mismatched duplicate signatures in multisig';
+}

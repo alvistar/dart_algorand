@@ -7,6 +7,7 @@ import 'package:dart_algorand/src/account.dart';
 import 'package:dart_algorand/src/asset_config_txn.dart';
 import 'package:dart_algorand/src/asset_freeze_txn.dart';
 import 'package:dart_algorand/src/mnemonic.dart' as mnemonic;
+import 'package:dart_algorand/src/multisig_txn.dart';
 import 'package:dart_algorand/src/wordlist.dart';
 import 'package:test/test.dart';
 import 'package:base32/base32.dart';
@@ -55,6 +56,234 @@ void main() {
 
       expect(msgpack_encode(t),
           'iqNhbXTNJxCjZmVlzQPoomZ2CqNnZW6sdGVzdG5ldC12MS4womdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds0D6KRub3RlxAtIZWxsbyBXb3JsZKNyY3bEIDwrhtAJq4uQ8pQebAT9GuSLczx6JsLgZA9DLOpqBGY5o3NuZMQgCgRALeACZ7qwM3tJ6nOHAk2VMpmDMWqRwjMaOqoOnGmkdHlwZaNwYXk=');
+    });
+  });
+
+  group('Multisig', () {
+    test('merge', () {
+      final msig = Multisig(
+          version: 1,
+          threshold: 2,
+          addresses: [
+            'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA',
+            'BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM',
+            '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU'
+          ]
+      );
+
+      final mn = 'auction inquiry lava second expand liberty glass involve '
+          'ginger illness length room item discover ahead table doctor '
+          'term tackle cement bonus profit right above catch';
+
+      final sk = mnemonic.to_private_key(mn);
+
+      final txn = PaymentTxn(
+          sender: 'RWJLJCMQAFZ2ATP2INM2GZTKNL6OULCCUBO5TQPXH3V2KR4AG7U5UA5JNM',
+          fee: 0,
+          first_valid_round: 62229,
+          last_valid_round: 63229,
+          genesis_hash: '/rNsORAUOQDD2lVCyhg2sA/S+BlZElfNI/YEL5jINp0=',
+          receiver: 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
+          amt: 1000,
+          note: base64Decode('RSYiABhShvs='),
+          genesis_id: 'devnet-v38.0',
+          close_remainder_to: 'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA'
+      );
+
+      final mtx = MultisigTransaction(transaction: txn, multisig: msig);
+      mtx.sign(sk);
+
+      final golden = 'gqRtc2lng6ZzdWJzaWeTgqJwa8QgG37AsEvqYbeWkJfmy/QH4QinBTUdC'
+          '8mKvrEiCairgXihc8RAuLAFE0oma0skOoAmOzEwfPuLYpEWl4LINtsiLr'
+          'UqWQkDxh4WHb29//YCpj4MFbiSgD2jKYt0XKRD86zKCF4RDYGicGvEIAl'
+          'jMglTc4nwdWcRdzmRx9A+G3PIxPUr9q/wGqJc+cJxgaJwa8Qg5/D4TQaB'
+          'HfnzHI2HixFV9GcdUaGFwgCQhmf0SVhwaKGjdGhyAqF2AaN0eG6Lo2Ftd'
+          'M0D6KVjbG9zZcQgQOk0koglZMvOnFmmm2dUJonpocOiqepbZabopEIf/F'
+          'ejZmVlzQPoomZ2zfMVo2dlbqxkZXZuZXQtdjM4LjCiZ2jEIP6zbDkQFDk'
+          'Aw9pVQsoYNrAP0vgZWRJXzSP2BC+YyDadomx2zfb9pG5vdGXECEUmIgAY'
+          'Uob7o3JjdsQge2ziT+tbrMCxZOKcIixX9fY9w4fUOQSCWEEcX+EPfAKjc'
+          '25kxCCNkrSJkAFzoE36Q1mjZmpq/OosQqBd2cH3PuulR4A36aR0eXBlo3'
+          'BheQ==';
+
+      expect(msgpack_encode(mtx), golden);
+
+      final mtx_2 = MultisigTransaction(
+          transaction: txn, multisig: msig.get_multisig_account());
+
+      final mn2 = 'since during average anxiety protect cherry club long '
+          'lawsuit loan expand embark forum theory winter park twenty '
+          'ball kangaroo cram burst board host ability left';
+
+      final sk2 = mnemonic.to_private_key(mn2);
+
+      mtx_2.sign(sk2);
+
+      final mtx_final = MultisigTransaction.merge([mtx, mtx_2]);
+
+      final golden2 = 'gqRtc2lng6ZzdWJzaWeTgqJwa8QgG37AsEvqYbeWkJfmy/QH4QinBTUd'
+          'C8mKvrEiCairgXihc8RAuLAFE0oma0skOoAmOzEwfPuLYpEWl4LINtsi'
+          'LrUqWQkDxh4WHb29//YCpj4MFbiSgD2jKYt0XKRD86zKCF4RDYKicGvE'
+          'IAljMglTc4nwdWcRdzmRx9A+G3PIxPUr9q/wGqJc+cJxoXPEQBAhuyRj'
+          'sOrnHp3s/xI+iMKiL7QPsh8iJZ22YOJJP0aFUwedMr+a6wfdBXk1Oefy'
+          'rAN1wqJ9rq6O+DrWV1fH0ASBonBrxCDn8PhNBoEd+fMcjYeLEVX0Zx1R'
+          'oYXCAJCGZ/RJWHBooaN0aHICoXYBo3R4boujYW10zQPopWNsb3NlxCBA'
+          '6TSSiCVky86cWaabZ1Qmiemhw6Kp6ltlpuikQh/8V6NmZWXNA+iiZnbN'
+          '8xWjZ2VurGRldm5ldC12MzguMKJnaMQg/rNsORAUOQDD2lVCyhg2sA/S'
+          '+BlZElfNI/YEL5jINp2ibHbN9v2kbm90ZcQIRSYiABhShvujcmN2xCB7'
+          'bOJP61uswLFk4pwiLFf19j3Dh9Q5BIJYQRxf4Q98AqNzbmTEII2StImQ'
+          'AXOgTfpDWaNmamr86ixCoF3Zwfc+66VHgDfppHR5cGWjcGF5';
+
+      expect(msgpack_encode(mtx_final), golden2);
+    });
+    test('sign', () {
+      final msig = Multisig(
+          version: 1,
+          threshold: 2,
+          addresses: [
+            'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA',
+            'BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM',
+            '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU'
+          ]);
+
+      final mn = 'advice pudding treat near rule blouse same whisper inner '
+          'electric quit surface sunny dismiss leader blood seat clown '
+          'cost exist hospital century reform able sponsor';
+
+      final sk = mnemonic.to_private_key(mn);
+
+      final txn = PaymentTxn(
+          sender: msig.address(),
+          fee: 4,
+          first_valid_round: 12466,
+          last_valid_round: 13466,
+          genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
+          receiver: 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
+          amt: 1000,
+          note: base64Decode('X4Bl4wQ9rCo='),
+          genesis_id: 'devnet-v33.0',
+          close_remainder_to: 'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA'
+      );
+
+      final mtx = MultisigTransaction(transaction: txn, multisig: msig);
+      mtx.sign(sk);
+
+      final golden = 'gqRtc2lng6ZzdWJzaWeTgaJwa8QgG37AsEvqYbeWkJfmy/QH4QinBTUdC'
+          '8mKvrEiCairgXiBonBrxCAJYzIJU3OJ8HVnEXc5kcfQPhtzyMT1K/av8B'
+          'qiXPnCcYKicGvEIOfw+E0GgR358xyNh4sRVfRnHVGhhcIAkIZn9ElYcGi'
+          'hoXPEQF6nXZ7CgInd1h7NVspIPFZNhkPL+vGFpTNwH3Eh9gwPM8pf1EPT'
+          'HfPvjf14sS7xN7mTK+wrz7Odhp4rdWBNUASjdGhyAqF2AaN0eG6Lo2Ftd'
+          'M0D6KVjbG9zZcQgQOk0koglZMvOnFmmm2dUJonpocOiqepbZabopEIf/F'
+          'ejZmVlzQSYomZ2zTCyo2dlbqxkZXZuZXQtdjMzLjCiZ2jEICYLIAmgk6i'
+          'Gi3lYci+l5Ubt5+0X5NhcTHivsEUmkO3Somx2zTSapG5vdGXECF+AZeME'
+          'Pawqo3JjdsQge2ziT+tbrMCxZOKcIixX9fY9w4fUOQSCWEEcX+EPfAKjc'
+          '25kxCCNkrSJkAFzoE36Q1mjZmpq/OosQqBd2cH3PuulR4A36aR0eXBlo3'
+          'BheQ==';
+
+      expect(msgpack_encode(mtx), golden);
+
+      final txid_golden = 'TDIO6RJWJIVDDJZELMSX5CPJW7MUNM3QR4YAHYAKHF3W2CFRTI7A';
+      expect(txn.get_txid(), txid_golden);
+    });
+
+    test('Msig address', () {
+      final msig = Multisig(
+          version: 1,
+          threshold: 2,
+          addresses: [
+            'XMHLMNAVJIMAW2RHJXLXKKK4G3J3U6VONNO3BTAQYVDC3MHTGDP3J5OCRU',
+            'HTNOX33OCQI2JCOLZ2IRM3BC2WZ6JUILSLEORBPFI6W7GU5Q4ZW6LINHLA',
+            'E6JSNTY4PVCY3IRZ6XEDHEO6VIHCQ5KGXCIQKFQCMB2N6HXRY4IB43VSHI']
+      );
+
+      final golden = 'UCE2U2JC4O4ZR6W763GUQCG57HQCDZEUJY4J5I6VYY4HQZUJDF7AKZO5GM';
+      expect(msig.address(), golden);
+
+      final msig2 = Multisig(
+          version: 1,
+          threshold: 2,
+          addresses: [
+            'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA',
+            'BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM',
+            '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU']
+      );
+
+      final golden2 = 'RWJLJCMQAFZ2ATP2INM2GZTKNL6OULCCUBO5TQPXH3V2KR4AG7U5UA5JNM';
+      expect(msig2.address(), golden2);
+    });
+
+    test('errors', () {
+      // get random private key
+      final account_1 = generate_account();
+      final account_2 = generate_account();
+      final account_3 = generate_account();
+
+      // create transaction
+
+      final txn = PaymentTxn(
+          sender: account_2.address,
+          fee: 3,
+          first_valid_round: 1234,
+          last_valid_round: 1334,
+          genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
+          receiver: account_2.address,
+          amt: 1000
+      );
+
+      //  create multisig address with invalid version
+      final msig = Multisig(
+          version: 2,
+          threshold: 2,
+          addresses: [account_1.address, account_2.address]
+      );
+
+      expect(() => msig.validate(), throwsA(isA<UnknownMsigVersionError>()));
+
+      // change it to have invalid threshold
+      msig.version = 1;
+      msig.threshold = 3;
+
+      expect(() => msig.validate(), throwsA(isA<InvalidThresholdError>()));
+
+      // try to sign multisig transaction
+      msig.threshold = 2;
+      var mtx = MultisigTransaction(transaction: txn, multisig: msig);
+
+      expect(() => mtx.sign(account_1.private_key),
+          throwsA(isA<BadTxnSenderError>()));
+
+      // change sender address to be correct
+      txn.sender = msig.address();
+      mtx = MultisigTransaction(transaction: txn, multisig: msig);
+
+      // try to sign with incorrect private key
+      expect(() => mtx.sign(account_3.private_key),
+          throwsA(isA<InvalidSecretKeyError>()));
+
+      // create another multisig with different address
+      final msig_2 = Multisig(
+        version: 1,
+        threshold: 2,
+        addresses: [account_2.address, account_3.address]
+      );
+
+      // try to merge with different addresses
+      final mtx_2 = MultisigTransaction(transaction: txn, multisig: msig_2);
+
+      expect(() => MultisigTransaction.merge([mtx, mtx_2]),
+          throwsA(isA<MergeKeysMismatchError>()));
+
+      // create another multisig with same address
+      final msig_3 = msig_2.get_multisig_account();
+
+      // add mismatched signatures
+      msig_2.subsigs[0].signature = Utf8Encoder().convert('sig2');
+      msig_3.subsigs[0].signature = Utf8Encoder().convert('sig3');
+
+      // try to merge
+      expect(() => MultisigTransaction.merge(
+          [MultisigTransaction(transaction: txn, multisig: msig_2),
+            MultisigTransaction(transaction: txn, multisig: msig_3)]),
+          throwsA(isA<DuplicateSigMismatchError>()));
     });
   });
 
@@ -174,6 +403,23 @@ void main() {
           'GC5kQiOIPooA8mrvoHRyFtk27F/PPN08bAufGhnp0BGkdHlwZaNwYXk=';
 
       expect(msgpack_encode(msgpack_decode(paytxn)), paytxn);
+    });
+
+    test('Multisig txn', () {
+      final msigtxn = 'gqRtc2lng6ZzdWJzaWeSgqJwa8Qg1ke3gkLuR0MUN/Ku0oyiRVIm9P1'
+          'QFDaiEhT5vtfLmd+hc8RAIEbfnhccjWfYQFQp/P4aJjATFdgaDDpnhy'
+          'JF0tU/37CO5I5hhoCvUCRH/A/6X94Ewz9YEtk5dANEGKQW+/WyAIKic'
+          'GvEIKgAZfZ4iDC+UY/P5F3tgs5rqeyYt08LT0c/D78u0V7KoXPEQCxU'
+          'kQgTVC9lLpKVzcZGKesSCQcZL9UjXTzrteADicvcca7KT3WP0crGgAf'
+          'J3a17Na5cykJzFEn7pq2SHgwD/QujdGhyAqF2AaN0eG6Jo2FtdM0D6K'
+          'NmZWXNA+iiZnbNexSjZ2Vuq25ldHdvcmstdjM4omdoxCBN/+nfiNPXL'
+          'buigk8M/TXsMUfMK7dV//xB1wkoOhNu9qJsds17eKNyY3bEIBguZEIj'
+          'iD6KAPJq76B0chbZNuxfzzzdPGwLnxoZ6dARo3NuZMQgpuIJvJzW8E4'
+          'uxsQGCW0S3n1u340PbHTB2zhtXo/AiI6kdHlwZaNwYXk=';
+
+      final tmp = msgpack_decode(msigtxn).dictify();
+
+      expect(msgpack_encode(msgpack_decode(msigtxn)), msigtxn);
     });
   });
 
@@ -709,8 +955,6 @@ void main() {
           'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
           amt: 0,
           index: 1);
-
-      print(txn.dictify());
 
       final signed_txn = txn.sign(sk);
 
