@@ -89,6 +89,10 @@ msgpack_decode(String enc) {
     return Transaction.undictify(decoded);
   }
 
+  if (decoded.containsKey('txn')) {
+    return SignedTransaction.undictify(decoded);
+  }
+
   if (decoded.containsKey('txlist')) {
     return TxGroup.undictify(decoded);
   }
@@ -97,12 +101,12 @@ msgpack_decode(String enc) {
     return NoteField.undictify(decoded);
   }
 
-  if (decoded.containsKey('auc')) {
-    return Bid.undictify(decoded);
-  }
-
   if (decoded.containsKey('bid')) {
     return SignedBid.undictify(decoded);
+  }
+
+  if (decoded.containsKey('auc')) {
+    return Bid.undictify(decoded);
   }
 
   throw Exception('Not implemented');

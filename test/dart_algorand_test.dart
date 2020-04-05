@@ -156,6 +156,17 @@ void main() {
       expect(msgpack_encode(msgpack_decode(bid)), bid);
     });
 
+    test('Signed Txn', () {
+      final stxn = 'gqNzaWfEQGdpjnStb70k2iXzOlu+RSMgCYLe25wkUfbgRsXs7jx6rbW61i'
+          'vCs6/zGs3gZAZf4L2XAQak7OjMh3lw9MTCIQijdHhuiaNhbXTOAAGGoKNm'
+          'ZWXNA+iiZnbNcl+jZ2Vuq25ldHdvcmstdjM4omdoxCBN/+nfiNPXLbuigk'
+          '8M/TXsMUfMK7dV//xB1wkoOhNu9qJsds1yw6NyY3bEIPRUuVDPVUFC7Jk3'
+          '+xDjHJfwWFDp+Wjy+Hx3cwL9ncVYo3NuZMQgGC5kQiOIPooA8mrvoHRyFt'
+          'k27F/PPN08bAufGhnp0BGkdHlwZaNwYXk=';
+
+      expect(msgpack_encode(msgpack_decode(stxn)), stxn);
+    });
+
     test('Payment txn', () {
       final paytxn = 'iaNhbXTOAAGGoKNmZWXNA+iiZnbNcq2jZ2Vuq25ldHdvcmstdjM4omdo'
           'xCBN/+nfiNPXLbuigk8M/TXsMUfMK7dV//xB1wkoOhNu9qJsds1zEaNy'

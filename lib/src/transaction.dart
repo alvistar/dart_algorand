@@ -302,7 +302,7 @@ class SignedTransaction implements Mappable {
     final args = <String, dynamic>{};
 
     final sig = m.containsKey('sig') ? base64Encode(m['sig']) : null;
-    final txn = Transaction.undictify(m['txn']);
+    final txn = Transaction.undictify(Map.from(m['txn']));
     return SignedTransaction(transaction: txn, signature: sig);
   }
 }
