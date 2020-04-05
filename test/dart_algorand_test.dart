@@ -417,9 +417,35 @@ void main() {
           'iD6KAPJq76B0chbZNuxfzzzdPGwLnxoZ6dARo3NuZMQgpuIJvJzW8E4'
           'uxsQGCW0S3n1u340PbHTB2zhtXo/AiI6kdHlwZaNwYXk=';
 
-      final tmp = msgpack_decode(msigtxn).dictify();
-
       expect(msgpack_encode(msgpack_decode(msigtxn)), msigtxn);
+    });
+
+    test('Keyreg txn', () {
+      final keyregtxn = 'jKNmZWXNA+iiZnbNcoqjZ2Vuq25ldHdvcmstdjM4omdoxCBN/+nfi'
+          'NPXLbuigk8M/TXsMUfMK7dV//xB1wkoOhNu9qJsds1y7qZzZWxrZX'
+          'nEIBguZEIjiD6KAPJq76B0chbZNuxfzzzdPGwLnxoZ6dARo3NuZMQ'
+          'gGC5kQiOIPooA8mrvoHRyFtk27F/PPN08bAufGhnp0BGkdHlwZaZr'
+          'ZXlyZWendm90ZWZzdM1yiqZ2b3Rla2TNMDmndm90ZWtlecQgGC5kQ'
+          'iOIPooA8mrvoHRyFtk27F/PPN08bAufGhnp0BGndm90ZWxzdM1y7g==';
+
+      expect(msgpack_encode(msgpack_decode(keyregtxn)), keyregtxn);
+    });
+
+    test('Asset create', () {
+      final golden = 'gqNzaWfEQEDd1OMRoQI/rzNlU4iiF50XQXmup3k5czI9hEsNqHT7K4Ksf'
+          'mA/0DUVkbzOwtJdRsHS8trm3Arjpy9r7AXlbAujdHhuh6RhcGFyiaJhbc'
+          'QgZkFDUE80blJnTzU1ajFuZEFLM1c2U2djNEFQa2N5RmiiYW6odGVzdGN'
+          'vaW6iYXWnd2Vic2l0ZaFjxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxc'
+          'dphkfbbh/aFmxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/'
+          'aFtxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aFyxCAJ+9'
+          'J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aF0ZKJ1bqN0c3SjZmV'
+          'lzQ+0omZ2zgAE7A+iZ2jEIEhjtRiks8hOyBDyLU8QgcsPcfBZp6wg3sYv'
+          'f3DlCToiomx2zgAE7/ejc25kxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgf'
+          'oxcdphkfbbh/aR0eXBlpGFjZmc=';
+
+      final tmp = msgpack_decode(golden).dictify();
+
+      expect(msgpack_encode(msgpack_decode(golden)), golden);
     });
   });
 

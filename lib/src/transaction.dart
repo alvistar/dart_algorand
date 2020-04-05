@@ -138,7 +138,7 @@ class Transaction implements Mappable {
       );
     }
 
-    if (m['type'] == ASSETFREEZE_TXN) {
+    if (m['type'] == ASSETCONFIG_TXN) {
       args.addAll(AssetConfigTxn.undictify(m));
 
       txn = AssetConfigTxn(
@@ -155,6 +155,7 @@ class Transaction implements Mappable {
           total: args['total'],
           default_frozen: args['default_frozen'],
           unit_name: args['unit_name'],
+          asset_name: args['asset_name'],
           manager: args['manager'],
           reserve: args['reserve'],
           freeze: args['freeze'],
@@ -182,7 +183,9 @@ class Transaction implements Mappable {
           target: args['target']);
     }
 
-    txn.group = args['grp'];
+    if (args.containsKey('grp')) {
+      txn.group = args['grp'];
+    }
 
     return txn;
   }

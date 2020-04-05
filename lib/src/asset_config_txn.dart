@@ -229,11 +229,11 @@ class AssetConfigTxn extends Transaction {
     }
 
     if (m.containsKey('apar')) {
-      Map<String, dynamic> apar = m['apar'];
+      Map<String, dynamic> apar = Map.from(m['apar']);
 
       args['total'] = apar.containsKey('t') ? apar['t'] : null;
 
-      args['default_frozen'] = apar.containsKey('df') ? apar['df'] : null;
+      args['default_frozen'] = apar.containsKey('df') ? apar['df'] : false;
 
       args['unit_name'] = apar.containsKey('un') ? apar['un'] : null;
 
