@@ -509,6 +509,31 @@ void main() {
 
       expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
+
+    test ('Asset accept', () {
+      final asset_txn = 'gqNzaWfEQJ7q2rOT8Sb/wB0F87ld+1zMprxVlYqbUbe+oz0WM63Fct'
+          'Ii+K9eYFSqT26XBZ4Rr3+VTJpBE+JLKs8nctl9hgijdHhuiKRhcmN2'
+          'xCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aNmZWXNCO'
+          'iiZnbOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/'
+          'cOUJOiKibHbOAATv96NzbmTEIAn70nYsCPhsWua/bdenqQHeZnXXUO'
+          'B+jFx2mGR9tuH9pHR5cGWlYXhmZXKkeGFpZAE=';
+
+      expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
+    });
+
+    test ('Asset revoke', () {
+      final asset_txn = 'gqNzaWfEQHsgfEAmEHUxLLLR9s+Y/yq5WeoGo/jAArCbany+7ZYwEx'
+          'MySzAhmV7M7S8+LBtJalB4EhzEUMKmt3kNKk6+vAWjdHhuiqRhYW10'
+          'AaRhcmN2xCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/a'
+          'Rhc25kxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aNm'
+          'ZWXNCqqiZnbOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrC'
+          'Dexi9/cOUJOiKibHbOAATv96NzbmTEIAn70nYsCPhsWua/bdenqQHe'
+          'ZnXXUOB+jFx2mGR9tuH9pHR5cGWlYXhmZXKkeGFpZAE=';
+      
+      expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
+    });
+
+
   });
 
   group('Transaction', () {
