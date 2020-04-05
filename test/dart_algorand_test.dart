@@ -475,6 +475,16 @@ void main() {
 
       expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
+
+    test('Asset destroy', () {
+      final asset_txn = 'gqNzaWfEQBSP7HtzD/Lvn4aVvaNpeR4T93dQgo4LvywEwcZgDEoc/W'
+          'Vl3aKsZGcZkcRFoiWk8AidhfOZzZYutckkccB8RgGjdHhuh6RjYWlk'
+          'AaNmZWXNB1iiZnbOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8F'
+          'mnrCDexi9/cOUJOiKibHbOAATv96NzbmTEIAn70nYsCPhsWua/bden'
+          'qQHeZnXXUOB+jFx2mGR9tuH9pHR5cGWkYWNmZw==';
+
+      expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
+    });
   });
 
   group('Transaction', () {

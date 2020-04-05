@@ -126,6 +126,11 @@ class AssetConfigTxn extends Transaction {
             genesis_hash: genesis_hash,
             lease: lease,
             type: ASSETCONFIG_TXN) {
+
+    if (default_frozen == null) {
+      throw ArgumentError();
+    }
+
     this.fee = flat_fee
         ? max(MIN_TXN_FEE, fee)
         : max(estimate_size() * fee, MIN_TXN_FEE);

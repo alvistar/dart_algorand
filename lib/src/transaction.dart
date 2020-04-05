@@ -153,7 +153,7 @@ class Transaction implements Mappable {
           flat_fee: true,
           index: args['index'],
           total: args['total'],
-          default_frozen: args['default_frozen'],
+          default_frozen: args['default_frozen'] ?? false,
           unit_name: args['unit_name'],
           asset_name: args['asset_name'],
           manager: args['manager'],
@@ -162,7 +162,8 @@ class Transaction implements Mappable {
           clawback: args['clawback'],
           url: args['url'],
           metadata_hash: args['metadata_hash'],
-          decimals: args['decimals']);
+          decimals: args['decimals'],
+          strict_empty_address_check: false);
     }
 
     if (m['type'] == ASSETFREEZE_TXN) {
