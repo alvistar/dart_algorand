@@ -443,9 +443,37 @@ void main() {
           'f3DlCToiomx2zgAE7/ejc25kxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgf'
           'oxcdphkfbbh/aR0eXBlpGFjZmc=';
 
-      final tmp = msgpack_decode(golden).dictify();
-
       expect(msgpack_encode(msgpack_decode(golden)), golden);
+    });
+
+    test('Asset config', () {
+      final asset_txn = 'gqNzaWfEQBBkfw5n6UevuIMDo2lHyU4dS80JCCQ/vTRUcTx5m0ivX6'
+          '8zTKyuVRrHaTbxbRRc3YpJ4zeVEnC9Fiw3Wf4REwejdHhuiKRhcGFy'
+          'hKFjxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aFmxC'
+          'AJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aFtxCAJ+9J2'
+          'LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aFyxCAJ+9J2LAj4bF'
+          'rmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aRjYWlkzQTSo2ZlZc0NSKJm'
+          'ds4ABOwPomdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Q'
+          'k6IqJsds4ABO/3o3NuZMQgCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6M'
+          'XHaYZH224f2kdHlwZaRhY2Zn';
+
+      expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
+    });
+
+    test('Asset config wih decimal', () {
+      final asset_txn = 'gqNzaWfEQBBkfw5n6UevuIMDo2lHyU4dS80JCCQ/vTRUcTx5m0ivX6'
+          '8zTKyuVRrHaTbxbRRc3YpJ4zeVEnC9Fiw3Wf4REwejdHhuiKRhcGFy'
+          'haFjxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aJkYw'
+          'yhZsQgCfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH224f2hbcQg'
+          'CfvSdiwI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH224f2hcsQgCfvSdi'
+          'wI+Gxa5r9t16epAd5mdddQ4H6MXHaYZH224f2kY2FpZM0E0qNmZWXN'
+          'DUiiZnbOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi'
+          '9/cOUJOiKibHbOAATv96NzbmTEIAn70nYsCPhsWua/bdenqQHeZnXX'
+          'UOB+jFx2mGR9tuH9pHR5cGWkYWNmZw==';
+
+      final tmp = msgpack_decode(asset_txn).dictify();
+
+      expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
   });
 

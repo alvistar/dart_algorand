@@ -162,7 +162,7 @@ class Transaction implements Mappable {
           clawback: args['clawback'],
           url: args['url'],
           metadata_hash: args['metadata_hash'],
-          decimals: args['decaimals']);
+          decimals: args['decimals']);
     }
 
     if (m['type'] == ASSETFREEZE_TXN) {

@@ -254,7 +254,7 @@ class AssetConfigTxn extends Transaction {
 
       args['metadata_hash'] = apar.containsKey('am') ? apar['am'] : null;
 
-      args['decimals'] = apar.containsKey('decimal') ? apar['decimals'] : null;
+      args['decimals'] = apar.containsKey('dc') ? apar['dc'] : null;
     }
 
     return args;
