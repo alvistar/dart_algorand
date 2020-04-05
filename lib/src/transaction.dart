@@ -13,6 +13,7 @@ import 'package:base32/base32.dart';
 import 'package:convert/convert.dart';
 
 import 'account.dart';
+import 'asset_transfer_txn.dart';
 import 'constants.dart';
 import 'encoding.dart';
 
@@ -184,6 +185,27 @@ class Transaction implements Mappable {
           target: args['target']);
     }
 
+    if (m['type'] == ASSET_TRANSFER_TXN) {
+      args.addAll(AssetTransferTxn.undictify(m));
+
+      txn = AssetTransferTxn(
+        sender: args['sender'],
+        fee: args['fee'],
+        first_valid_round: args['first'],
+        last_valid_round: args['last'],
+        genesis_hash: args['gh'],
+        note: args['note'],
+        genesis_id: args['gen'],
+        lease: args['lx'],
+        flat_fee: true,
+        receiver: args['receiver'],
+        amt: args['amt'],
+        index: args['index'],
+        close_assets_to: args['close_assets_to'],
+        revocation_target: args['revocation_target']
+      );
+    }
+
     if (args.containsKey('grp')) {
       txn.group = args['grp'];
     }
@@ -308,75 +330,6 @@ class SignedTransaction implements Mappable {
     final sig = m.containsKey('sig') ? base64Encode(m['sig']) : null;
     final txn = Transaction.undictify(Map.from(m['txn']));
     return SignedTransaction(transaction: txn, signature: sig);
-  }
-}
-
-///Represents a transaction for asset transfer.
-///
-///To begin accepting an asset, supply the same address as both sender and
-///receiver, and set amount to 0.
-///
-///To revoke an asset, set revocation_target, and issue the transaction from
-///the asset's revocation manager account.
-
-class AssetTransferTxn extends Transaction {
-  String receiver;
-  int amt;
-  int index;
-  String close_assets_to;
-  String revocation_target;
-
-  AssetTransferTxn({
-    String sender,
-    int fee,
-    int first_valid_round,
-    int last_valid_round,
-    Uint8List note,
-    String genesis_id,
-    String genesis_hash,
-    Uint8List lease,
-    this.amt,
-    this.receiver,
-    this.index,
-    this.close_assets_to,
-    this.revocation_target,
-    flat_fee = false,
-  }) : super(
-            sender: sender,
-            fee: fee,
-            first_valid_round: first_valid_round,
-            last_valid_round: last_valid_round,
-            note: note,
-            genesis_id: genesis_id,
-            genesis_hash: genesis_hash,
-            lease: lease,
-            type: ASSET_TRANSFER_TXN) {
-    this.fee = flat_fee
-        ? max(MIN_TXN_FEE, fee)
-        : max(estimate_size() * fee, MIN_TXN_FEE);
-  }
-
-  @override
-  SplayTreeMap<String, dynamic> dictify() {
-    var m = super.dictify();
-
-    if (amt > 0) {
-      m['aamt'] = amt;
-    }
-
-    m['arcv'] = decode_address(receiver);
-
-    if (close_assets_to != null) {
-      m['aclose'] = decode_address(close_assets_to);
-    }
-
-    if (revocation_target != null) {
-      m['asnd'] = decode_address(revocation_target);
-    }
-
-    m['xaid'] = index;
-
-    return m;
   }
 }
 

@@ -6,6 +6,7 @@ import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/account.dart';
 import 'package:dart_algorand/src/asset_config_txn.dart';
 import 'package:dart_algorand/src/asset_freeze_txn.dart';
+import 'package:dart_algorand/src/asset_transfer_txn.dart';
 import 'package:dart_algorand/src/mnemonic.dart' as mnemonic;
 import 'package:dart_algorand/src/multisig_txn.dart';
 import 'package:dart_algorand/src/wordlist.dart';
@@ -482,6 +483,29 @@ void main() {
           'AaNmZWXNB1iiZnbOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8F'
           'mnrCDexi9/cOUJOiKibHbOAATv96NzbmTEIAn70nYsCPhsWua/bden'
           'qQHeZnXXUOB+jFx2mGR9tuH9pHR5cGWkYWNmZw==';
+
+      expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
+    });
+
+    test ('Asset freeze', () {
+      final asset_txn = 'gqNzaWfEQAhru5V2Xvr19s4pGnI0aslqwY4lA2skzpYtDTAN9DKSH5'
+          '+qsfQQhm4oq+9VHVj7e1rQC49S28vQZmzDTVnYDQGjdHhuiaRhZnJ6'
+          'w6RmYWRkxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/a'
+          'RmYWlkAaNmZWXNCRqiZnbOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCB'
+          'yw9x8FmnrCDexi9/cOUJOiKibHbOAATv+KNzbmTEIAn70nYsCPhsWu'
+          'a/bdenqQHeZnXXUOB+jFx2mGR9tuH9pHR5cGWkYWZyeg==';
+
+      expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
+    });
+
+    test ('Asset transfer', () {
+      final asset_txn = 'gqNzaWfEQNkEs3WdfFq6IQKJdF1n0/hbV9waLsvojy9pM1T4fvwfMN'
+          'djGQDy+LeesuQUfQVTneJD4VfMP7zKx4OUlItbrwSjdHhuiqRhYW10'
+          'AaZhY2xvc2XEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tu'
+          'H9pGFyY3bEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tuH9'
+          'o2ZlZc0KvqJmds4ABOwPomdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWa'
+          'esIN7GL39w5Qk6IqJsds4ABO/4o3NuZMQgCfvSdiwI+Gxa5r9t16ep'
+          'Ad5mdddQ4H6MXHaYZH224f2kdHlwZaVheGZlcqR4YWlkAQ==';
 
       expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
