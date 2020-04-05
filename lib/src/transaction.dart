@@ -34,20 +34,25 @@ class Transaction implements Mappable {
   String type;
   Uint8List group;
 
-  Transaction({this.sender,
-    this.fee,
-    this.first_valid_round,
-    this.last_valid_round,
-    this.note,
-    this.genesis_id,
-    this.genesis_hash,
-    this.lease,
-    this.type}) {
+  Transaction(
+      {this.sender,
+      this.fee,
+      this.first_valid_round,
+      this.last_valid_round,
+      this.note,
+      this.genesis_id,
+      this.genesis_hash,
+      this.lease,
+      this.type}) {
     if (lease != null) {
       if (lease.length != LEASE_LENGTH) {
         throw WrongLeaseLengthError();
       }
     }
+  }
+
+  factory Transaction.from(Transaction tx) {
+    return undictify(tx.dictify());
   }
 
   SplayTreeMap<String, dynamic> dictify() {
@@ -137,46 +142,44 @@ class Transaction implements Mappable {
       args.addAll(AssetConfigTxn.undictify(m));
 
       txn = AssetConfigTxn(
-        sender: args['sender'],
-        fee: args['fee'],
-        first_valid_round: args['first'],
-        last_valid_round: args['last'],
-        genesis_hash: args['gh'],
-        note: args['note'],
-        genesis_id: args['gen'],
-        lease: args['lx'],
-        flat_fee: true,
-        index: args['index'],
-        total: args['total'],
-        default_frozen: args['default_frozen'],
-        unit_name: args['unit_name'],
-        manager: args['manager'],
-        reserve: args['reserve'],
-        freeze: args['freeze'],
-        clawback: args['clawback'],
-        url: args['url'],
-        metadata_hash: args['metadata_hash'],
-        decimals: args['decaimals']
-      );
+          sender: args['sender'],
+          fee: args['fee'],
+          first_valid_round: args['first'],
+          last_valid_round: args['last'],
+          genesis_hash: args['gh'],
+          note: args['note'],
+          genesis_id: args['gen'],
+          lease: args['lx'],
+          flat_fee: true,
+          index: args['index'],
+          total: args['total'],
+          default_frozen: args['default_frozen'],
+          unit_name: args['unit_name'],
+          manager: args['manager'],
+          reserve: args['reserve'],
+          freeze: args['freeze'],
+          clawback: args['clawback'],
+          url: args['url'],
+          metadata_hash: args['metadata_hash'],
+          decimals: args['decaimals']);
     }
 
     if (m['type'] == ASSETFREEZE_TXN) {
       args.addAll(AssetFreezeTxn.undictify(m));
 
       txn = AssetFreezeTxn(
-        sender: args['sender'],
-        fee: args['fee'],
-        first_valid_round: args['first'],
-        last_valid_round: args['last'],
-        genesis_hash: args['gh'],
-        note: args['note'],
-        genesis_id: args['gen'],
-        lease: args['lx'],
-        flat_fee: true,
-        index: args['index'],
-        new_freeze_state: args['new_freeze_state'],
-        target: args['target']
-      );
+          sender: args['sender'],
+          fee: args['fee'],
+          first_valid_round: args['first'],
+          last_valid_round: args['last'],
+          genesis_hash: args['gh'],
+          note: args['note'],
+          genesis_id: args['gen'],
+          lease: args['lx'],
+          flat_fee: true,
+          index: args['index'],
+          new_freeze_state: args['new_freeze_state'],
+          target: args['target']);
     }
 
     txn.group = args['grp'];
@@ -235,15 +238,15 @@ class PaymentTxn extends Transaction {
     this.close_remainder_to,
     flat_fee = false,
   }) : super(
-      sender: sender,
-      fee: fee,
-      first_valid_round: first_valid_round,
-      last_valid_round: last_valid_round,
-      note: note,
-      genesis_id: genesis_id,
-      genesis_hash: genesis_hash,
-      lease: lease,
-      type: PAYMENT_TXN) {
+            sender: sender,
+            fee: fee,
+            first_valid_round: first_valid_round,
+            last_valid_round: last_valid_round,
+            note: note,
+            genesis_id: genesis_id,
+            genesis_hash: genesis_hash,
+            lease: lease,
+            type: PAYMENT_TXN) {
     this.fee = flat_fee
         ? max(MIN_TXN_FEE, fee)
         : max(estimate_size() * fee, MIN_TXN_FEE);
@@ -266,7 +269,7 @@ class PaymentTxn extends Transaction {
   static _undictify(Map<String, dynamic> m) {
     return {
       'close_remainder_to':
-      m.containsKey('close') ? encode_address(m['close']) : null,
+          m.containsKey('close') ? encode_address(m['close']) : null,
       'amt': m.containsKey('amt') ? m['amt'] : 0,
       'receiver': m.containsKey('rcv') ? encode_address(m['rcv']) : null
     };
@@ -279,12 +282,28 @@ class SignedTransaction implements Mappable {
 
   SignedTransaction({this.signature, this.transaction});
 
+  factory SignedTransaction.from(SignedTransaction st) {
+    return undictify(st.dictify());
+  }
+
   @override
   SplayTreeMap<String, dynamic> dictify() {
     final d = SplayTreeMap<String, dynamic>();
-    d['sig'] = base64Decode(signature);
+
+    if (signature != null) {
+      d['sig'] = base64Decode(signature);
+    }
+
     d['txn'] = transaction.dictify();
     return d;
+  }
+
+  static SignedTransaction undictify(Map<String, dynamic> m) {
+    final args = <String, dynamic>{};
+
+    final sig = m.containsKey('sig') ? base64Encode(m['sig']) : null;
+    final txn = Transaction.undictify(m['txn']);
+    return SignedTransaction(transaction: txn, signature: sig);
   }
 }
 
@@ -319,15 +338,15 @@ class AssetTransferTxn extends Transaction {
     this.revocation_target,
     flat_fee = false,
   }) : super(
-      sender: sender,
-      fee: fee,
-      first_valid_round: first_valid_round,
-      last_valid_round: last_valid_round,
-      note: note,
-      genesis_id: genesis_id,
-      genesis_hash: genesis_hash,
-      lease: lease,
-      type: ASSET_TRANSFER_TXN) {
+            sender: sender,
+            fee: fee,
+            first_valid_round: first_valid_round,
+            last_valid_round: last_valid_round,
+            note: note,
+            genesis_id: genesis_id,
+            genesis_hash: genesis_hash,
+            lease: lease,
+            type: ASSET_TRANSFER_TXN) {
     this.fee = flat_fee
         ? max(MIN_TXN_FEE, fee)
         : max(estimate_size() * fee, MIN_TXN_FEE);
@@ -429,30 +448,31 @@ class KeyregTxn extends Transaction {
   /// with the same sender and lease can be confirmed in this
   /// transaction's valid rounds
 
-  KeyregTxn({@required String sender,
-    @required int fee,
-    @required int first_valid_round,
-    @required int last_valid_round,
-    Uint8List note,
-    String genesis_id,
-    @required String genesis_hash,
-    Uint8List lease,
-    bool flat_fee = false,
-    @required this.votekey,
-    @required this.selkey,
-    @required this.votefst,
-    @required this.votelst,
-    @required this.votekd})
+  KeyregTxn(
+      {@required String sender,
+      @required int fee,
+      @required int first_valid_round,
+      @required int last_valid_round,
+      Uint8List note,
+      String genesis_id,
+      @required String genesis_hash,
+      Uint8List lease,
+      bool flat_fee = false,
+      @required this.votekey,
+      @required this.selkey,
+      @required this.votefst,
+      @required this.votelst,
+      @required this.votekd})
       : super(
-      sender: sender,
-      fee: fee,
-      first_valid_round: first_valid_round,
-      last_valid_round: last_valid_round,
-      note: note,
-      genesis_id: genesis_id,
-      genesis_hash: genesis_hash,
-      lease: lease,
-      type: KEYREG_TXN) {
+            sender: sender,
+            fee: fee,
+            first_valid_round: first_valid_round,
+            last_valid_round: last_valid_round,
+            note: note,
+            genesis_id: genesis_id,
+            genesis_hash: genesis_hash,
+            lease: lease,
+            type: KEYREG_TXN) {
     this.fee = flat_fee
         ? max(MIN_TXN_FEE, fee)
         : max(estimate_size() * fee, MIN_TXN_FEE);
@@ -482,3 +502,28 @@ class KeyregTxn extends Transaction {
   }
 }
 
+/// Assign group id to a given list of unsigned transactions
+///
+/// txns: list of unsigned transactions
+/// address: optional sender address specifying which transaction return
+/// Returns:
+/// txns: list of unsigned transactions with group property set
+List<Transaction> assign_group_id(
+    {@required List<Transaction> txns, String address}) {
+  if (txns.length > TX_GROUP_LIMIT) {
+    throw TransactionGroupSizeError();
+  }
+
+  final gid = calculate_group_id(txns);
+
+  final result = <Transaction>[];
+
+  for (var tx in txns) {
+    if (address == null || tx.sender == address) {
+      tx.group = gid;
+      result.add(tx);
+    }
+  }
+
+  return result;
+}

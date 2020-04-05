@@ -736,5 +736,125 @@ void main() {
 
       expect(msgpack_encode(signed_txn), golden);
     });
+
+    test('Group ID', () {
+      final address = 'UPYAFLHSIPMJOHVXU2MPLQ46GXJKSDCEMZ6RLCQ7GWB5PRDKJUWKKXECXI';
+      final from_address = address;
+      final to_address = address;
+      final fee = 1000;
+      final amount = 2000;
+      final genesis_id = 'devnet-v1.0';
+      final genesis_hash = 'sC3P7e2SdbqKJK0tbiCdK9tdSpbe6XeCGKdoNzmlj0E=';
+
+      final first_round1 = 710399;
+      final note1 = base64Decode('wRKw5cJ0CMo=');
+
+      final tx1 = PaymentTxn(
+        sender: from_address,
+        fee: fee,
+        first_valid_round: first_round1,
+        last_valid_round: first_round1 + 1000,
+        genesis_hash: genesis_hash,
+        receiver: to_address,
+        amt: amount,
+        note: note1,
+        genesis_id: genesis_id,
+        flat_fee: true,
+      );
+
+      final first_round2 = 710515;
+
+      final note2 = base64Decode('dBlHI6BdrIg=');
+
+      final tx2 = PaymentTxn(
+          sender: from_address,
+          fee: fee,
+          first_valid_round: first_round2,
+          last_valid_round: first_round2 + 1000,
+          genesis_hash: genesis_hash,
+          receiver: to_address,
+          amt: amount,
+          note: note2,
+          genesis_id: genesis_id,
+          flat_fee: true
+      );
+
+      // preserve original tx{1,2} objects
+
+      var tx1_copy = Transaction.from(tx1);
+      var tx2_copy = Transaction.from(tx2);
+
+      var stx1 = SignedTransaction(transaction: tx1_copy);
+      var stx2 = SignedTransaction(transaction: tx2_copy);
+
+      final goldenTx1 = 'gaN0eG6Ko2FtdM0H0KNmZWXNA+iiZnbOAArW/6NnZW6rZGV2bmV0LXYxLjCiZ2j'
+          'EILAtz+3tknW6iiStLW4gnSvbXUqW3ul3ghinaDc5pY9Bomx2zgAK2uekbm90Zc'
+          'QIwRKw5cJ0CMqjcmN2xCCj8AKs8kPYlx63ppj1w5410qkMRGZ9FYofNYPXxGpNL'
+          'KNzbmTEIKPwAqzyQ9iXHremmPXDnjXSqQxEZn0Vih81g9fEak0spHR5cGWjcGF5';
+
+      final goldenTx2 = 'gaN0eG6Ko2FtdM0H0KNmZWXNA+iiZnbOAArXc6NnZW6rZGV2bmV0LXYxLjCiZ2j'
+          'EILAtz+3tknW6iiStLW4gnSvbXUqW3ul3ghinaDc5pY9Bomx2zgAK21ukbm90Zc'
+          'QIdBlHI6BdrIijcmN2xCCj8AKs8kPYlx63ppj1w5410qkMRGZ9FYofNYPXxGpNL'
+          'KNzbmTEIKPwAqzyQ9iXHremmPXDnjXSqQxEZn0Vih81g9fEak0spHR5cGWjcGF5';
+
+      final tmp = stx1.dictify();
+
+      expect(msgpack_encode(stx1), goldenTx1);
+      expect(msgpack_encode(stx2), goldenTx2);
+
+      final gid = calculate_group_id([tx1_copy, tx2_copy]);
+      stx1.transaction.group = gid;
+      stx2.transaction.group = gid;
+
+      // goal clerk group sets Group to every transaction and concatenate
+      // them in output file
+      // simulating that behavior here
+
+      var txg = base64Encode(base64Decode(msgpack_encode(stx1)) +
+          base64Decode(msgpack_encode(stx2)));
+
+      final goldenTxg = 'gaN0eG6Lo2FtdM0H0KNmZWXNA+iiZnbOAArW/6NnZW6rZGV2bmV0LXYxLjCiZ2j'
+          'EILAtz+3tknW6iiStLW4gnSvbXUqW3ul3ghinaDc5pY9Bo2dycMQgLiQ9OBup9H'
+          '/bZLSfQUH2S6iHUM6FQ3PLuv9FNKyt09SibHbOAAra56Rub3RlxAjBErDlwnQIy'
+          'qNyY3bEIKPwAqzyQ9iXHremmPXDnjXSqQxEZn0Vih81g9fEak0so3NuZMQgo/AC'
+          'rPJD2Jcet6aY9cOeNdKpDERmfRWKHzWD18RqTSykdHlwZaNwYXmBo3R4boujYW1'
+          '0zQfQo2ZlZc0D6KJmds4ACtdzo2dlbqtkZXZuZXQtdjEuMKJnaMQgsC3P7e2Sdb'
+          'qKJK0tbiCdK9tdSpbe6XeCGKdoNzmlj0GjZ3JwxCAuJD04G6n0f9tktJ9BQfZLq'
+          'IdQzoVDc8u6/0U0rK3T1KJsds4ACttbpG5vdGXECHQZRyOgXayIo3JjdsQgo/AC'
+          'rPJD2Jcet6aY9cOeNdKpDERmfRWKHzWD18RqTSyjc25kxCCj8AKs8kPYlx63ppj'
+          '1w5410qkMRGZ9FYofNYPXxGpNLKR0eXBlo3BheQ==';
+
+      expect(txg, goldenTxg);
+
+      // repeat test above for assign_group_id
+
+      tx1_copy = Transaction.from(tx1);
+      tx2_copy = Transaction.from(tx2);
+
+      var txns = assign_group_id(txns: [tx1_copy, tx2_copy]);
+      
+      expect(txns.length, 2);
+
+      stx1 = SignedTransaction(transaction: txns[0]);
+      stx2 = SignedTransaction(transaction: txns[1]);
+
+      // goal clerk group sets Group to every transaction and concatenate
+      // them in output file
+      // simulating that behavior here
+
+      txg = base64Encode(base64Decode(msgpack_encode(stx1)) +
+          base64Decode(msgpack_encode(stx2)));
+
+      expect(txg, goldenTxg);
+
+      // Check filtering
+
+      txns = assign_group_id(txns: [tx1, tx2], address: from_address);
+      expect(txns.length, 2);
+      expect(txns[0].group, gid);
+
+      txns = assign_group_id(txns: [tx1, tx2], address: 'NONEXISTENT');
+      expect(txns.length, 0);
+    });
   });
 }
