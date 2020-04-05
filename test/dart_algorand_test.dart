@@ -146,6 +146,16 @@ void main() {
   });
 
   group('MsgPack', () {
+    test('Bid', () {
+      final bid = 'gqFigqNiaWSGo2FpZAGjYXVjxCCokNFWl9DCqHrP9trjPICAMGOaRoX/OR+'
+          'M6tHWhfUBkKZiaWRkZXLEIP1rCXe2x5+exPBfU3CZwGPMY8mzwvglET+Qtg'
+          'fCPdCmo2N1cs8AAADN9kTOAKJpZM5JeDcCpXByaWNlzQMgo3NpZ8RAiR06J'
+          '4suAixy13BKHlw4VrORKzLT5CJr9n3YSj0Ao6byV23JHGU0yPf7u9/o4ECw'
+          '4Xy9hc9pWopLW97xKXRfA6F0oWI=';
+
+      expect(msgpack_encode(msgpack_decode(bid)), bid);
+    });
+
     test('Payment txn', () {
       final paytxn = 'iaNhbXTOAAGGoKNmZWXNA+iiZnbNcq2jZ2Vuq25ldHdvcmstdjM4omdo'
           'xCBN/+nfiNPXLbuigk8M/TXsMUfMK7dV//xB1wkoOhNu9qJsds1zEaNy'
@@ -832,7 +842,7 @@ void main() {
       tx2_copy = Transaction.from(tx2);
 
       var txns = assign_group_id(txns: [tx1_copy, tx2_copy]);
-      
+
       expect(txns.length, 2);
 
       stx1 = SignedTransaction(transaction: txns[0]);

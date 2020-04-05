@@ -56,7 +56,7 @@ class Transaction implements Mappable {
   }
 
   SplayTreeMap<String, dynamic> dictify() {
-    var m = SplayTreeMap<String, dynamic>();
+    final m = SplayTreeMap<String, dynamic>();
 
     m['fee'] = fee;
     m['fv'] = first_valid_round;

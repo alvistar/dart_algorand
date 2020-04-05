@@ -10,6 +10,9 @@ const TXID_PREFIX = 'TX';
 /// transaction group prefix when computing the group ID
 const TGID_PREFIX = 'TG';
 
+/// bid prefix when signing
+const BID_PREFIX = 'aB';
+
 const MNEMONIC_LEN = 25;
 
 /// minimum transaction fee

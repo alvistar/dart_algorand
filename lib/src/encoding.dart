@@ -11,6 +11,7 @@ import 'package:base32/base32.dart';
 import 'package:pointycastle/pointycastle.dart';
 import 'package:collection/collection.dart';
 
+import 'auction.dart';
 import 'constants.dart';
 import 'error.dart';
 
@@ -90,6 +91,18 @@ msgpack_decode(String enc) {
 
   if (decoded.containsKey('txlist')) {
     return TxGroup.undictify(decoded);
+  }
+
+  if (decoded.containsKey('t')) {
+    return NoteField.undictify(decoded);
+  }
+
+  if (decoded.containsKey('auc')) {
+    return Bid.undictify(decoded);
+  }
+
+  if (decoded.containsKey('bid')) {
+    return SignedBid.undictify(decoded);
   }
 
   throw Exception('Not implemented');
