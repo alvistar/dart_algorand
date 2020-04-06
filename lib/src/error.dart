@@ -86,3 +86,10 @@ class DuplicateSigMismatchError implements Exception {
   @override
   String toString() => 'mismatched duplicate signatures in multisig';
 }
+
+class InvalidProgram implements Exception {
+  String message;
+  InvalidProgram ({this.message='invalid program for logic sig'});
+  @override
+  String toString() => message;
+}

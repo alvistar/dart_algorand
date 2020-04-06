@@ -50,3 +50,9 @@ const METADATA_LENGTH = 32;
 
 /// maximum number of addresses in a multisig account
 const MULTISIG_ACCOUNT_LIMIT = 255;
+
+/// max size of a teal program and its arguments in bytes
+const  LOGIC_SIG_MAX_SIZE = 1000;
+
+/// max execution cost of a teal program
+const LOGIC_SIG_MAX_COST = 20000;

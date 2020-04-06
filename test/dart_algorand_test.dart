@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:convert/convert.dart';
 
@@ -7,6 +8,7 @@ import 'package:dart_algorand/src/account.dart';
 import 'package:dart_algorand/src/asset_config_txn.dart';
 import 'package:dart_algorand/src/asset_freeze_txn.dart';
 import 'package:dart_algorand/src/asset_transfer_txn.dart';
+import 'package:dart_algorand/src/logic.dart';
 import 'package:dart_algorand/src/mnemonic.dart' as mnemonic;
 import 'package:dart_algorand/src/multisig_txn.dart';
 import 'package:dart_algorand/src/wordlist.dart';
@@ -57,6 +59,100 @@ void main() {
 
       expect(msgpack_encode(t),
           'iqNhbXTNJxCjZmVlzQPoomZ2CqNnZW6sdGVzdG5ldC12MS4womdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds0D6KRub3RlxAtIZWxsbyBXb3JsZKNyY3bEIDwrhtAJq4uQ8pQebAT9GuSLczx6JsLgZA9DLOpqBGY5o3NuZMQgCgRALeACZ7qwM3tJ6nOHAk2VMpmDMWqRwjMaOqoOnGmkdHlwZaNwYXk=');
+    });
+  });
+
+  group('Logic', () {
+    test('parse uvarint', () {
+      var data = Uvarint(Uint8List.fromList([0x01]));
+      expect(data.length, 1);
+      expect(data.value, 1);
+
+      data = Uvarint(Uint8List.fromList([0x7b]));
+      expect(data.length, 1);
+      expect(data.value, 123);
+
+      data = Uvarint(Uint8List.fromList([0xc8, 0x03]));
+      expect(data.length, 2);
+      expect(data.value, 456);
+    });
+
+    test('parse intcblock', () {
+      final data = Uint8List.fromList(
+          [0x20, 0x05, 0x00, 0x01, 0xc8, 0x03, 0x7b, 0x02]);
+
+      final results = read_int_const_block(data, 0);
+      expect(results.size, data.length);
+      expect(results.results, containsAllInOrder([0, 1, 456, 123, 2]));
+    });
+
+    test('parse bytecblock', () {
+      final data = Uint8List.fromList(
+          [0x026, 0x02, 0x0d, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38,
+            0x39, 0x30, 0x31, 0x32, 0x33, 0x02, 0x01, 0x02]);
+
+      final expected = <Uint8List>[
+        Uint8List.fromList([0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38,
+          0x39, 0x30, 0x31, 0x32, 0x33]),
+        Uint8List.fromList([0x1, 0x2])
+      ];
+
+      final results = read_byte_const_block(data, 0);
+
+      expect(results.size, data.length);
+      expect(results.results, containsAllInOrder(expected));
+    });
+
+    test('check_program_valid', () async {
+      final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
+
+      // Null argument
+      var program_data = await read_program(program, null);
+      expect(program_data.good, true);
+      expect(program_data.int_block, containsAllInOrder([1]));
+      expect(program_data.byte_block, isEmpty);
+
+      // No argument
+      var args = <Uint8List>[];
+      program_data = await read_program(program, args);
+      expect(program_data.good, true);
+      expect(program_data.int_block, containsAllInOrder([1]));
+      expect(program_data.byte_block, isEmpty);
+
+      // Unused argument
+      final arg = Uint8List.fromList(List.filled(10, 0x31));
+      args.add(arg);
+      program_data = await read_program(program, args);
+      expect(program_data.good, true);
+      expect(program_data.int_block, containsAllInOrder([1]));
+      expect(program_data.byte_block, isEmpty);
+
+      // ???
+      final int1 = Uint8List.fromList(List.filled(10, 0x22));
+      final program2 = Uint8List.fromList(program + int1);
+
+      program_data = await read_program(program2, args);
+      expect(program_data.good, true);
+      expect(program_data.int_block, containsAllInOrder([1]));
+      expect(program_data.byte_block, isEmpty);
+    });
+
+    test('check program long args', () async {
+      final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
+      final args = <Uint8List>[];
+      final arg = Uint8List.fromList(List.filled(1000, 0x31));
+      args.add(arg);
+
+      expect(() async => await read_program(program, args),
+          throwsA(isA<InvalidProgram>()));
+    });
+  });
+
+  group('Sign Bytes', () {
+    test('sign', () {
+      final account = generate_account();
+      final random = Random();
+      final message = List<int>.generate(15, (_) => random.nextInt(255));
     });
   });
 
@@ -262,9 +358,9 @@ void main() {
 
       // create another multisig with different address
       final msig_2 = Multisig(
-        version: 1,
-        threshold: 2,
-        addresses: [account_2.address, account_3.address]
+          version: 1,
+          threshold: 2,
+          addresses: [account_2.address, account_3.address]
       );
 
       // try to merge with different addresses
@@ -281,9 +377,10 @@ void main() {
       msig_3.subsigs[0].signature = Utf8Encoder().convert('sig3');
 
       // try to merge
-      expect(() => MultisigTransaction.merge(
-          [MultisigTransaction(transaction: txn, multisig: msig_2),
-            MultisigTransaction(transaction: txn, multisig: msig_3)]),
+      expect(() =>
+          MultisigTransaction.merge(
+              [MultisigTransaction(transaction: txn, multisig: msig_2),
+                MultisigTransaction(transaction: txn, multisig: msig_3)]),
           throwsA(isA<DuplicateSigMismatchError>()));
     });
   });
@@ -487,7 +584,7 @@ void main() {
       expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
 
-    test ('Asset freeze', () {
+    test('Asset freeze', () {
       final asset_txn = 'gqNzaWfEQAhru5V2Xvr19s4pGnI0aslqwY4lA2skzpYtDTAN9DKSH5'
           '+qsfQQhm4oq+9VHVj7e1rQC49S28vQZmzDTVnYDQGjdHhuiaRhZnJ6'
           'w6RmYWRkxCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/a'
@@ -498,7 +595,7 @@ void main() {
       expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
 
-    test ('Asset transfer', () {
+    test('Asset transfer', () {
       final asset_txn = 'gqNzaWfEQNkEs3WdfFq6IQKJdF1n0/hbV9waLsvojy9pM1T4fvwfMN'
           'djGQDy+LeesuQUfQVTneJD4VfMP7zKx4OUlItbrwSjdHhuiqRhYW10'
           'AaZhY2xvc2XEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+jFx2mGR9tu'
@@ -510,7 +607,7 @@ void main() {
       expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
 
-    test ('Asset accept', () {
+    test('Asset accept', () {
       final asset_txn = 'gqNzaWfEQJ7q2rOT8Sb/wB0F87ld+1zMprxVlYqbUbe+oz0WM63Fct'
           'Ii+K9eYFSqT26XBZ4Rr3+VTJpBE+JLKs8nctl9hgijdHhuiKRhcmN2'
           'xCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/aNmZWXNCO'
@@ -521,7 +618,7 @@ void main() {
       expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
 
-    test ('Asset revoke', () {
+    test('Asset revoke', () {
       final asset_txn = 'gqNzaWfEQHsgfEAmEHUxLLLR9s+Y/yq5WeoGo/jAArCbany+7ZYwEx'
           'MySzAhmV7M7S8+LBtJalB4EhzEUMKmt3kNKk6+vAWjdHhuiqRhYW10'
           'AaRhcmN2xCAJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/a'
@@ -529,11 +626,9 @@ void main() {
           'ZWXNCqqiZnbOAATsD6JnaMQgSGO1GKSzyE7IEPItTxCByw9x8FmnrC'
           'Dexi9/cOUJOiKibHbOAATv96NzbmTEIAn70nYsCPhsWua/bdenqQHe'
           'ZnXXUOB+jFx2mGR9tuH9pHR5cGWlYXhmZXKkeGFpZAE=';
-      
+
       expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
-
-
   });
 
   group('Transaction', () {
