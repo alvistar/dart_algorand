@@ -154,6 +154,11 @@ ByteConstBlock read_byte_const_block(Uint8List program, int pc) {
   return ByteConstBlock(size, results);
 }
 
+/// Performs basic program validation: instruction count and program cost
+Future<bool> check_program(Uint8List program, List<Uint8List> args) async {
+  return (await read_program(program, args)).good;
+}
+
 Future<ProgramData> read_program(
     Uint8List program, List<Uint8List> args) async {
   final ints = <int>[];
@@ -203,7 +208,7 @@ Future<ProgramData> read_program(
   while (pc < program.length) {
     Map op = opcodes[program[pc]];
     if (op == null) {
-      throw InvalidProgram(message: 'invalid instruction');
+      throw InvalidProgram(message: 'invalid instruction ${program[pc]}');
     }
 
     cost += op['Cost'];

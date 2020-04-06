@@ -144,7 +144,51 @@ void main() {
       args.add(arg);
 
       expect(() async => await read_program(program, args),
-          throwsA(isA<InvalidProgram>()));
+          throwsA(predicate((e) =>
+          e is InvalidProgram &&
+              e.message == 'program too long')));
+    });
+
+    test('check program long', () {
+      final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
+      final int1 = Uint8List(1000);
+      final program2 = Uint8List.fromList(program + int1);
+
+      expect(() async => await read_program(program2, []),
+          throwsA(predicate((e) =>
+          e is InvalidProgram &&
+              e.message == 'program too long')));
+    });
+
+    test('check program invalid opcode', () {
+      final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x81]);
+      final args = <Uint8List>[];
+
+      expect(() async => await read_program(program, args),
+          throwsA(predicate((e) =>
+          e is InvalidProgram &&
+              e.message == 'invalid instruction 129')));
+    });
+
+    test('check program costly', () async {
+      final program = Uint8List.fromList(
+          [0x01, 0x26, 0x01, 0x01, 0x01, 0x01, 0x28, 0x02]);
+
+      expect(await check_program(program, []), isTrue);
+
+      final keccak25610 = Uint8List.fromList(List.filled(10, 0x02));
+
+      final program2 = Uint8List.fromList(program + keccak25610);
+      expect(await check_program(program2, []), isTrue);
+
+      final keccak256800 = Uint8List.fromList(List.filled(800, 0x02));
+      final program3 = Uint8List.fromList(program + keccak256800);
+
+      expect(() async => await read_program(program3, []),
+          throwsA(predicate((e) =>
+          e is InvalidProgram &&
+              e.message == 'program too costly to run')));
+
     });
   });
 
