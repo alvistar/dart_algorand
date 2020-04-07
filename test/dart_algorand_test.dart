@@ -109,7 +109,6 @@ void main() {
       program = Uint8List.fromList([0x00, 0x20, 0x01, 0x03, 0x22]);
       lsig = LogicSig(program: program);
       expect(lsig.verify(public_key), isFalse);
-
     });
 
     test('signature', () {
@@ -129,6 +128,52 @@ void main() {
       final encoded = msgpack_encode(lsig);
       final decoded = msgpack_decode(encoded);
       expect(decoded, lsig);
+    });
+
+    test('multisig', () {
+      final account = generate_account();
+      final account_1 = generate_account();
+      final account_2 = generate_account();
+
+      // create multisig address with invalid version
+      final msig = Multisig(version: 1,
+          threshold: 2,
+          addresses: [account_1.address, account_2.address]);
+
+      final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
+      final lsig = LogicSig(program: program);
+      lsig.sign(private_key: account_1.private_key, multisig: msig);
+      expect(lsig.program, program);
+      expect(lsig.args, isNull);
+      expect(lsig.sig, isNull);
+      expect(lsig.msig, isNotNull);
+
+      final sender_addr = msig.address();
+      final public_key = decode_address(sender_addr);
+      expect(lsig.verify(public_key), isFalse); // not enough signatures
+
+      expect(() => lsig.append_to_multisig(account.private_key),
+          throwsA(isA<InvalidSecretKeyError>()));
+
+      lsig.append_to_multisig(account_2.private_key);
+      expect(lsig.verify(public_key), isTrue);
+
+      // combine sig and multisig, ensure it fails
+      final lsigf = LogicSig(program: program);
+      lsigf.sign(private_key: account.private_key);
+      lsig.sig = lsigf.sig;
+      expect(lsig.verify(public_key), isFalse);
+
+      // remove, ensure it still works
+      lsig.sig = null;
+      expect(lsig.verify(public_key), isTrue);
+
+      // check serialization
+      final encoded = msgpack_encode(lsig);
+      final decoded = msgpack_decode(encoded);
+
+      expect(encoded, msgpack_encode(lsig));
+
     });
   });
 

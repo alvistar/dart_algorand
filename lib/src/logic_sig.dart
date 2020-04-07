@@ -10,6 +10,13 @@ import 'package:pinenacl/api.dart';
 import 'package:pinenacl/signing.dart';
 import 'package:equatable/equatable.dart';
 
+class _MultiSigResult {
+  int index;
+  String sig;
+
+  _MultiSigResult({this.index, this.sig});
+}
+
 /// Represents a logic signature
 class LogicSig extends Equatable {
   Uint8List program;
@@ -31,7 +38,7 @@ class LogicSig extends Equatable {
     if (m.containsKey('sig')) {
       lsig.sig = base64Encode(m['sig']);
     } else if (m.containsKey('msig')) {
-      lsig.msig = Multisig.undictify(m['msig']);
+      lsig.msig = Multisig.undictify(Map.from(m['msig']));
     }
 
     return lsig;
@@ -83,14 +90,15 @@ class LogicSig extends Equatable {
     if (sig != null) {
       final verify_key = VerifyKey(public_key);
       try {
-        verify_key.verify(signature: Signature(base64Decode(sig)), message: to_sign);
+        verify_key.verify(
+            signature: Signature(base64Decode(sig)), message: to_sign);
         return true;
       } catch (e) {
         return false;
       }
     }
 
-    return msig.verify(to_sign);
+    return msig.verify(Uint8List.fromList(to_sign));
   }
 
   ///  Compute hash of the logic sig program (that is the same as escrow
@@ -107,6 +115,26 @@ class LogicSig extends Equatable {
     return base64Encode(signed.signature);
   }
 
+  static _MultiSigResult single_sig_multisig(
+      {Uint8List program, String private_key, Multisig multisig}) {
+    var index = -1;
+    final public_key = base64Decode(private_key).sublist(KEY_LEN_BYTES);
+
+    for (var s = 0; s < multisig.subsigs.length; s++) {
+      if (eq(multisig.subsigs[s].public_key, public_key)) {
+        index = s;
+        break;
+      }
+    }
+
+    if (index == -1) {
+      throw InvalidSecretKeyError();
+    }
+
+    return _MultiSigResult(
+        index: index, sig: sign_program(program, private_key));
+  }
+
   /// Creates signature (if no pk provided) or multi signature
   /// private_key: private key of signing account
   /// multisig: optional multisig account without signatures
@@ -115,7 +143,23 @@ class LogicSig extends Equatable {
     if (multisig == null) {
       sig = sign_program(program, private_key);
     } else {
-      throw UnimplementedError();
+      final result = single_sig_multisig(
+          program: program, private_key: private_key, multisig: multisig);
+
+      multisig.subsigs[result.index].signature = base64Decode(result.sig);
+      msig = multisig;
     }
+  }
+
+  /// Appends a signature to multi signature
+  void append_to_multisig(String private_key) {
+    if (msig == null) {
+      throw InvalidSecretKeyError();
+    }
+
+    final result = single_sig_multisig(
+        program: program, private_key: private_key, multisig: msig);
+
+    msig.subsigs[result.index].signature = base64Decode(result.sig);
   }
 }
