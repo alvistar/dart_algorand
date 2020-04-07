@@ -15,6 +15,7 @@ import 'package:collection/collection.dart';
 import 'auction.dart';
 import 'constants.dart';
 import 'error.dart';
+import 'logic_sig.dart';
 
 
 String msgpack_encode(obj) {
@@ -88,6 +89,10 @@ dynamic msgpack_decode(String enc) {
 
   if (decoded.containsKey('type')) {
     return Transaction.undictify(decoded);
+  }
+
+  if (decoded.containsKey('l')) {
+    return LogicSig.undictify(decoded);
   }
 
   if (decoded.containsKey('msig')) {

@@ -9,6 +9,7 @@ import 'package:dart_algorand/src/asset_config_txn.dart';
 import 'package:dart_algorand/src/asset_freeze_txn.dart';
 import 'package:dart_algorand/src/asset_transfer_txn.dart';
 import 'package:dart_algorand/src/logic.dart';
+import 'package:dart_algorand/src/logic_sig.dart';
 import 'package:dart_algorand/src/mnemonic.dart' as mnemonic;
 import 'package:dart_algorand/src/multisig_txn.dart';
 import 'package:dart_algorand/src/wordlist.dart';
@@ -62,6 +63,75 @@ void main() {
     });
   });
 
+  group('Logic Signatures', () {
+    test('basic', () {
+      expect(() => LogicSig(program: Uint8List(0)),
+          throwsA(isA<InvalidProgram>()));
+
+      var program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
+      final program_hash = '6Z3C3LDVWGMX23BMSYMANACQOSINPFIRF77H7N3AWJZYV6OH6GWTJKVMXY';
+      final public_key = decode_address(program_hash);
+      var lsig = LogicSig(program: program);
+      expect(lsig.program, program);
+      expect(lsig.args, null);
+      expect(lsig.sig, null);
+      expect(lsig.msig, null);
+
+      expect(lsig.verify(public_key), isTrue);
+      expect(lsig.address(), program_hash);
+
+      final args = <Uint8List>[
+        Uint8List.fromList([1, 2, 3]),
+        Uint8List.fromList([4, 5, 6])
+      ];
+
+      lsig = LogicSig(program: program, args: args);
+      expect(lsig.program, program);
+      expect(lsig.args, args);
+      expect(lsig.sig, null);
+      expect(lsig.msig, null);
+      expect(lsig.verify(public_key), isTrue);
+
+      // check serialization
+      final encoded = msgpack_encode(lsig);
+      final decoded = msgpack_decode(encoded);
+      expect(decoded, lsig);
+      expect(lsig.verify(public_key), isTrue);
+
+      // check signature verification on modified program
+      program = Uint8List.fromList([0x01, 0x20, 0x01, 0x03, 0x22]);
+      lsig = LogicSig(program: program);
+      expect(lsig.program, program);
+      expect(lsig.verify(public_key), isFalse);
+      expect(lsig.address(), isNot(program_hash));
+
+      // check invalid program fails
+      program = Uint8List.fromList([0x00, 0x20, 0x01, 0x03, 0x22]);
+      lsig = LogicSig(program: program);
+      expect(lsig.verify(public_key), isFalse);
+
+    });
+
+    test('signature', () {
+      final account = generate_account();
+      final public_key = decode_address(account.address);
+      final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
+      final lsig = LogicSig(program: program);
+      lsig.sign(private_key: account.private_key);
+
+      expect(lsig.program, program);
+      expect(lsig.args, isNull);
+      expect(lsig.msig, isNull);
+      expect(lsig.sig, isNotNull);
+      expect(lsig.verify(public_key), isTrue);
+
+      // Check serialization
+      final encoded = msgpack_encode(lsig);
+      final decoded = msgpack_decode(encoded);
+      expect(decoded, lsig);
+    });
+  });
+
   group('Logic', () {
     test('parse uvarint', () {
       var data = Uvarint(Uint8List.fromList([0x01]));
@@ -103,18 +173,18 @@ void main() {
       expect(results.results, containsAllInOrder(expected));
     });
 
-    test('check_program_valid', () async {
+    test('check_program_valid', () {
       final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
 
       // Null argument
-      var program_data = await read_program(program, null);
+      var program_data = read_program(program, null);
       expect(program_data.good, true);
       expect(program_data.int_block, containsAllInOrder([1]));
       expect(program_data.byte_block, isEmpty);
 
       // No argument
       var args = <Uint8List>[];
-      program_data = await read_program(program, args);
+      program_data = read_program(program, args);
       expect(program_data.good, true);
       expect(program_data.int_block, containsAllInOrder([1]));
       expect(program_data.byte_block, isEmpty);
@@ -122,7 +192,7 @@ void main() {
       // Unused argument
       final arg = Uint8List.fromList(List.filled(10, 0x31));
       args.add(arg);
-      program_data = await read_program(program, args);
+      program_data = read_program(program, args);
       expect(program_data.good, true);
       expect(program_data.int_block, containsAllInOrder([1]));
       expect(program_data.byte_block, isEmpty);
@@ -131,7 +201,7 @@ void main() {
       final int1 = Uint8List.fromList(List.filled(10, 0x22));
       final program2 = Uint8List.fromList(program + int1);
 
-      program_data = await read_program(program2, args);
+      program_data = read_program(program2, args);
       expect(program_data.good, true);
       expect(program_data.int_block, containsAllInOrder([1]));
       expect(program_data.byte_block, isEmpty);
@@ -188,7 +258,6 @@ void main() {
           throwsA(predicate((e) =>
           e is InvalidProgram &&
               e.message == 'program too costly to run')));
-
     });
   });
 

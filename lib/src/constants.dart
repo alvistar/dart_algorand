@@ -16,6 +16,9 @@ const BID_PREFIX = 'aB';
 /// prefix for multisig addresses
 const MSIG_ADDR_PREFIX = 'MultisigAddr';
 
+/// program (logic) prefix when signing
+const LOGIC_PREFIX = 'Program';
+
 const MNEMONIC_LEN = 25;
 
 /// minimum transaction fee

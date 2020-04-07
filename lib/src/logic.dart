@@ -1,29 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:resource/resource.dart';
+import 'package:dart_algorand/dart_algorand.dart';
 
 import 'constants.dart';
 import 'error.dart';
+import 'langspec.dart';
 
 var lang_spec;
 Map opcodes;
-
-//class Uvarint {
-//  int _value;
-//  int _length;
-//
-//  int get value => _value;
-//
-//  int get length => _length;
-//
-//  Uvarint(Uint8List data) {
-//    final reader = RawReader.withBytes(data);
-//    _value = reader.readVarUint();
-//    _length = reader.index;
-//  }
-//}
 
 class Uvarint {
   int _value;
@@ -155,21 +140,19 @@ ByteConstBlock read_byte_const_block(Uint8List program, int pc) {
 }
 
 /// Performs basic program validation: instruction count and program cost
-Future<bool> check_program(Uint8List program, List<Uint8List> args) async {
-  return (await read_program(program, args)).good;
+bool check_program(Uint8List program, List<Uint8List> args)  {
+  return (read_program(program, args)).good;
 }
 
-Future<ProgramData> read_program(
-    Uint8List program, List<Uint8List> args) async {
+ProgramData read_program(
+    Uint8List program, List<Uint8List> args) {
   final ints = <int>[];
   final bytes = <Uint8List>[];
 
   const intcblock_opcode = 32;
   const bytecblock_opcode = 38;
 
-  lang_spec ??= jsonDecode(
-      await Resource('package:dart_algorand/data/langspec.json')
-          .readAsString());
+  lang_spec ??= jsonDecode(LANGSPEC);
 
   final result = Uvarint(program);
 
@@ -233,4 +216,11 @@ Future<ProgramData> read_program(
   }
 
   return ProgramData(good: true, int_block: ints, byte_block: bytes);
+}
+
+/// Return the address of the program.
+String get_program_address(Uint8List program) {
+  final to_sign = Utf8Encoder().convert(LOGIC_PREFIX) + program;
+  final cksum = checksum(Uint8List.fromList(to_sign));
+  return encode_address(cksum);
 }
