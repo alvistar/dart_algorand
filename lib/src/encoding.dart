@@ -16,6 +16,7 @@ import 'auction.dart';
 import 'constants.dart';
 import 'error.dart';
 import 'logic_sig.dart';
+import 'logic_sig_txn.dart';
 
 
 String msgpack_encode(obj) {
@@ -97,6 +98,14 @@ dynamic msgpack_decode(String enc) {
 
   if (decoded.containsKey('msig')) {
     return MultisigTransaction.undictify(decoded);
+  }
+
+  if (decoded.containsKey('lsig')) {
+    return LogicSigTransaction.undictify(decoded);
+  }
+
+  if (decoded.containsKey('subsig')) {
+    return Multisig.undictify(decoded);
   }
 
   if (decoded.containsKey('txn')) {

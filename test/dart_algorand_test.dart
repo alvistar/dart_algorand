@@ -10,6 +10,7 @@ import 'package:dart_algorand/src/asset_freeze_txn.dart';
 import 'package:dart_algorand/src/asset_transfer_txn.dart';
 import 'package:dart_algorand/src/logic.dart';
 import 'package:dart_algorand/src/logic_sig.dart';
+import 'package:dart_algorand/src/logic_sig_txn.dart';
 import 'package:dart_algorand/src/mnemonic.dart' as mnemonic;
 import 'package:dart_algorand/src/multisig_txn.dart';
 import 'package:dart_algorand/src/wordlist.dart';
@@ -95,7 +96,7 @@ void main() {
       // check serialization
       final encoded = msgpack_encode(lsig);
       final decoded = msgpack_decode(encoded);
-      expect(decoded, lsig);
+      expect(decoded.dictify(), lsig.dictify());
       expect(lsig.verify(public_key), isTrue);
 
       // check signature verification on modified program
@@ -127,7 +128,7 @@ void main() {
       // Check serialization
       final encoded = msgpack_encode(lsig);
       final decoded = msgpack_decode(encoded);
-      expect(decoded, lsig);
+      expect(decoded.dictify(), lsig.dictify());
     });
 
     test('multisig', () {
@@ -172,8 +173,52 @@ void main() {
       final encoded = msgpack_encode(lsig);
       final decoded = msgpack_decode(encoded);
 
-      expect(encoded, msgpack_encode(lsig));
+      // TODO: Implements equatable in subclasses
 
+      expect(decoded.dictify(), lsig.dictify());
+    });
+
+    test('transaction', () {
+      final from_address = '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU';
+      final to_address = 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI';
+      final mn = 'advice pudding treat near rule blouse same whisper inner electric'
+          ' quit surface sunny dismiss leader blood seat clown cost exist ho'
+          'spital century reform able sponsor';
+
+      final tx = PaymentTxn(
+          sender: from_address,
+          fee: 1000,
+          first_valid_round: 2063137,
+          last_valid_round: 2063137 + 1000,
+          genesis_hash: 'sC3P7e2SdbqKJK0tbiCdK9tdSpbe6XeCGKdoNzmlj0E=',
+          receiver: to_address,
+          amt: 2000,
+          note: base64Decode('8xMCTuLQ810='),
+          genesis_id: 'devnet-v1.0',
+          flat_fee: true
+      );
+
+      final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
+      final args = <Uint8List>[
+        utf8.encode('123'),
+        utf8.encode('456'),
+      ];
+
+      final sk = mnemonic.to_private_key(mn);
+      final lsig = LogicSig(program: program, args: args);
+      lsig.sign(private_key: sk);
+      final lstx = LogicSigTransaction(transaction: tx, lsig: lsig);
+      expect(lstx.verify(), isTrue);
+
+      final golden = 'gqRsc2lng6NhcmeSxAMxMjPEAzQ1NqFsxAUBIAEBIqNzaWfEQE6HXaI5K0lcq5' +
+          '0o/y3bWOYsyw9TLi/oorZB4xaNdn1Z14351u2f6JTON478fl+JhIP4HNRRAIh/'
+              'I8EWXBPpJQ2jdHhuiqNhbXTNB9CjZmVlzQPoomZ2zgAfeyGjZ2Vuq2Rldm5ldC'
+              '12MS4womdoxCCwLc/t7ZJ1uookrS1uIJ0r211Klt7pd4IYp2g3OaWPQaJsds4A'
+              'H38JpG5vdGXECPMTAk7i0PNdo3JjdsQge2ziT+tbrMCxZOKcIixX9fY9w4fUOQ'
+              'SCWEEcX+EPfAKjc25kxCDn8PhNBoEd+fMcjYeLEVX0Zx1RoYXCAJCGZ/RJWHBo'
+              'oaR0eXBlo3BheQ==';
+      
+      expect(msgpack_encode(lstx), golden);
     });
   });
 
@@ -727,8 +772,6 @@ void main() {
           '9/cOUJOiKibHbOAATv96NzbmTEIAn70nYsCPhsWua/bdenqQHeZnXX'
           'UOB+jFx2mGR9tuH9pHR5cGWkYWNmZw==';
 
-      final tmp = msgpack_decode(asset_txn).dictify();
-
       expect(msgpack_encode(msgpack_decode(asset_txn)), asset_txn);
     });
 
@@ -1231,8 +1274,6 @@ void main() {
           '/cOUJOiKibHbOAATv96NzbmTEIAn70nYsCPhsWua/bdenqQHeZnXXUOB+'
           'jFx2mGR9tuH9pHR5cGWkYWNmZw==';
 
-      final tmp = txn.dictify();
-
       expect(msgpack_encode(signed_txn), golden);
     });
 
@@ -1427,8 +1468,6 @@ void main() {
           'EILAtz+3tknW6iiStLW4gnSvbXUqW3ul3ghinaDc5pY9Bomx2zgAK21ukbm90Zc'
           'QIdBlHI6BdrIijcmN2xCCj8AKs8kPYlx63ppj1w5410qkMRGZ9FYofNYPXxGpNL'
           'KNzbmTEIKPwAqzyQ9iXHremmPXDnjXSqQxEZn0Vih81g9fEak0spHR5cGWjcGF5';
-
-      final tmp = stx1.dictify();
 
       expect(msgpack_encode(stx1), goldenTx1);
       expect(msgpack_encode(stx2), goldenTx2);

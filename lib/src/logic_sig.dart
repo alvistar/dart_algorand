@@ -8,7 +8,6 @@ import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/logic.dart';
 import 'package:pinenacl/api.dart';
 import 'package:pinenacl/signing.dart';
-import 'package:equatable/equatable.dart';
 
 class _MultiSigResult {
   int index;
@@ -18,7 +17,7 @@ class _MultiSigResult {
 }
 
 /// Represents a logic signature
-class LogicSig extends Equatable {
+class LogicSig {
   Uint8List program;
   List<Uint8List> args;
   String sig;
@@ -61,9 +60,6 @@ class LogicSig extends Equatable {
 
     return m;
   }
-
-  @override
-  List<Object> get props => [program, args, sig, msig];
 
   /// Verifies LogicSig against the transaction's sender address [public_key].
   /// Returns true if the signature is valid (the sender address matches

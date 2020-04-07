@@ -10,7 +10,6 @@ import 'dart:typed_data';
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:pinenacl/api.dart';
 import 'package:base32/base32.dart';
-import 'package:convert/convert.dart';
 
 import 'account.dart';
 import 'asset_transfer_txn.dart';
