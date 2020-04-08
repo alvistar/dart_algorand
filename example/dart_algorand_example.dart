@@ -94,8 +94,8 @@ main() async {
   // Build transaction
 
   final t = PaymentTxn(
-      sender: "BICEALPAAJT3VMBTPNE6U44HAJGZKMUZQMYWVEOCGMNDVKQOTRU7OUXAZU",
-      receiver: "HQVYNUAJVOFZB4UUDZWAJ7I24SFXGPD2E3BOAZAPIMWOU2QEMY4TLLJVOE",
+      sender: 'BICEALPAAJT3VMBTPNE6U44HAJGZKMUZQMYWVEOCGMNDVKQOTRU7OUXAZU',
+      receiver: 'HQVYNUAJVOFZB4UUDZWAJ7I24SFXGPD2E3BOAZAPIMWOU2QEMY4TLLJVOE',
       fee: params.minFee,
       amt: 10000,
       first_valid_round: params.lastRound,
@@ -105,7 +105,7 @@ main() async {
 
   print(t.dictify());
 
-  const PRIV_KEY = "ME81aVXutEYkMKdNjKHKaspLGH9+d2zQdTX8WbVazXwKBEAt4AJnurAze0nqc4cCTZUymYMxapHCMxo6qg6caQ==";
+  const PRIV_KEY = 'ME81aVXutEYkMKdNjKHKaspLGH9+d2zQdTX8WbVazXwKBEAt4AJnurAze0nqc4cCTZUymYMxapHCMxo6qg6caQ==';
 
   // Sign transaction
 

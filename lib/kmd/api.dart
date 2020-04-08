@@ -1,10 +1,9 @@
 library openapi.api;
 
-import 'package:dart_algorand/algod/serializers.dart';
 import 'package:dio/dio.dart';
 import 'package:built_value/serializer.dart';
-
-import 'api/algod_api.dart';
+import 'serializers.dart';
+import 'api/kmd_api.dart';
 
 class Openapi {
   Dio dio;
@@ -25,7 +24,10 @@ class Openapi {
     this.serializers = serializers ?? standardSerializers;
   }
 
-  AlgodApi getAlgodApi() {
-    return AlgodApi(dio, serializers);
+  /// Get DefaultApi instance, base route and serializer can be overridden by a
+  /// given but be careful,
+  /// by doing that all interceptors will not be executed
+  KmdApi getKmdApi() {
+    return KmdApi(dio, serializers);
   }
 }

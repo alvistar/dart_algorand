@@ -217,7 +217,7 @@ void main() {
               'H38JpG5vdGXECPMTAk7i0PNdo3JjdsQge2ziT+tbrMCxZOKcIixX9fY9w4fUOQ'
               'SCWEEcX+EPfAKjc25kxCDn8PhNBoEd+fMcjYeLEVX0Zx1RoYXCAJCGZ/RJWHBo'
               'oaR0eXBlo3BheQ==';
-      
+
       expect(msgpack_encode(lstx), golden);
     });
   });

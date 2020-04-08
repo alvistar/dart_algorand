@@ -32,8 +32,8 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/account/{address}"
-        .replaceAll("{" r'address' "}", address.toString());
+    String _path = '/v1/account/{address}'
+        .replaceAll('{' r'address' '}', address.toString());
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -53,7 +53,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -83,7 +83,7 @@ class AlgodApi {
     Map<String, String> headers,
   }) async {
     String _path =
-        "/v1/asset/{index}".replaceAll("{" r'index' "}", index.toString());
+        '/v1/asset/{index}'.replaceAll('{' r'index' '}', index.toString());
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -103,7 +103,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -133,7 +133,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/assets";
+    String _path = '/v1/assets';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -155,7 +155,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -185,7 +185,7 @@ class AlgodApi {
     Map<String, String> headers,
   }) async {
     String _path =
-        "/v1/block/{round}".replaceAll("{" r'round' "}", round.toString());
+        '/v1/block/{round}'.replaceAll('{' r'round' '}', round.toString());
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -205,7 +205,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -233,7 +233,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/transactions/pending";
+    String _path = '/v1/transactions/pending';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -254,7 +254,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -284,8 +284,8 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/account/{addr}/transactions/pending"
-        .replaceAll("{" r'addr' "}", addr.toString());
+    String _path = '/v1/account/{addr}/transactions/pending'
+        .replaceAll('{' r'addr' '}', addr.toString());
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -306,7 +306,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] :  'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -334,7 +334,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/status";
+    String _path = '/v1/status';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -354,7 +354,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -382,7 +382,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/ledger/supply";
+    String _path = '/v1/ledger/supply';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -402,7 +402,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -430,7 +430,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/versions";
+    String _path = '/versions';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -450,7 +450,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -478,7 +478,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/health";
+    String _path = '/health';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -497,7 +497,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     );
@@ -510,7 +510,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/metrics";
+    String _path = '/metrics';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -529,7 +529,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     );
@@ -543,8 +543,8 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/transactions/pending/{txid}"
-        .replaceAll("{" r'txid' "}", txid.toString());
+    String _path = '/v1/transactions/pending/{txid}'
+        .replaceAll('{' r'txid' '}', txid.toString());
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -564,7 +564,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -593,7 +593,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/transactions";
+    String _path = '/v1/transactions';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -602,7 +602,7 @@ class AlgodApi {
     queryParams.removeWhere((key, value) => value == null);
     headerParams.removeWhere((key, value) => value == null);
 
-    List<String> contentTypes = ["application/x-binary"];
+    List<String> contentTypes = ['application/x-binary'];
 
 //            var serializedBody = _serializers.serialize(rawtxn);
 //            var jsonrawtxn = json.encode(serializedBody);
@@ -619,7 +619,7 @@ class AlgodApi {
         method: 'post'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -647,7 +647,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/transactions/fee";
+    String _path = '/v1/transactions/fee';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -667,7 +667,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -695,7 +695,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/swagger.json";
+    String _path = '/swagger.json';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -715,7 +715,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -745,7 +745,7 @@ class AlgodApi {
     Map<String, String> headers,
   }) async {
     String _path =
-        "/v1/transaction/{txid}".replaceAll("{" r'txid' "}", txid.toString());
+        '/v1/transaction/{txid}'.replaceAll('{' r'txid' '}', txid.toString());
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -765,7 +765,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -795,9 +795,9 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/account/{address}/transaction/{txid}"
-        .replaceAll("{" r'address' "}", address.toString())
-        .replaceAll("{" r'txid' "}", txid.toString());
+    String _path = '/v1/account/{address}/transaction/{txid}'
+        .replaceAll('{' r'address' '}', address.toString())
+        .replaceAll('{' r'txid' '}', txid.toString());
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -817,7 +817,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -845,7 +845,7 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/transactions/params";
+    String _path = '/v1/transactions/params';
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -865,7 +865,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -899,8 +899,8 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/account/{address}/transactions"
-        .replaceAll("{" r'address' "}", address.toString());
+    String _path = '/v1/account/{address}/transactions'
+        .replaceAll('{' r'address' '}', address.toString());
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -925,7 +925,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
@@ -954,8 +954,8 @@ class AlgodApi {
     CancelToken cancelToken,
     Map<String, String> headers,
   }) async {
-    String _path = "/v1/status/wait-for-block-after/{round}/"
-        .replaceAll("{" r'round' "}", round.toString());
+    String _path = '/v1/status/wait-for-block-after/{round}/'
+        .replaceAll('{' r'round' '}', round.toString());
 
     Map<String, dynamic> queryParams = {};
     Map<String, String> headerParams = Map.from(headers ?? {});
@@ -975,7 +975,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] : "application/json",
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )
