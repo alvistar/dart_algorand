@@ -71,7 +71,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(createWalletRequest);
+    var serializedBody = _serializers.serializeWith(
+        CreateWalletRequest.serializer, createWalletRequest);
     var jsoncreateWalletRequest = json.encode(serializedBody);
     bodyData = jsoncreateWalletRequest;
 
@@ -493,7 +494,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(getWalletInfoRequest);
+    var serializedBody = _serializers.serializeWith(
+        WalletInfoRequest.serializer, getWalletInfoRequest);
     var jsongetWalletInfoRequest = json.encode(serializedBody);
     bodyData = jsongetWalletInfoRequest;
 
@@ -866,8 +868,9 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody =
-        _serializers.serialize(releaseWalletHandleTokenRequest);
+    var serializedBody = _serializers.serializeWith(
+        ReleaseWalletHandleTokenRequest.serializer,
+        releaseWalletHandleTokenRequest);
     var jsonreleaseWalletHandleTokenRequest = json.encode(serializedBody);
     bodyData = jsonreleaseWalletHandleTokenRequest;
 
@@ -921,7 +924,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(renameWalletRequest);
+    var serializedBody = _serializers.serializeWith(
+        RenameWalletRequest.serializer, renameWalletRequest);
     var jsonrenameWalletRequest = json.encode(serializedBody);
     bodyData = jsonrenameWalletRequest;
 
@@ -975,7 +979,9 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(renewWalletHandleTokenRequest);
+    var serializedBody = _serializers.serializeWith(
+        RenewWalletHandleTokenRequest.serializer,
+        renewWalletHandleTokenRequest);
     var jsonrenewWalletHandleTokenRequest = json.encode(serializedBody);
     bodyData = jsonrenewWalletHandleTokenRequest;
 

@@ -28,8 +28,7 @@ class _$CreateWalletRequestSerializer
       result
         ..add('master_derivation_key')
         ..add(serializers.serialize(object.masterDerivationKey,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(int)])));
+            specifiedType: const FullType(String)));
     }
     if (object.walletDriverName != null) {
       result
@@ -65,10 +64,8 @@ class _$CreateWalletRequestSerializer
       final dynamic value = iterator.current;
       switch (key) {
         case 'master_derivation_key':
-          result.masterDerivationKey.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
-              as BuiltList<Object>);
+          result.masterDerivationKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'wallet_driver_name':
           result.walletDriverName = serializers.deserialize(value,
@@ -91,7 +88,7 @@ class _$CreateWalletRequestSerializer
 
 class _$CreateWalletRequest extends CreateWalletRequest {
   @override
-  final BuiltList<int> masterDerivationKey;
+  final String masterDerivationKey;
   @override
   final String walletDriverName;
   @override
@@ -154,10 +151,9 @@ class CreateWalletRequestBuilder
     implements Builder<CreateWalletRequest, CreateWalletRequestBuilder> {
   _$CreateWalletRequest _$v;
 
-  ListBuilder<int> _masterDerivationKey;
-  ListBuilder<int> get masterDerivationKey =>
-      _$this._masterDerivationKey ??= new ListBuilder<int>();
-  set masterDerivationKey(ListBuilder<int> masterDerivationKey) =>
+  String _masterDerivationKey;
+  String get masterDerivationKey => _$this._masterDerivationKey;
+  set masterDerivationKey(String masterDerivationKey) =>
       _$this._masterDerivationKey = masterDerivationKey;
 
   String _walletDriverName;
@@ -178,7 +174,7 @@ class CreateWalletRequestBuilder
 
   CreateWalletRequestBuilder get _$this {
     if (_$v != null) {
-      _masterDerivationKey = _$v.masterDerivationKey?.toBuilder();
+      _masterDerivationKey = _$v.masterDerivationKey;
       _walletDriverName = _$v.walletDriverName;
       _walletName = _$v.walletName;
       _walletPassword = _$v.walletPassword;
@@ -202,25 +198,12 @@ class CreateWalletRequestBuilder
 
   @override
   _$CreateWalletRequest build() {
-    _$CreateWalletRequest _$result;
-    try {
-      _$result = _$v ??
-          new _$CreateWalletRequest._(
-              masterDerivationKey: _masterDerivationKey?.build(),
-              walletDriverName: walletDriverName,
-              walletName: walletName,
-              walletPassword: walletPassword);
-    } catch (_) {
-      String _$failedField;
-      try {
-        _$failedField = 'masterDerivationKey';
-        _masterDerivationKey?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            'CreateWalletRequest', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ??
+        new _$CreateWalletRequest._(
+            masterDerivationKey: masterDerivationKey,
+            walletDriverName: walletDriverName,
+            walletName: walletName,
+            walletPassword: walletPassword);
     replace(_$result);
     return _$result;
   }

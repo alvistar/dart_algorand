@@ -5,11 +5,17 @@ import 'package:dart_algorand/kmd/model/apiv1_get_wallets_response.dart';
 import 'package:dart_algorand/kmd/model/apiv1_post_key_list_response.dart';
 import 'package:dart_algorand/kmd/model/apiv1_post_wallet_init_response.dart';
 import 'package:dart_algorand/kmd/model/apiv1_wallet.dart';
+import 'package:dart_algorand/kmd/model/apiv1_wallet_handle.dart';
+import 'package:dart_algorand/kmd/model/create_wallet_request.dart';
 import 'package:dart_algorand/kmd/model/export_master_key_request.dart';
 import 'package:dart_algorand/kmd/model/init_wallet_handle_token_request.dart';
 import 'package:dart_algorand/kmd/model/list_keys_request.dart';
 import 'package:dart_algorand/kmd/model/list_multisig_request.dart';
+import 'package:dart_algorand/kmd/model/release_wallet_handle_token_request.dart';
+import 'package:dart_algorand/kmd/model/rename_wallet_request.dart';
+import 'package:dart_algorand/kmd/model/renew_wallet_handle_token_request.dart';
 import 'package:dart_algorand/kmd/model/versions_response.dart';
+import 'package:dart_algorand/kmd/model/wallet_info_request.dart';
 import 'package:dio/dio.dart';
 import 'package:dart_algorand/kmd.dart';
 import 'package:meta/meta.dart';
@@ -87,4 +93,52 @@ class KmdClient {
 
     return (await api.exportMasterKey(request)).data.masterDerivationKey;
   }
+
+  /// Create a new wallet.
+  Future<APIV1Wallet> createWallet(
+      {@required String name,
+      @required String password,
+      String driverName = 'sqlite',
+      String masterDerivKey}) async {
+    final request = CreateWalletRequest((b) => b
+      ..masterDerivationKey = masterDerivKey
+      ..walletPassword = password
+      ..walletName = name
+      ..walletDriverName = driverName);
+
+    return (await api.createWallet(request)).data.wallet;
+  }
+
+  Future<APIV1Wallet> renameWallet(
+      {@required String id,
+      @required String password,
+      @required String newName}) async {
+    final request = RenameWalletRequest((b) => b
+      ..walletId = id
+      ..walletPassword = password
+      ..walletName = newName);
+
+    return (await api.renameWallet(request)).data.wallet;
+  }
+
+  Future<APIV1WalletHandle> getWalletInfo(String handle) async {
+    final request = WalletInfoRequest((b) => b.walletHandleToken = handle);
+    return (await api.getWalletInfo(request)).data.walletHandle;
+  }
+
+  Future<APIV1WalletHandle> renewWalletHandle(String handle) async {
+    final request =
+        RenewWalletHandleTokenRequest((b) => b.walletHandleToken = handle);
+    return (await api.renewWalletHandleToken(request)).data.walletHandle;
+  }
+
+  Future<bool> releaseWalletHandle(String handle) async {
+    final request =
+        ReleaseWalletHandleTokenRequest((b) => b.walletHandleToken = handle);
+
+    await api.releaseWalletHandleToken(request);
+
+    return true;
+  }
+
 }

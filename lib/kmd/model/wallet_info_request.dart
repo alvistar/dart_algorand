@@ -13,7 +13,7 @@ abstract class WalletInfoRequest implements Built<WalletInfoRequest, WalletInfoR
     // Boilerplate code needed to wire-up generated code
     WalletInfoRequest._();
 
-    factory WalletInfoRequest([updates(WalletInfoRequestBuilder b)]) = _$WalletInfoRequest;
+    factory WalletInfoRequest([Function(WalletInfoRequestBuilder) updates]) = _$WalletInfoRequest;
     static Serializer<WalletInfoRequest> get serializer => _$walletInfoRequestSerializer;
 
 }
