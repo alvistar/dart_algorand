@@ -15,7 +15,7 @@ abstract class APIV1POSTMasterKeyExportResponse
   /* MasterDerivationKey is used to derive ed25519 keys for use in wallets */
   @nullable
   @BuiltValueField(wireName: r'master_derivation_key')
-  BuiltList<int> get masterDerivationKey;
+  String get masterDerivationKey;
 
   @nullable
   @BuiltValueField(wireName: r'message')

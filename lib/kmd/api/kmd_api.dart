@@ -285,7 +285,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(exportMasterKeyRequest);
+    var serializedBody = _serializers.serializeWith(
+        ExportMasterKeyRequest.serializer, exportMasterKeyRequest);
     var jsonexportMasterKeyRequest = json.encode(serializedBody);
     bodyData = jsonexportMasterKeyRequest;
 
@@ -654,8 +655,9 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody =
-        _serializers.serialize(initializeWalletHandleTokenRequest);
+    var serializedBody = _serializers.serializeWith(
+        InitWalletHandleTokenRequest.serializer,
+        initializeWalletHandleTokenRequest);
     var jsoninitializeWalletHandleTokenRequest = json.encode(serializedBody);
     bodyData = jsoninitializeWalletHandleTokenRequest;
 
@@ -709,7 +711,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(listKeysRequest);
+    var serializedBody =
+        _serializers.serializeWith(ListKeysRequest.serializer, listKeysRequest);
     var jsonlistKeysRequest = json.encode(serializedBody);
     bodyData = jsonlistKeysRequest;
 
@@ -762,7 +765,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(listMultisigRequest);
+    var serializedBody = _serializers.serializeWith(
+        ListMultisigRequest.serializer, listMultisigRequest);
     var jsonlistMultisigRequest = json.encode(serializedBody);
     bodyData = jsonlistMultisigRequest;
 

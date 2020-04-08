@@ -55,7 +55,7 @@ import 'model/wallet_info_request.dart';
 
 part 'serializers.g.dart';
 
-@SerializersFor(const [
+@SerializersFor([
 APIV1DELETEKeyResponse,
 APIV1DELETEMultisigResponse,
 APIV1GETWalletsResponse,

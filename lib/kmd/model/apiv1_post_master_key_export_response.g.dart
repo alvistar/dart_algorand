@@ -35,8 +35,7 @@ class _$APIV1POSTMasterKeyExportResponseSerializer
       result
         ..add('master_derivation_key')
         ..add(serializers.serialize(object.masterDerivationKey,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(int)])));
+            specifiedType: const FullType(String)));
     }
     if (object.message != null) {
       result
@@ -64,10 +63,8 @@ class _$APIV1POSTMasterKeyExportResponseSerializer
               specifiedType: const FullType(bool)) as bool;
           break;
         case 'master_derivation_key':
-          result.masterDerivationKey.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
-              as BuiltList<Object>);
+          result.masterDerivationKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'message':
           result.message = serializers.deserialize(value,
@@ -85,7 +82,7 @@ class _$APIV1POSTMasterKeyExportResponse
   @override
   final bool error;
   @override
-  final BuiltList<int> masterDerivationKey;
+  final String masterDerivationKey;
   @override
   final String message;
 
@@ -141,10 +138,9 @@ class APIV1POSTMasterKeyExportResponseBuilder
   bool get error => _$this._error;
   set error(bool error) => _$this._error = error;
 
-  ListBuilder<int> _masterDerivationKey;
-  ListBuilder<int> get masterDerivationKey =>
-      _$this._masterDerivationKey ??= new ListBuilder<int>();
-  set masterDerivationKey(ListBuilder<int> masterDerivationKey) =>
+  String _masterDerivationKey;
+  String get masterDerivationKey => _$this._masterDerivationKey;
+  set masterDerivationKey(String masterDerivationKey) =>
       _$this._masterDerivationKey = masterDerivationKey;
 
   String _message;
@@ -156,7 +152,7 @@ class APIV1POSTMasterKeyExportResponseBuilder
   APIV1POSTMasterKeyExportResponseBuilder get _$this {
     if (_$v != null) {
       _error = _$v.error;
-      _masterDerivationKey = _$v.masterDerivationKey?.toBuilder();
+      _masterDerivationKey = _$v.masterDerivationKey;
       _message = _$v.message;
       _$v = null;
     }
@@ -178,24 +174,11 @@ class APIV1POSTMasterKeyExportResponseBuilder
 
   @override
   _$APIV1POSTMasterKeyExportResponse build() {
-    _$APIV1POSTMasterKeyExportResponse _$result;
-    try {
-      _$result = _$v ??
-          new _$APIV1POSTMasterKeyExportResponse._(
-              error: error,
-              masterDerivationKey: _masterDerivationKey?.build(),
-              message: message);
-    } catch (_) {
-      String _$failedField;
-      try {
-        _$failedField = 'masterDerivationKey';
-        _masterDerivationKey?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            'APIV1POSTMasterKeyExportResponse', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ??
+        new _$APIV1POSTMasterKeyExportResponse._(
+            error: error,
+            masterDerivationKey: masterDerivationKey,
+            message: message);
     replace(_$result);
     return _$result;
   }

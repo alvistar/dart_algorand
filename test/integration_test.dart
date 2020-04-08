@@ -1,73 +1,79 @@
-import 'package:dart_algorand/kmd.dart';
-import 'package:dart_algorand/kmd/model/init_wallet_handle_token_request.dart';
-import 'package:dart_algorand/kmd/model/list_keys_request.dart';
-import 'package:dio/dio.dart';
+import 'package:dart_algorand/src/algod_client.dart';
+import 'package:dart_algorand/src/wallet.dart';
 import 'package:test/test.dart';
+import 'package:dart_algorand/src/kmd_client.dart';
 
-const wallet_name = 'default';
-const wallet_passwd = '';
+const walletName = 'default';
+const walletPasswd = '';
 
 void main() {
-  KmdApi init_client({String token, String url}) {
-    final options = BaseOptions(
-      baseUrl: url,
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
-    );
-
-    final dio = Dio(options);
-    dio.interceptors.add(InterceptorsWrapper(onRequest: (Options options) {
-      options.headers['X-KMD-API-Token'] = token;
-    }, onError: (DioError e) {
-      if (e.response != null) {
-        print(e.response.data);
-        print(e.response.headers);
-        print(e.response.request);
-      } else {
-        // Something happened in setting up or sending the request that triggered an Error
-        print(e.request);
-        print(e.message);
-      }
-
-      return e;
-    }));
-
-    return Openapi(dio: dio).getKmdApi();
-  }
-
   group('Integration tests', () {
-    KmdApi api_instance;
-    setUp(() {
-      api_instance = init_client(
+    AlgodClient algodClient;
+    KmdClient kmdClient;
+    String account_0;
+
+    setUp(() async {
+      kmdClient = KmdClient(
           url: 'http://localhost:4002',
           token:
               'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+
+      algodClient = AlgodClient(
+          url: 'http://localhost:4001',
+          token:
+              'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+
+      final wallet = await Wallet.init(
+          walletPassword: walletPasswd,
+          walletName: walletName,
+          kmdClient: kmdClient);
+
+      final keys = await wallet.listKeys();
+
+      var max_balance = -1;
+
+      for (var k in keys) {
+        var accountInfo = await algodClient.accountInformation(k);
+        if (accountInfo.amount > max_balance) {
+          max_balance - accountInfo.amount;
+          account_0 = k;
+        }
+      }
     });
     test('firstTest', () async {
-      final version = await api_instance.getVersion();
-      expect(version.data.versions[0], 'v1');
+      // final version = await api_instance.getVersion();
+      final version = await kmdClient.getVersion();
+      expect(version.versions[0], 'v1');
+    });
+
+    test('auction', () async {
+
     });
 
     test('wallet Info', () async {
-      final wallets = await api_instance.listWallets();
+      final wallets = await kmdClient.listWallets();
       var wallet_id;
 
-      for (var w in wallets.data.wallets) {
-        if (w.name == wallet_name) {
+      for (var w in wallets) {
+        if (w.name == walletName) {
           wallet_id = w.id;
         }
       }
 
-      // get new handle for the wallet
-      final handle = await api_instance
-          .initWalletHandleToken(InitWalletHandleTokenRequest((b) => b
-            ..walletId = wallet_id
-            ..walletPassword = wallet_passwd));
+      final handle = await kmdClient.initWalletHandleToken(walledId: wallet_id);
 
-      // test list keys
-      final list_keys = await api_instance.listKeysInWallet(
-        ListKeysRequest()
-      )
+      final list_keys = await kmdClient.listKeysInWallet(handle);
+
+      expect(list_keys, contains(account_0));
+
+      // test multisig
+      final list_multisig = await kmdClient.listMultiSig(handle);
+      // either addresses are listed or there are no multisig accounts
+
+      // test getting the master derivation key
+      final mdk = await kmdClient.exportMasterDerivationKey(handle: handle,
+          walletPassword: walletPasswd);
+
     });
   });
 }

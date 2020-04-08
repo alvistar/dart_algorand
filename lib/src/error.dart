@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 class WrongKeyLengthError implements Exception {
   @override
   String toString() => 'key length must be 58';
@@ -92,4 +94,25 @@ class InvalidProgram implements Exception {
   InvalidProgram ({this.message='invalid program for logic sig'});
   @override
   String toString() => message;
+}
+
+class ClientError extends DioError {
+  ClientError({
+    RequestOptions request,
+    Response response,
+    DioErrorType type = DioErrorType.DEFAULT,
+    error,
+  }):super(request: request, response: response, type: type, error: error);
+
+  @override
+  String toString() {
+    String m;
+
+    if (response?.data is Map) {
+      m = response.data['message'];
+    } else  if (response?.data is String) {
+      m = response.data;
+    }
+    return m ?? super.toString();
+  }
 }
