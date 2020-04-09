@@ -20,20 +20,20 @@ class _$MultisigSigSerializer implements StructuredSerializer<MultisigSig> {
     final result = <Object>[];
     if (object.subsigs != null) {
       result
-        ..add('Subsigs')
+        ..add('subsig')
         ..add(serializers.serialize(object.subsigs,
             specifiedType: const FullType(
                 BuiltList, const [const FullType(MultisigSubsig)])));
     }
     if (object.threshold != null) {
       result
-        ..add('Threshold')
+        ..add('thr')
         ..add(serializers.serialize(object.threshold,
             specifiedType: const FullType(int)));
     }
     if (object.version != null) {
       result
-        ..add('Version')
+        ..add('v')
         ..add(serializers.serialize(object.version,
             specifiedType: const FullType(int)));
     }
@@ -51,17 +51,17 @@ class _$MultisigSigSerializer implements StructuredSerializer<MultisigSig> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'Subsigs':
+        case 'subsig':
           result.subsigs.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(MultisigSubsig)]))
               as BuiltList<Object>);
           break;
-        case 'Threshold':
+        case 'thr':
           result.threshold = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'Version':
+        case 'v':
           result.version = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;

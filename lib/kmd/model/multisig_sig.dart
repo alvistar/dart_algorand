@@ -7,15 +7,15 @@ part 'multisig_sig.g.dart';
 
 abstract class MultisigSig implements Built<MultisigSig, MultisigSigBuilder> {
   @nullable
-  @BuiltValueField(wireName: r'Subsigs')
+  @BuiltValueField(wireName: r'subsig')
   BuiltList<MultisigSubsig> get subsigs;
 
   @nullable
-  @BuiltValueField(wireName: r'Threshold')
+  @BuiltValueField(wireName: r'thr')
   int get threshold;
 
   @nullable
-  @BuiltValueField(wireName: r'Version')
+  @BuiltValueField(wireName: r'v')
   int get version;
 
   // Boilerplate code needed to wire-up generated code

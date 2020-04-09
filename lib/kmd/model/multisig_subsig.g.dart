@@ -22,13 +22,13 @@ class _$MultisigSubsigSerializer
     final result = <Object>[];
     if (object.key != null) {
       result
-        ..add('Key')
+        ..add('pk')
         ..add(serializers.serialize(object.key,
             specifiedType: const FullType(String)));
     }
     if (object.sig != null) {
       result
-        ..add('Sig')
+        ..add('s')
         ..add(serializers.serialize(object.sig,
             specifiedType: const FullType(String)));
     }
@@ -47,11 +47,11 @@ class _$MultisigSubsigSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'Key':
+        case 'pk':
           result.key = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'Sig':
+        case 's':
           result.sig = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
