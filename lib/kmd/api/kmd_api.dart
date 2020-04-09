@@ -125,7 +125,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(deleteKeyRequest);
+    var serializedBody = _serializers.serializeWith(
+        DeleteKeyRequest.serializer, deleteKeyRequest);
     var jsondeleteKeyRequest = json.encode(serializedBody);
     bodyData = jsondeleteKeyRequest;
 
@@ -232,7 +233,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(exportKeyRequest);
+    var serializedBody = _serializers.serializeWith(
+        ExportKeyRequest.serializer, exportKeyRequest);
     var jsonexportKeyRequest = json.encode(serializedBody);
     bodyData = jsonexportKeyRequest;
 
@@ -395,7 +397,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(generateKeyRequest);
+    var serializedBody = _serializers.serializeWith(
+        GenerateKeyRequest.serializer, generateKeyRequest);
     var jsongenerateKeyRequest = json.encode(serializedBody);
     bodyData = jsongenerateKeyRequest;
 
@@ -549,7 +552,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(importKeyRequest);
+    var serializedBody = _serializers.serializeWith(
+        ImportKeyRequest.serializer, importKeyRequest);
     var jsonimportKeyRequest = json.encode(serializedBody);
     bodyData = jsonimportKeyRequest;
 
@@ -1200,7 +1204,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(signTransactionRequest);
+    var serializedBody = _serializers.serializeWith(
+        SignTransactionRequest.serializer, signTransactionRequest);
     var jsonsignTransactionRequest = json.encode(serializedBody);
     bodyData = jsonsignTransactionRequest;
 

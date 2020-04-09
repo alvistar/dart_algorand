@@ -59,3 +59,8 @@ const  LOGIC_SIG_MAX_SIZE = 1000;
 
 /// max execution cost of a teal program
 const LOGIC_SIG_MAX_COST = 20000;
+
+// Notefield types
+
+/// indicates a signed bid in NoteField
+const NOTE_FIELD_TYPE_BID = 'b';

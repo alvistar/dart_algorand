@@ -13,7 +13,11 @@ dependencies:
   pointycastle: 1.0.2
   pinenacl: ^0.1.2
   collection: ^1.14.11
-  dio: ^3.0.4
+  dio: ^3.0.9
+#    git:
+#      url: git://github.com/flutterchina/dio.git
+#      path: dio
+#      ref: master
   built_value: ^7.0.9
   built_collection: ^4.3.2
   equatable: ^1.1.0

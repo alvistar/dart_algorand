@@ -40,8 +40,7 @@ class _$APIV1POSTKeyExportResponseSerializer
       result
         ..add('private_key')
         ..add(serializers.serialize(object.privateKey,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(int)])));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -67,10 +66,8 @@ class _$APIV1POSTKeyExportResponseSerializer
               specifiedType: const FullType(String)) as String;
           break;
         case 'private_key':
-          result.privateKey.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
-              as BuiltList<Object>);
+          result.privateKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -85,7 +82,7 @@ class _$APIV1POSTKeyExportResponse extends APIV1POSTKeyExportResponse {
   @override
   final String message;
   @override
-  final BuiltList<int> privateKey;
+  final String privateKey;
 
   factory _$APIV1POSTKeyExportResponse(
           [void Function(APIV1POSTKeyExportResponseBuilder) updates]) =>
@@ -141,11 +138,9 @@ class APIV1POSTKeyExportResponseBuilder
   String get message => _$this._message;
   set message(String message) => _$this._message = message;
 
-  ListBuilder<int> _privateKey;
-  ListBuilder<int> get privateKey =>
-      _$this._privateKey ??= new ListBuilder<int>();
-  set privateKey(ListBuilder<int> privateKey) =>
-      _$this._privateKey = privateKey;
+  String _privateKey;
+  String get privateKey => _$this._privateKey;
+  set privateKey(String privateKey) => _$this._privateKey = privateKey;
 
   APIV1POSTKeyExportResponseBuilder();
 
@@ -153,7 +148,7 @@ class APIV1POSTKeyExportResponseBuilder
     if (_$v != null) {
       _error = _$v.error;
       _message = _$v.message;
-      _privateKey = _$v.privateKey?.toBuilder();
+      _privateKey = _$v.privateKey;
       _$v = null;
     }
     return this;
@@ -174,22 +169,9 @@ class APIV1POSTKeyExportResponseBuilder
 
   @override
   _$APIV1POSTKeyExportResponse build() {
-    _$APIV1POSTKeyExportResponse _$result;
-    try {
-      _$result = _$v ??
-          new _$APIV1POSTKeyExportResponse._(
-              error: error, message: message, privateKey: _privateKey?.build());
-    } catch (_) {
-      String _$failedField;
-      try {
-        _$failedField = 'privateKey';
-        _privateKey?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            'APIV1POSTKeyExportResponse', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ??
+        new _$APIV1POSTKeyExportResponse._(
+            error: error, message: message, privateKey: privateKey);
     replace(_$result);
     return _$result;
   }

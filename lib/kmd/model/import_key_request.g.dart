@@ -24,8 +24,7 @@ class _$ImportKeyRequestSerializer
       result
         ..add('private_key')
         ..add(serializers.serialize(object.privateKey,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(int)])));
+            specifiedType: const FullType(String)));
     }
     if (object.walletHandleToken != null) {
       result
@@ -49,10 +48,8 @@ class _$ImportKeyRequestSerializer
       final dynamic value = iterator.current;
       switch (key) {
         case 'private_key':
-          result.privateKey.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
-              as BuiltList<Object>);
+          result.privateKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'wallet_handle_token':
           result.walletHandleToken = serializers.deserialize(value,
@@ -67,7 +64,7 @@ class _$ImportKeyRequestSerializer
 
 class _$ImportKeyRequest extends ImportKeyRequest {
   @override
-  final BuiltList<int> privateKey;
+  final String privateKey;
   @override
   final String walletHandleToken;
 
@@ -111,11 +108,9 @@ class ImportKeyRequestBuilder
     implements Builder<ImportKeyRequest, ImportKeyRequestBuilder> {
   _$ImportKeyRequest _$v;
 
-  ListBuilder<int> _privateKey;
-  ListBuilder<int> get privateKey =>
-      _$this._privateKey ??= new ListBuilder<int>();
-  set privateKey(ListBuilder<int> privateKey) =>
-      _$this._privateKey = privateKey;
+  String _privateKey;
+  String get privateKey => _$this._privateKey;
+  set privateKey(String privateKey) => _$this._privateKey = privateKey;
 
   String _walletHandleToken;
   String get walletHandleToken => _$this._walletHandleToken;
@@ -126,7 +121,7 @@ class ImportKeyRequestBuilder
 
   ImportKeyRequestBuilder get _$this {
     if (_$v != null) {
-      _privateKey = _$v.privateKey?.toBuilder();
+      _privateKey = _$v.privateKey;
       _walletHandleToken = _$v.walletHandleToken;
       _$v = null;
     }
@@ -148,23 +143,9 @@ class ImportKeyRequestBuilder
 
   @override
   _$ImportKeyRequest build() {
-    _$ImportKeyRequest _$result;
-    try {
-      _$result = _$v ??
-          new _$ImportKeyRequest._(
-              privateKey: _privateKey?.build(),
-              walletHandleToken: walletHandleToken);
-    } catch (_) {
-      String _$failedField;
-      try {
-        _$failedField = 'privateKey';
-        _privateKey?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            'ImportKeyRequest', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ??
+        new _$ImportKeyRequest._(
+            privateKey: privateKey, walletHandleToken: walletHandleToken);
     replace(_$result);
     return _$result;
   }

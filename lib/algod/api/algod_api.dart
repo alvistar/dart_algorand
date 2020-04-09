@@ -971,7 +971,8 @@ class AlgodApi {
       _path,
       queryParameters: queryParams,
       data: bodyData,
-      options: Options(
+      options: RequestOptions(
+        connectTimeout: -1,
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
