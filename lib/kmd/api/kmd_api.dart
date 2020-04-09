@@ -343,7 +343,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(exportMultisigRequest);
+    var serializedBody = _serializers.serializeWith(
+        ExportMultisigRequest.serializer, exportMultisigRequest);
     var jsonexportMultisigRequest = json.encode(serializedBody);
     bodyData = jsonexportMultisigRequest;
 
@@ -607,7 +608,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(importMultisigRequest);
+    var serializedBody = _serializers.serializeWith(
+        ImportMultisigRequest.serializer, importMultisigRequest);
     var jsonimportMultisigRequest = json.encode(serializedBody);
     bodyData = jsonimportMultisigRequest;
 
@@ -1095,7 +1097,8 @@ class KmdApi {
 
     List<String> contentTypes = ['application/json'];
 
-    var serializedBody = _serializers.serialize(signMultisigTransactionRequest);
+    var serializedBody = _serializers.serializeWith(
+        SignMultisigRequest.serializer, signMultisigTransactionRequest);
     var jsonsignMultisigTransactionRequest = json.encode(serializedBody);
     bodyData = jsonsignMultisigTransactionRequest;
 

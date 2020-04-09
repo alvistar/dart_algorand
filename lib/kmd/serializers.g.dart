@@ -57,12 +57,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(APIV1Wallet)]),
           () => new ListBuilder<APIV1Wallet>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(BuiltList)]),
-          () => new ListBuilder<BuiltList>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(BuiltList)]),
-          () => new ListBuilder<BuiltList>())
-      ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(MultisigSubsig)]),
           () => new ListBuilder<MultisigSubsig>())
       ..addBuilderFactory(
@@ -78,14 +72,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(int)]),
-          () => new ListBuilder<int>())
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(int)]),
-          () => new ListBuilder<int>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(int)]),
-          () => new ListBuilder<int>())
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(int)]),
           () => new ListBuilder<int>()))

@@ -13,7 +13,7 @@ abstract class SignMultisigRequest
 
   @nullable
   @BuiltValueField(wireName: r'public_key')
-  BuiltList<int> get publicKey;
+  String get publicKey;
 
   @nullable
   @BuiltValueField(wireName: r'transaction')
@@ -30,7 +30,8 @@ abstract class SignMultisigRequest
   // Boilerplate code needed to wire-up generated code
   SignMultisigRequest._();
 
-  factory SignMultisigRequest([updates(SignMultisigRequestBuilder b)]) =
+  factory SignMultisigRequest(
+      [Function(SignMultisigRequestBuilder) updates]) =
       _$SignMultisigRequest;
 
   static Serializer<SignMultisigRequest> get serializer =>

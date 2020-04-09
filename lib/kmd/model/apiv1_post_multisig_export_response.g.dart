@@ -48,7 +48,7 @@ class _$APIV1POSTMultisigExportResponseSerializer
         ..add('pks')
         ..add(serializers.serialize(object.pks,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(BuiltList)])));
+                const FullType(BuiltList, const [const FullType(String)])));
     }
     if (object.threshold != null) {
       result
@@ -85,8 +85,8 @@ class _$APIV1POSTMultisigExportResponseSerializer
           break;
         case 'pks':
           result.pks.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(BuiltList)]))
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(String)]))
               as BuiltList<Object>);
           break;
         case 'threshold':
@@ -109,7 +109,7 @@ class _$APIV1POSTMultisigExportResponse
   @override
   final int multisigVersion;
   @override
-  final BuiltList<BuiltList> pks;
+  final BuiltList<String> pks;
   @override
   final int threshold;
 
@@ -186,10 +186,9 @@ class APIV1POSTMultisigExportResponseBuilder
   set multisigVersion(int multisigVersion) =>
       _$this._multisigVersion = multisigVersion;
 
-  ListBuilder<BuiltList> _pks;
-  ListBuilder<BuiltList> get pks =>
-      _$this._pks ??= new ListBuilder<BuiltList>();
-  set pks(ListBuilder<BuiltList> pks) => _$this._pks = pks;
+  ListBuilder<String> _pks;
+  ListBuilder<String> get pks => _$this._pks ??= new ListBuilder<String>();
+  set pks(ListBuilder<String> pks) => _$this._pks = pks;
 
   int _threshold;
   int get threshold => _$this._threshold;

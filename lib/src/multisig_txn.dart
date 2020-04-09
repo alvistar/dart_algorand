@@ -151,6 +151,14 @@ class Multisig {
     return m;
   }
 
+  Map<String, dynamic> json_dictify() {
+    return {
+      'subsig': [for (var subsig in subsigs) subsig.json_dictify()],
+      'thr': threshold,
+      'v': version,
+    };
+  }
+
   /// Check if the multisig account is valid.
   void validate() {
     if (version != 1) {

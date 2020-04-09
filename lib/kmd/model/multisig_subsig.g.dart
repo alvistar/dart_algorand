@@ -24,15 +24,13 @@ class _$MultisigSubsigSerializer
       result
         ..add('Key')
         ..add(serializers.serialize(object.key,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(int)])));
+            specifiedType: const FullType(String)));
     }
     if (object.sig != null) {
       result
         ..add('Sig')
         ..add(serializers.serialize(object.sig,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(int)])));
+            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -50,16 +48,12 @@ class _$MultisigSubsigSerializer
       final dynamic value = iterator.current;
       switch (key) {
         case 'Key':
-          result.key.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
-              as BuiltList<Object>);
+          result.key = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'Sig':
-          result.sig.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
-              as BuiltList<Object>);
+          result.sig = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -70,9 +64,9 @@ class _$MultisigSubsigSerializer
 
 class _$MultisigSubsig extends MultisigSubsig {
   @override
-  final BuiltList<int> key;
+  final String key;
   @override
-  final BuiltList<int> sig;
+  final String sig;
 
   factory _$MultisigSubsig([void Function(MultisigSubsigBuilder) updates]) =>
       (new MultisigSubsigBuilder()..update(updates)).build();
@@ -111,20 +105,20 @@ class MultisigSubsigBuilder
     implements Builder<MultisigSubsig, MultisigSubsigBuilder> {
   _$MultisigSubsig _$v;
 
-  ListBuilder<int> _key;
-  ListBuilder<int> get key => _$this._key ??= new ListBuilder<int>();
-  set key(ListBuilder<int> key) => _$this._key = key;
+  String _key;
+  String get key => _$this._key;
+  set key(String key) => _$this._key = key;
 
-  ListBuilder<int> _sig;
-  ListBuilder<int> get sig => _$this._sig ??= new ListBuilder<int>();
-  set sig(ListBuilder<int> sig) => _$this._sig = sig;
+  String _sig;
+  String get sig => _$this._sig;
+  set sig(String sig) => _$this._sig = sig;
 
   MultisigSubsigBuilder();
 
   MultisigSubsigBuilder get _$this {
     if (_$v != null) {
-      _key = _$v.key?.toBuilder();
-      _sig = _$v.sig?.toBuilder();
+      _key = _$v.key;
+      _sig = _$v.sig;
       _$v = null;
     }
     return this;
@@ -145,23 +139,7 @@ class MultisigSubsigBuilder
 
   @override
   _$MultisigSubsig build() {
-    _$MultisigSubsig _$result;
-    try {
-      _$result =
-          _$v ?? new _$MultisigSubsig._(key: _key?.build(), sig: _sig?.build());
-    } catch (_) {
-      String _$failedField;
-      try {
-        _$failedField = 'key';
-        _key?.build();
-        _$failedField = 'sig';
-        _sig?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            'MultisigSubsig', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ?? new _$MultisigSubsig._(key: key, sig: sig);
     replace(_$result);
     return _$result;
   }

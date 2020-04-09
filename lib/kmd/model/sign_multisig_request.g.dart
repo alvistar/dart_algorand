@@ -34,8 +34,7 @@ class _$SignMultisigRequestSerializer
       result
         ..add('public_key')
         ..add(serializers.serialize(object.publicKey,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(int)])));
+            specifiedType: const FullType(String)));
     }
     if (object.transaction != null) {
       result
@@ -75,10 +74,8 @@ class _$SignMultisigRequestSerializer
               specifiedType: const FullType(MultisigSig)) as MultisigSig);
           break;
         case 'public_key':
-          result.publicKey.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
-              as BuiltList<Object>);
+          result.publicKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'transaction':
           result.transaction = serializers.deserialize(value,
@@ -103,7 +100,7 @@ class _$SignMultisigRequest extends SignMultisigRequest {
   @override
   final MultisigSig partialMultisig;
   @override
-  final BuiltList<int> publicKey;
+  final String publicKey;
   @override
   final String transaction;
   @override
@@ -175,10 +172,9 @@ class SignMultisigRequestBuilder
   set partialMultisig(MultisigSigBuilder partialMultisig) =>
       _$this._partialMultisig = partialMultisig;
 
-  ListBuilder<int> _publicKey;
-  ListBuilder<int> get publicKey =>
-      _$this._publicKey ??= new ListBuilder<int>();
-  set publicKey(ListBuilder<int> publicKey) => _$this._publicKey = publicKey;
+  String _publicKey;
+  String get publicKey => _$this._publicKey;
+  set publicKey(String publicKey) => _$this._publicKey = publicKey;
 
   String _transaction;
   String get transaction => _$this._transaction;
@@ -199,7 +195,7 @@ class SignMultisigRequestBuilder
   SignMultisigRequestBuilder get _$this {
     if (_$v != null) {
       _partialMultisig = _$v.partialMultisig?.toBuilder();
-      _publicKey = _$v.publicKey?.toBuilder();
+      _publicKey = _$v.publicKey;
       _transaction = _$v.transaction;
       _walletHandleToken = _$v.walletHandleToken;
       _walletPassword = _$v.walletPassword;
@@ -228,7 +224,7 @@ class SignMultisigRequestBuilder
       _$result = _$v ??
           new _$SignMultisigRequest._(
               partialMultisig: _partialMultisig?.build(),
-              publicKey: _publicKey?.build(),
+              publicKey: publicKey,
               transaction: transaction,
               walletHandleToken: walletHandleToken,
               walletPassword: walletPassword);
@@ -237,8 +233,6 @@ class SignMultisigRequestBuilder
       try {
         _$failedField = 'partialMultisig';
         _partialMultisig?.build();
-        _$failedField = 'publicKey';
-        _publicKey?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'SignMultisigRequest', _$failedField, e.toString());

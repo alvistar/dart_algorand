@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/algod_client.dart';
 import 'package:dart_algorand/src/auction.dart';
+import 'package:dart_algorand/src/multisig_txn.dart';
 import 'package:dart_algorand/src/wallet.dart';
 import 'package:test/test.dart';
 import 'package:dart_algorand/src/kmd_client.dart';
@@ -193,6 +194,101 @@ void main() {
 
       expect(info1.transactions, isNotEmpty);
       expect(info2.tx, txid);
+    }, skip: 'Taking long and spending');
+
+    test('multisig', () async {
+      final walletID = await getWalletId();
+      String account1, account2, msigAddress;
+
+      // get new handle for wallet
+      final handle = await kmdClient.initWalletHandleToken(
+          walledId: walletID, walletPassword: walletPasswd);
+
+      addTearDown(() async {
+        // delete keys
+        await kmdClient.deleteKey(
+            handle: handle, password: walletPasswd, address: account1);
+
+        await kmdClient.deleteKey(
+            handle: handle, password: walletPasswd, address: account2);
+
+        await kmdClient.deleteKey(
+            handle: handle, password: walletPasswd, address: msigAddress);
+      });
+
+      // generate two accounts with kmd
+      account1 =
+          await kmdClient.generateKey(handle: handle, displayMnemonic: false);
+
+      account2 =
+          await kmdClient.generateKey(handle: handle, displayMnemonic: false);
+
+      // get their private keys
+      final privateKey1 = await kmdClient.exportKey(
+          handle: handle, password: walletPasswd, address: account1);
+
+      final privateKey2 = await kmdClient.exportKey(
+          handle: handle, password: walletPasswd, address: account2);
+
+      // get suggested params and fee
+      final params = await algodClient.transactionParams();
+
+      // create multisig account and transaction
+      final msig =
+          Multisig(version: 1, threshold: 2, addresses: [account1, account2]);
+
+      final txn = PaymentTxn(
+          sender: msig.address(),
+          fee: params.fee,
+          first_valid_round: params.lastRound,
+          last_valid_round: params.lastRound + 100,
+          genesis_id: params.genesisID,
+          genesis_hash: params.genesishashb64,
+          receiver: account0,
+          amt: 1000);
+
+      // check the multisig account is valid
+      msig.validate();
+
+      // import multisig account
+      msigAddress =
+          await kmdClient.importMultisig(handle: handle, multisig: msig);
+
+      // export multisig account
+      final exported =
+          await kmdClient.exportMultisig(handle: handle, address: msigAddress);
+
+      expect(exported.subsigs.length, 2);
+
+      // create multisig transaction
+      final mtx = MultisigTransaction(transaction: txn, multisig: msig);
+
+      // sign using kmd
+      final msig1 = await kmdClient.signMultisigTransaction(
+          handle: handle,
+          password: walletPasswd,
+          publicKey: account1,
+          mtx: mtx);
+
+      final signedKmd = await kmdClient.signMultisigTransaction(
+          handle: handle,
+          password: walletPasswd,
+          publicKey: account2,
+          mtx: msig1);
+
+      // sign offline
+      final mtx1 = MultisigTransaction(transaction: txn, multisig: msig);
+      mtx1.sign(privateKey1);
+      final mtx2 = MultisigTransaction(transaction: txn, multisig: msig);
+      mtx2.sign(privateKey2);
+      final signedLocal = MultisigTransaction.merge([mtx1, mtx2]);
+
+      final tmp = signedLocal.dictify();
+      final tmp2 = signedKmd.dictify();
+
+      // check that they are the same
+      expect(tmp, tmp2);
+      expect(msgpack_encode(signedLocal), msgpack_encode(signedKmd));
     });
 
     test('handle', () async {
