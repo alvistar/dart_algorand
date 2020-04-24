@@ -12,5 +12,7 @@ export 'src/account.dart';
 export 'src/mnemonic.dart';
 export 'src/kmd_client.dart';
 export 'src/algod_client.dart';
+export 'src/wallet.dart';
+export 'src/multisig_txn.dart';
 
 // TODO: Export any libraries intended for clients of this package.
