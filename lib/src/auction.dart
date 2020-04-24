@@ -1,6 +1,5 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:math';
 import 'package:meta/meta.dart';
 
 import 'package:dart_algorand/dart_algorand.dart';

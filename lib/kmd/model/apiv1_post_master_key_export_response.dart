@@ -25,7 +25,7 @@ abstract class APIV1POSTMasterKeyExportResponse
   APIV1POSTMasterKeyExportResponse._();
 
   factory APIV1POSTMasterKeyExportResponse(
-          [updates(APIV1POSTMasterKeyExportResponseBuilder b)]) =
+          [Function(APIV1POSTMasterKeyExportResponseBuilder) b]) =
       _$APIV1POSTMasterKeyExportResponse;
 
   static Serializer<APIV1POSTMasterKeyExportResponse> get serializer =>

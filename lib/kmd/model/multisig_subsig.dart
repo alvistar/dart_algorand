@@ -17,7 +17,8 @@ abstract class MultisigSubsig
   // Boilerplate code needed to wire-up generated code
   MultisigSubsig._();
 
-  factory MultisigSubsig([updates(MultisigSubsigBuilder b)]) = _$MultisigSubsig;
+  factory MultisigSubsig([Function(MultisigSubsigBuilder) b]) =
+      _$MultisigSubsig;
 
   static Serializer<MultisigSubsig> get serializer =>
       _$multisigSubsigSerializer;

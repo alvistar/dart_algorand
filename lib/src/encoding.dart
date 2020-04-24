@@ -1,6 +1,5 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dart_algorand/dart_algorand.dart';
@@ -72,7 +71,7 @@ String undo_padding(String a) {
 }
 
 Uint8List checksum(Uint8List data) {
-  Digest sha512 = Digest("SHA-512/256");
+  Digest sha512 = Digest('SHA-512/256');
   return sha512.process(data);
 }
 
@@ -133,7 +132,7 @@ bool is_valid_address(String addr) {
   }
 
   try {
-    final decoded = decode_address(addr);
+    decode_address(addr);
     return true;
   } catch (e) {
     return false;

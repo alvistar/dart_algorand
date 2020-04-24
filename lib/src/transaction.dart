@@ -55,6 +55,7 @@ class Transaction implements Mappable {
     return undictify(tx.dictify());
   }
 
+  @override
   SplayTreeMap<String, dynamic> dictify() {
     final m = SplayTreeMap<String, dynamic>();
 
@@ -290,7 +291,7 @@ class PaymentTxn extends Transaction {
     return m;
   }
 
-  static _undictify(Map<String, dynamic> m) {
+  static Map<String, dynamic> _undictify(Map<String, dynamic> m) {
     return {
       'close_remainder_to':
           m.containsKey('close') ? encode_address(m['close']) : null,
@@ -325,8 +326,6 @@ class SignedTransaction implements Mappable, SignedTransactionBase {
   }
 
   static SignedTransaction undictify(Map<String, dynamic> m) {
-    final args = <String, dynamic>{};
-
     final sig = m.containsKey('sig') ? base64Encode(m['sig']) : null;
     final txn = Transaction.undictify(Map.from(m['txn']));
     return SignedTransaction(transaction: txn, signature: sig);

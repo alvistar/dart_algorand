@@ -2,7 +2,6 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:dart_algorand/dart_algorand.dart';
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:pinenacl/signing.dart';
 import 'package:collection/collection.dart';
@@ -274,7 +273,4 @@ class MultisigSubsig {
     }
     return m;
   }
-
-  @override
-  List<Object> get props => [public_key, signature];
 }

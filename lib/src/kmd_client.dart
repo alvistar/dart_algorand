@@ -43,7 +43,6 @@ class KmdClient {
     dio.interceptors.add(InterceptorsWrapper(onRequest: (Options options) {
       options.headers['X-KMD-API-Token'] = token;
     }, onError: (DioError e) {
-      Exception newException;
       if (e.response != null) {
 //        print(e.response.data);
 //        print(e.response.headers);

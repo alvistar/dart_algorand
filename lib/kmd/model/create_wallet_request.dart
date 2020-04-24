@@ -26,7 +26,7 @@ abstract class CreateWalletRequest
   // Boilerplate code needed to wire-up generated code
   CreateWalletRequest._();
 
-  factory CreateWalletRequest([updates(CreateWalletRequestBuilder b)]) =
+  factory CreateWalletRequest([Function(CreateWalletRequestBuilder) b]) =
       _$CreateWalletRequest;
 
   static Serializer<CreateWalletRequest> get serializer =>
