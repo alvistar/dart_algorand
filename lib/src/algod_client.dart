@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dart_algorand/algod/model/node_status.dart';
 import 'package:dart_algorand/algod/model/pending_transactions.dart';
 import 'package:dart_algorand/algod/model/transaction_params.dart';
+import 'package:dart_algorand/algod/model/version.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 
@@ -123,6 +124,11 @@ class AlgodClient {
   ///   if [maxTxns] is 0, return all pending transactions
   Future<PendingTransactions> pendingTransactions([int maxTxns=0]) async{
     return (await api.getPendingTransactions(max: maxTxns)).data;
+  }
+
+  /// Return algod versions.
+  Future<Version> versions() async {
+    return (await api.getVersion()).data;
   }
 
 }

@@ -496,8 +496,14 @@ void main() {
       expect(lastRound +1, currRound);
     });
 
-    test('test pending transactuins', () async {
+    test('test pending transactions', () async {
       await algodClient.pendingTransactions(0);
     });
+
+    test('test algod versions', () async {
+      await algodClient.versions();
+    });
+
+    
   });
 }
