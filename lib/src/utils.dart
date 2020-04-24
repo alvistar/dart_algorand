@@ -5,13 +5,10 @@ class ParsedUrl {
   final int amount;
 
   ParsedUrl({this.address, this.amount});
-
 }
 
-ParsedUrl parseUrl (String url) {
-  final re = RegExp(
-    r'algorand:\/\/([A-Z2-7]+)(?:\?(.*)|$)'
-  );
+ParsedUrl parseUrl(String url) {
+  final re = RegExp(r'algorand:\/\/([A-Z2-7]+)(?:\?(.*)|$)');
 
   final matched = re.firstMatch(url);
 
@@ -21,8 +18,7 @@ ParsedUrl parseUrl (String url) {
 
   try {
     decode_address(matched.group(1));
-  }
-  catch (e) {
+  } catch (e) {
     return null;
   }
 

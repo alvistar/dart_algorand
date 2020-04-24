@@ -7,7 +7,7 @@ part of 'wallet_info_request.dart';
 // **************************************************************************
 
 Serializer<WalletInfoRequest> _$walletInfoRequestSerializer =
-    new _$WalletInfoRequestSerializer();
+    _$WalletInfoRequestSerializer();
 
 class _$WalletInfoRequestSerializer
     implements StructuredSerializer<WalletInfoRequest> {
@@ -33,7 +33,7 @@ class _$WalletInfoRequestSerializer
   WalletInfoRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new WalletInfoRequestBuilder();
+    final result = WalletInfoRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -58,7 +58,7 @@ class _$WalletInfoRequest extends WalletInfoRequest {
 
   factory _$WalletInfoRequest(
           [void Function(WalletInfoRequestBuilder) updates]) =>
-      (new WalletInfoRequestBuilder()..update(updates)).build();
+      (WalletInfoRequestBuilder()..update(updates)).build();
 
   _$WalletInfoRequest._({this.walletHandleToken}) : super._();
 
@@ -68,7 +68,7 @@ class _$WalletInfoRequest extends WalletInfoRequest {
 
   @override
   WalletInfoRequestBuilder toBuilder() =>
-      new WalletInfoRequestBuilder()..replace(this);
+      WalletInfoRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -112,7 +112,7 @@ class WalletInfoRequestBuilder
   @override
   void replace(WalletInfoRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$WalletInfoRequest;
   }
@@ -125,7 +125,7 @@ class WalletInfoRequestBuilder
   @override
   _$WalletInfoRequest build() {
     final _$result =
-        _$v ?? new _$WalletInfoRequest._(walletHandleToken: walletHandleToken);
+        _$v ?? _$WalletInfoRequest._(walletHandleToken: walletHandleToken);
     replace(_$result);
     return _$result;
   }

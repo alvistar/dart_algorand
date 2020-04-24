@@ -7,7 +7,7 @@ part of 'import_key_request.dart';
 // **************************************************************************
 
 Serializer<ImportKeyRequest> _$importKeyRequestSerializer =
-    new _$ImportKeyRequestSerializer();
+    _$ImportKeyRequestSerializer();
 
 class _$ImportKeyRequestSerializer
     implements StructuredSerializer<ImportKeyRequest> {
@@ -39,7 +39,7 @@ class _$ImportKeyRequestSerializer
   ImportKeyRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ImportKeyRequestBuilder();
+    final result = ImportKeyRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,7 +70,7 @@ class _$ImportKeyRequest extends ImportKeyRequest {
 
   factory _$ImportKeyRequest(
           [void Function(ImportKeyRequestBuilder) updates]) =>
-      (new ImportKeyRequestBuilder()..update(updates)).build();
+      (ImportKeyRequestBuilder()..update(updates)).build();
 
   _$ImportKeyRequest._({this.privateKey, this.walletHandleToken}) : super._();
 
@@ -80,7 +80,7 @@ class _$ImportKeyRequest extends ImportKeyRequest {
 
   @override
   ImportKeyRequestBuilder toBuilder() =>
-      new ImportKeyRequestBuilder()..replace(this);
+      ImportKeyRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -131,7 +131,7 @@ class ImportKeyRequestBuilder
   @override
   void replace(ImportKeyRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$ImportKeyRequest;
   }
@@ -144,7 +144,7 @@ class ImportKeyRequestBuilder
   @override
   _$ImportKeyRequest build() {
     final _$result = _$v ??
-        new _$ImportKeyRequest._(
+        _$ImportKeyRequest._(
             privateKey: privateKey, walletHandleToken: walletHandleToken);
     replace(_$result);
     return _$result;

@@ -6,7 +6,7 @@ part of 'asset_list.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<AssetList> _$assetListSerializer = new _$AssetListSerializer();
+Serializer<AssetList> _$assetListSerializer = _$AssetListSerializer();
 
 class _$AssetListSerializer implements StructuredSerializer<AssetList> {
   @override
@@ -22,8 +22,7 @@ class _$AssetListSerializer implements StructuredSerializer<AssetList> {
       result
         ..add('assets')
         ..add(serializers.serialize(object.assets,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(Asset)])));
+            specifiedType: const FullType(BuiltList, [FullType(Asset)])));
     }
     return result;
   }
@@ -31,7 +30,7 @@ class _$AssetListSerializer implements StructuredSerializer<AssetList> {
   @override
   AssetList deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new AssetListBuilder();
+    final result = AssetListBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -41,8 +40,7 @@ class _$AssetListSerializer implements StructuredSerializer<AssetList> {
       switch (key) {
         case 'assets':
           result.assets.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(Asset)]))
+                  specifiedType: const FullType(BuiltList, [FullType(Asset)]))
               as BuiltList<Object>);
           break;
       }
@@ -57,7 +55,7 @@ class _$AssetList extends AssetList {
   final BuiltList<Asset> assets;
 
   factory _$AssetList([void Function(AssetListBuilder) updates]) =>
-      (new AssetListBuilder()..update(updates)).build();
+      (AssetListBuilder()..update(updates)).build();
 
   _$AssetList._({this.assets}) : super._();
 
@@ -66,7 +64,7 @@ class _$AssetList extends AssetList {
       (toBuilder()..update(updates)).build();
 
   @override
-  AssetListBuilder toBuilder() => new AssetListBuilder()..replace(this);
+  AssetListBuilder toBuilder() => AssetListBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -90,7 +88,7 @@ class AssetListBuilder implements Builder<AssetList, AssetListBuilder> {
   _$AssetList _$v;
 
   ListBuilder<Asset> _assets;
-  ListBuilder<Asset> get assets => _$this._assets ??= new ListBuilder<Asset>();
+  ListBuilder<Asset> get assets => _$this._assets ??= ListBuilder<Asset>();
   set assets(ListBuilder<Asset> assets) => _$this._assets = assets;
 
   AssetListBuilder();
@@ -106,7 +104,7 @@ class AssetListBuilder implements Builder<AssetList, AssetListBuilder> {
   @override
   void replace(AssetList other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$AssetList;
   }
@@ -120,14 +118,14 @@ class AssetListBuilder implements Builder<AssetList, AssetListBuilder> {
   _$AssetList build() {
     _$AssetList _$result;
     try {
-      _$result = _$v ?? new _$AssetList._(assets: _assets?.build());
+      _$result = _$v ?? _$AssetList._(assets: _assets?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'assets';
         _assets?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'AssetList', _$failedField, e.toString());
       }
       rethrow;

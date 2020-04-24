@@ -8,7 +8,7 @@ part of 'apiv1_post_multisig_list_response.dart';
 
 Serializer<APIV1POSTMultisigListResponse>
     _$aPIV1POSTMultisigListResponseSerializer =
-    new _$APIV1POSTMultisigListResponseSerializer();
+    _$APIV1POSTMultisigListResponseSerializer();
 
 class _$APIV1POSTMultisigListResponseSerializer
     implements StructuredSerializer<APIV1POSTMultisigListResponse> {
@@ -29,8 +29,7 @@ class _$APIV1POSTMultisigListResponseSerializer
       result
         ..add('addresses')
         ..add(serializers.serialize(object.addresses,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+            specifiedType: const FullType(BuiltList, [FullType(String)])));
     }
     if (object.error != null) {
       result
@@ -51,7 +50,7 @@ class _$APIV1POSTMultisigListResponseSerializer
   APIV1POSTMultisigListResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTMultisigListResponseBuilder();
+    final result = APIV1POSTMultisigListResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -61,8 +60,7 @@ class _$APIV1POSTMultisigListResponseSerializer
       switch (key) {
         case 'addresses':
           result.addresses.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
+                  specifiedType: const FullType(BuiltList, [FullType(String)]))
               as BuiltList<Object>);
           break;
         case 'error':
@@ -90,7 +88,7 @@ class _$APIV1POSTMultisigListResponse extends APIV1POSTMultisigListResponse {
 
   factory _$APIV1POSTMultisigListResponse(
           [void Function(APIV1POSTMultisigListResponseBuilder) updates]) =>
-      (new APIV1POSTMultisigListResponseBuilder()..update(updates)).build();
+      (APIV1POSTMultisigListResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTMultisigListResponse._({this.addresses, this.error, this.message})
       : super._();
@@ -102,7 +100,7 @@ class _$APIV1POSTMultisigListResponse extends APIV1POSTMultisigListResponse {
 
   @override
   APIV1POSTMultisigListResponseBuilder toBuilder() =>
-      new APIV1POSTMultisigListResponseBuilder()..replace(this);
+      APIV1POSTMultisigListResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -137,7 +135,7 @@ class APIV1POSTMultisigListResponseBuilder
 
   ListBuilder<String> _addresses;
   ListBuilder<String> get addresses =>
-      _$this._addresses ??= new ListBuilder<String>();
+      _$this._addresses ??= ListBuilder<String>();
   set addresses(ListBuilder<String> addresses) => _$this._addresses = addresses;
 
   bool _error;
@@ -163,7 +161,7 @@ class APIV1POSTMultisigListResponseBuilder
   @override
   void replace(APIV1POSTMultisigListResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTMultisigListResponse;
   }
@@ -178,7 +176,7 @@ class APIV1POSTMultisigListResponseBuilder
     _$APIV1POSTMultisigListResponse _$result;
     try {
       _$result = _$v ??
-          new _$APIV1POSTMultisigListResponse._(
+          _$APIV1POSTMultisigListResponse._(
               addresses: _addresses?.build(), error: error, message: message);
     } catch (_) {
       String _$failedField;
@@ -186,7 +184,7 @@ class APIV1POSTMultisigListResponseBuilder
         _$failedField = 'addresses';
         _addresses?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'APIV1POSTMultisigListResponse', _$failedField, e.toString());
       }
       rethrow;

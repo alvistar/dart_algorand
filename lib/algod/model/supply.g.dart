@@ -6,7 +6,7 @@ part of 'supply.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Supply> _$supplySerializer = new _$SupplySerializer();
+Serializer<Supply> _$supplySerializer = _$SupplySerializer();
 
 class _$SupplySerializer implements StructuredSerializer<Supply> {
   @override
@@ -42,7 +42,7 @@ class _$SupplySerializer implements StructuredSerializer<Supply> {
   @override
   Supply deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new SupplyBuilder();
+    final result = SupplyBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -78,7 +78,7 @@ class _$Supply extends Supply {
   final int totalMoney;
 
   factory _$Supply([void Function(SupplyBuilder) updates]) =>
-      (new SupplyBuilder()..update(updates)).build();
+      (SupplyBuilder()..update(updates)).build();
 
   _$Supply._({this.onlineMoney, this.round, this.totalMoney}) : super._();
 
@@ -87,7 +87,7 @@ class _$Supply extends Supply {
       (toBuilder()..update(updates)).build();
 
   @override
-  SupplyBuilder toBuilder() => new SupplyBuilder()..replace(this);
+  SupplyBuilder toBuilder() => SupplyBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -144,7 +144,7 @@ class SupplyBuilder implements Builder<Supply, SupplyBuilder> {
   @override
   void replace(Supply other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$Supply;
   }
@@ -157,7 +157,7 @@ class SupplyBuilder implements Builder<Supply, SupplyBuilder> {
   @override
   _$Supply build() {
     final _$result = _$v ??
-        new _$Supply._(
+        _$Supply._(
             onlineMoney: onlineMoney, round: round, totalMoney: totalMoney);
     replace(_$result);
     return _$result;

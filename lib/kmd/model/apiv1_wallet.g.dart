@@ -6,7 +6,7 @@ part of 'apiv1_wallet.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<APIV1Wallet> _$aPIV1WalletSerializer = new _$APIV1WalletSerializer();
+Serializer<APIV1Wallet> _$aPIV1WalletSerializer = _$APIV1WalletSerializer();
 
 class _$APIV1WalletSerializer implements StructuredSerializer<APIV1Wallet> {
   @override
@@ -52,8 +52,7 @@ class _$APIV1WalletSerializer implements StructuredSerializer<APIV1Wallet> {
       result
         ..add('supported_txs')
         ..add(serializers.serialize(object.supportedTxs,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+            specifiedType: const FullType(BuiltList, [FullType(String)])));
     }
     return result;
   }
@@ -61,7 +60,7 @@ class _$APIV1WalletSerializer implements StructuredSerializer<APIV1Wallet> {
   @override
   APIV1Wallet deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1WalletBuilder();
+    final result = APIV1WalletBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -91,8 +90,7 @@ class _$APIV1WalletSerializer implements StructuredSerializer<APIV1Wallet> {
           break;
         case 'supported_txs':
           result.supportedTxs.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
+                  specifiedType: const FullType(BuiltList, [FullType(String)]))
               as BuiltList<Object>);
           break;
       }
@@ -117,7 +115,7 @@ class _$APIV1Wallet extends APIV1Wallet {
   final BuiltList<String> supportedTxs;
 
   factory _$APIV1Wallet([void Function(APIV1WalletBuilder) updates]) =>
-      (new APIV1WalletBuilder()..update(updates)).build();
+      (APIV1WalletBuilder()..update(updates)).build();
 
   _$APIV1Wallet._(
       {this.driverName,
@@ -133,7 +131,7 @@ class _$APIV1Wallet extends APIV1Wallet {
       (toBuilder()..update(updates)).build();
 
   @override
-  APIV1WalletBuilder toBuilder() => new APIV1WalletBuilder()..replace(this);
+  APIV1WalletBuilder toBuilder() => APIV1WalletBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -197,7 +195,7 @@ class APIV1WalletBuilder implements Builder<APIV1Wallet, APIV1WalletBuilder> {
 
   ListBuilder<String> _supportedTxs;
   ListBuilder<String> get supportedTxs =>
-      _$this._supportedTxs ??= new ListBuilder<String>();
+      _$this._supportedTxs ??= ListBuilder<String>();
   set supportedTxs(ListBuilder<String> supportedTxs) =>
       _$this._supportedTxs = supportedTxs;
 
@@ -219,7 +217,7 @@ class APIV1WalletBuilder implements Builder<APIV1Wallet, APIV1WalletBuilder> {
   @override
   void replace(APIV1Wallet other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1Wallet;
   }
@@ -234,7 +232,7 @@ class APIV1WalletBuilder implements Builder<APIV1Wallet, APIV1WalletBuilder> {
     _$APIV1Wallet _$result;
     try {
       _$result = _$v ??
-          new _$APIV1Wallet._(
+          _$APIV1Wallet._(
               driverName: driverName,
               driverVersion: driverVersion,
               id: id,
@@ -247,7 +245,7 @@ class APIV1WalletBuilder implements Builder<APIV1Wallet, APIV1WalletBuilder> {
         _$failedField = 'supportedTxs';
         _supportedTxs?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'APIV1Wallet', _$failedField, e.toString());
       }
       rethrow;

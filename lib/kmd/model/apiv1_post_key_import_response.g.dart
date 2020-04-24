@@ -7,7 +7,7 @@ part of 'apiv1_post_key_import_response.dart';
 // **************************************************************************
 
 Serializer<APIV1POSTKeyImportResponse> _$aPIV1POSTKeyImportResponseSerializer =
-    new _$APIV1POSTKeyImportResponseSerializer();
+    _$APIV1POSTKeyImportResponseSerializer();
 
 class _$APIV1POSTKeyImportResponseSerializer
     implements StructuredSerializer<APIV1POSTKeyImportResponse> {
@@ -49,7 +49,7 @@ class _$APIV1POSTKeyImportResponseSerializer
   APIV1POSTKeyImportResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTKeyImportResponseBuilder();
+    final result = APIV1POSTKeyImportResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -86,7 +86,7 @@ class _$APIV1POSTKeyImportResponse extends APIV1POSTKeyImportResponse {
 
   factory _$APIV1POSTKeyImportResponse(
           [void Function(APIV1POSTKeyImportResponseBuilder) updates]) =>
-      (new APIV1POSTKeyImportResponseBuilder()..update(updates)).build();
+      (APIV1POSTKeyImportResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTKeyImportResponse._({this.address, this.error, this.message})
       : super._();
@@ -98,7 +98,7 @@ class _$APIV1POSTKeyImportResponse extends APIV1POSTKeyImportResponse {
 
   @override
   APIV1POSTKeyImportResponseBuilder toBuilder() =>
-      new APIV1POSTKeyImportResponseBuilder()..replace(this);
+      APIV1POSTKeyImportResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -157,7 +157,7 @@ class APIV1POSTKeyImportResponseBuilder
   @override
   void replace(APIV1POSTKeyImportResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTKeyImportResponse;
   }
@@ -170,7 +170,7 @@ class APIV1POSTKeyImportResponseBuilder
   @override
   _$APIV1POSTKeyImportResponse build() {
     final _$result = _$v ??
-        new _$APIV1POSTKeyImportResponse._(
+        _$APIV1POSTKeyImportResponse._(
             address: address, error: error, message: message);
     replace(_$result);
     return _$result;

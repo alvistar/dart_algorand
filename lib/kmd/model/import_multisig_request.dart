@@ -28,7 +28,7 @@ abstract class ImportMultisigRequest
   ImportMultisigRequest._();
 
   factory ImportMultisigRequest(
-      [Function(ImportMultisigRequestBuilder) updates]) =
+          [Function(ImportMultisigRequestBuilder) updates]) =
       _$ImportMultisigRequest;
 
   static Serializer<ImportMultisigRequest> get serializer =>

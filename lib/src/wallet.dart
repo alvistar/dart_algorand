@@ -156,26 +156,29 @@ class Wallet {
   /// Returns multisig transaction with added signature
   Future<MultisigTransaction> signMultisigTransaction(
       String publicKey, MultisigTransaction mtx) async {
-    return await kmdClient.signMultisigTransaction(handle: await handle,
-        password: walletPassword, publicKey: publicKey, mtx: mtx);
+    return await kmdClient.signMultisigTransaction(
+        handle: await handle,
+        password: walletPassword,
+        publicKey: publicKey,
+        mtx: mtx);
   }
 
   /// Rename the wallet with [newName]
-  Future <APIV1Wallet> rename (String newName) async {
-    final result = await kmdClient.renameWallet(id: id,
-        password: walletPassword, newName: newName);
+  Future<APIV1Wallet> rename(String newName) async {
+    final result = await kmdClient.renameWallet(
+        id: id, password: walletPassword, newName: newName);
 
     walletName = newName;
     return result;
   }
 
   /// Get wallet information
-  Future <APIV1WalletHandle> info () async {
+  Future<APIV1WalletHandle> info() async {
     return await kmdClient.getWalletInfo(await handle);
   }
 
   /// Deactivate the current handle
-  Future <bool> releaseHandle() async {
+  Future<bool> releaseHandle() async {
     final result = await kmdClient.releaseWalletHandle(_handle);
     _handle = null;
     return result;

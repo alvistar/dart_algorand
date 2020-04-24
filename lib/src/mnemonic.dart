@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:meta/meta.dart';
 
-
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/wordlist.dart';
 import 'package:pinenacl/api.dart';
@@ -20,7 +19,7 @@ String to_master_derivation_key(String mnemonic) {
 /// Return the private key for the mnemonic.
 String to_private_key(String mnemonic) {
   final keyBytes = to_key(mnemonic);
-  final key = SigningKey(seed:keyBytes);
+  final key = SigningKey(seed: keyBytes);
   return base64Encode(keyBytes + key.verifyKey);
 }
 
@@ -33,7 +32,7 @@ String from_private_key(String key) {
 /// Return the public key for the mnemonic.
 String to_public_key(String mnemonic) {
   final key_bytes = to_key(mnemonic);
-  final key = SigningKey(seed:key_bytes);
+  final key = SigningKey(seed: key_bytes);
   return encode_address(key.verifyKey);
 }
 
@@ -47,19 +46,18 @@ Uint8List to_key(String mnemonic) {
   }
 
   final mChecksum = mlist.last;
-  final mm = _from_words(mlist.sublist(0, mlist.length-1));
+  final mm = _from_words(mlist.sublist(0, mlist.length - 1));
   final mbytes = _to_bytes(mm);
 
   if (mbytes.last != 0) {
     throw WrongChecksumError();
   }
 
-  final chksum = mnemonicChecksum(mbytes.sublist(0,KEY_LEN_BYTES));
+  final chksum = mnemonicChecksum(mbytes.sublist(0, KEY_LEN_BYTES));
 
   if (chksum == mChecksum) {
-    return mbytes.sublist(0,KEY_LEN_BYTES);
-  }
-  else {
+    return mbytes.sublist(0, KEY_LEN_BYTES);
+  } else {
     throw WrongChecksumError();
   }
 }
@@ -78,9 +76,8 @@ String from_key(Uint8List key) {
   return words.join(' ') + ' ' + chksum;
 }
 
-
 int idxHelper(int idx) {
-  if (idx == -1 ) {
+  if (idx == -1) {
     throw WordNotInList();
   }
 
@@ -106,7 +103,6 @@ Uint8List _to_bytes(List<int> nums) {
   var buffer = 0;
   var num_of_bits = 0;
   var output = <int>[];
-
 
   for (var i in nums) {
     buffer |= i << num_of_bits;
@@ -138,9 +134,8 @@ String mnemonicChecksum(Uint8List data) {
 List<String> _apply_words(List<int> nums) {
   final word_list = WORD_LIST_RAW.split('\n');
 
-  return [for (var n in nums) word_list[n] ];
+  return [for (var n in nums) word_list[n]];
 }
-
 
 ///  Convert a bytearray to an list of 11-bit numbers.
 List<int> _to_11_bit(Uint8List data) {

@@ -8,7 +8,7 @@ part of 'renew_wallet_handle_token_request.dart';
 
 Serializer<RenewWalletHandleTokenRequest>
     _$renewWalletHandleTokenRequestSerializer =
-    new _$RenewWalletHandleTokenRequestSerializer();
+    _$RenewWalletHandleTokenRequestSerializer();
 
 class _$RenewWalletHandleTokenRequestSerializer
     implements StructuredSerializer<RenewWalletHandleTokenRequest> {
@@ -38,7 +38,7 @@ class _$RenewWalletHandleTokenRequestSerializer
   RenewWalletHandleTokenRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new RenewWalletHandleTokenRequestBuilder();
+    final result = RenewWalletHandleTokenRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -63,7 +63,7 @@ class _$RenewWalletHandleTokenRequest extends RenewWalletHandleTokenRequest {
 
   factory _$RenewWalletHandleTokenRequest(
           [void Function(RenewWalletHandleTokenRequestBuilder) updates]) =>
-      (new RenewWalletHandleTokenRequestBuilder()..update(updates)).build();
+      (RenewWalletHandleTokenRequestBuilder()..update(updates)).build();
 
   _$RenewWalletHandleTokenRequest._({this.walletHandleToken}) : super._();
 
@@ -74,7 +74,7 @@ class _$RenewWalletHandleTokenRequest extends RenewWalletHandleTokenRequest {
 
   @override
   RenewWalletHandleTokenRequestBuilder toBuilder() =>
-      new RenewWalletHandleTokenRequestBuilder()..replace(this);
+      RenewWalletHandleTokenRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -120,7 +120,7 @@ class RenewWalletHandleTokenRequestBuilder
   @override
   void replace(RenewWalletHandleTokenRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$RenewWalletHandleTokenRequest;
   }
@@ -133,8 +133,7 @@ class RenewWalletHandleTokenRequestBuilder
   @override
   _$RenewWalletHandleTokenRequest build() {
     final _$result = _$v ??
-        new _$RenewWalletHandleTokenRequest._(
-            walletHandleToken: walletHandleToken);
+        _$RenewWalletHandleTokenRequest._(walletHandleToken: walletHandleToken);
     replace(_$result);
     return _$result;
   }

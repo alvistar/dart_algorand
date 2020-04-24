@@ -40,8 +40,7 @@ void main() async {
       asset_name: assetName,
       url: url,
       metadata_hash: metadata,
-      default_frozen: defaultFrozen
-  );
+      default_frozen: defaultFrozen);
 
 // sign the transaction
   final signed_txn = txn.sign(creator.private_key);

@@ -8,7 +8,7 @@ part of 'apiv1_post_multisig_import_response.dart';
 
 Serializer<APIV1POSTMultisigImportResponse>
     _$aPIV1POSTMultisigImportResponseSerializer =
-    new _$APIV1POSTMultisigImportResponseSerializer();
+    _$APIV1POSTMultisigImportResponseSerializer();
 
 class _$APIV1POSTMultisigImportResponseSerializer
     implements StructuredSerializer<APIV1POSTMultisigImportResponse> {
@@ -50,7 +50,7 @@ class _$APIV1POSTMultisigImportResponseSerializer
   APIV1POSTMultisigImportResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTMultisigImportResponseBuilder();
+    final result = APIV1POSTMultisigImportResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -88,7 +88,7 @@ class _$APIV1POSTMultisigImportResponse
 
   factory _$APIV1POSTMultisigImportResponse(
           [void Function(APIV1POSTMultisigImportResponseBuilder) updates]) =>
-      (new APIV1POSTMultisigImportResponseBuilder()..update(updates)).build();
+      (APIV1POSTMultisigImportResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTMultisigImportResponse._({this.address, this.error, this.message})
       : super._();
@@ -100,7 +100,7 @@ class _$APIV1POSTMultisigImportResponse
 
   @override
   APIV1POSTMultisigImportResponseBuilder toBuilder() =>
-      new APIV1POSTMultisigImportResponseBuilder()..replace(this);
+      APIV1POSTMultisigImportResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -160,7 +160,7 @@ class APIV1POSTMultisigImportResponseBuilder
   @override
   void replace(APIV1POSTMultisigImportResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTMultisigImportResponse;
   }
@@ -173,7 +173,7 @@ class APIV1POSTMultisigImportResponseBuilder
   @override
   _$APIV1POSTMultisigImportResponse build() {
     final _$result = _$v ??
-        new _$APIV1POSTMultisigImportResponse._(
+        _$APIV1POSTMultisigImportResponse._(
             address: address, error: error, message: message);
     replace(_$result);
     return _$result;

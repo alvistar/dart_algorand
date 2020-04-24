@@ -7,7 +7,7 @@ part of 'apiv1_wallet_handle.dart';
 // **************************************************************************
 
 Serializer<APIV1WalletHandle> _$aPIV1WalletHandleSerializer =
-    new _$APIV1WalletHandleSerializer();
+    _$APIV1WalletHandleSerializer();
 
 class _$APIV1WalletHandleSerializer
     implements StructuredSerializer<APIV1WalletHandle> {
@@ -39,7 +39,7 @@ class _$APIV1WalletHandleSerializer
   APIV1WalletHandle deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1WalletHandleBuilder();
+    final result = APIV1WalletHandleBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,7 +70,7 @@ class _$APIV1WalletHandle extends APIV1WalletHandle {
 
   factory _$APIV1WalletHandle(
           [void Function(APIV1WalletHandleBuilder) updates]) =>
-      (new APIV1WalletHandleBuilder()..update(updates)).build();
+      (APIV1WalletHandleBuilder()..update(updates)).build();
 
   _$APIV1WalletHandle._({this.expiresSeconds, this.wallet}) : super._();
 
@@ -80,7 +80,7 @@ class _$APIV1WalletHandle extends APIV1WalletHandle {
 
   @override
   APIV1WalletHandleBuilder toBuilder() =>
-      new APIV1WalletHandleBuilder()..replace(this);
+      APIV1WalletHandleBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -114,7 +114,7 @@ class APIV1WalletHandleBuilder
       _$this._expiresSeconds = expiresSeconds;
 
   APIV1WalletBuilder _wallet;
-  APIV1WalletBuilder get wallet => _$this._wallet ??= new APIV1WalletBuilder();
+  APIV1WalletBuilder get wallet => _$this._wallet ??= APIV1WalletBuilder();
   set wallet(APIV1WalletBuilder wallet) => _$this._wallet = wallet;
 
   APIV1WalletHandleBuilder();
@@ -131,7 +131,7 @@ class APIV1WalletHandleBuilder
   @override
   void replace(APIV1WalletHandle other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1WalletHandle;
   }
@@ -146,7 +146,7 @@ class APIV1WalletHandleBuilder
     _$APIV1WalletHandle _$result;
     try {
       _$result = _$v ??
-          new _$APIV1WalletHandle._(
+          _$APIV1WalletHandle._(
               expiresSeconds: expiresSeconds, wallet: _wallet?.build());
     } catch (_) {
       String _$failedField;
@@ -154,7 +154,7 @@ class APIV1WalletHandleBuilder
         _$failedField = 'wallet';
         _wallet?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'APIV1WalletHandle', _$failedField, e.toString());
       }
       rethrow;

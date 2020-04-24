@@ -1,28 +1,27 @@
-        import 'package:built_value/built_value.dart';
+import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'delete_multisig_request.g.dart';
 
-abstract class DeleteMultisigRequest implements Built<DeleteMultisigRequest, DeleteMultisigRequestBuilder> {
+abstract class DeleteMultisigRequest
+    implements Built<DeleteMultisigRequest, DeleteMultisigRequestBuilder> {
+  @nullable
+  @BuiltValueField(wireName: r'address')
+  String get address;
 
-    
-        @nullable
-    @BuiltValueField(wireName: r'address')
-    String get address;
-    
-        @nullable
-    @BuiltValueField(wireName: r'wallet_handle_token')
-    String get walletHandleToken;
-    
-        @nullable
-    @BuiltValueField(wireName: r'wallet_password')
-    String get walletPassword;
+  @nullable
+  @BuiltValueField(wireName: r'wallet_handle_token')
+  String get walletHandleToken;
 
-    // Boilerplate code needed to wire-up generated code
-    DeleteMultisigRequest._();
+  @nullable
+  @BuiltValueField(wireName: r'wallet_password')
+  String get walletPassword;
 
-    factory DeleteMultisigRequest([updates(DeleteMultisigRequestBuilder b)]) = _$DeleteMultisigRequest;
-    static Serializer<DeleteMultisigRequest> get serializer => _$deleteMultisigRequestSerializer;
+  // Boilerplate code needed to wire-up generated code
+  DeleteMultisigRequest._();
 
+  factory DeleteMultisigRequest([updates(DeleteMultisigRequestBuilder b)]) =
+      _$DeleteMultisigRequest;
+  static Serializer<DeleteMultisigRequest> get serializer =>
+      _$deleteMultisigRequestSerializer;
 }
-

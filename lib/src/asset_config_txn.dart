@@ -126,7 +126,6 @@ class AssetConfigTxn extends Transaction {
             genesis_hash: genesis_hash,
             lease: lease,
             type: ASSETCONFIG_TXN) {
-
     if (default_frozen == null) {
       throw ArgumentError();
     }

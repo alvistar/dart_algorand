@@ -1,4 +1,3 @@
-
 import 'package:dart_algorand/algod.dart';
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:pinenacl/api.dart';
@@ -9,8 +8,7 @@ import 'package:dio/dio.dart';
 
 import 'private.dart';
 
-
-AlgodApi init_client () {
+AlgodApi init_client() {
   final options = BaseOptions(
     baseUrl: 'http://algorand-testnet.beappia.com',
     connectTimeout: 5000,
@@ -18,24 +16,21 @@ AlgodApi init_client () {
   );
 
   final dio = Dio(options);
-  dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (Options options) {
-        options.headers['X-Algo-API-Token']=PRIVATE_TOKEN;
-      },
-      onError: (DioError e) {
-        if (e.response != null) {
-          print(e.response.data);
-          print(e.response.headers);
-          print(e.response.request);
-        } else {
-          // Something happened in setting up or sending the request that triggered an Error
-          print(e.request);
-          print(e.message);
-        }
+  dio.interceptors.add(InterceptorsWrapper(onRequest: (Options options) {
+    options.headers['X-Algo-API-Token'] = PRIVATE_TOKEN;
+  }, onError: (DioError e) {
+    if (e.response != null) {
+      print(e.response.data);
+      print(e.response.headers);
+      print(e.response.request);
+    } else {
+      // Something happened in setting up or sending the request that triggered an Error
+      print(e.request);
+      print(e.message);
+    }
 
-        return e;
-      }
-  ));
+    return e;
+  }));
 
   return Openapi(dio: dio).getAlgodApi();
 }
@@ -99,13 +94,14 @@ main() async {
       fee: params.minFee,
       amt: 10000,
       first_valid_round: params.lastRound,
-      last_valid_round: params.lastRound+1000,
+      last_valid_round: params.lastRound + 1000,
       genesis_id: params.genesisID,
       genesis_hash: params.genesishashb64);
 
   print(t.dictify());
 
-  const PRIV_KEY = 'ME81aVXutEYkMKdNjKHKaspLGH9+d2zQdTX8WbVazXwKBEAt4AJnurAze0nqc4cCTZUymYMxapHCMxo6qg6caQ==';
+  const PRIV_KEY =
+      'ME81aVXutEYkMKdNjKHKaspLGH9+d2zQdTX8WbVazXwKBEAt4AJnurAze0nqc4cCTZUymYMxapHCMxo6qg6caQ==';
 
   // Sign transaction
 
@@ -117,16 +113,12 @@ main() async {
   print("SIGNATURE:");
 
   print(hex.encode(st.dictify()['sig']));
-  
+
   // Send transaction
 
-  final rawtxn =base64Decode(msgpack_encode(st));
+  final rawtxn = base64Decode(msgpack_encode(st));
 
   final result = await api_instance.rawTransaction(rawtxn);
 
-
 //  print(result);
-  
-
-
 }

@@ -3,7 +3,6 @@ const CHECK_SUM_LEN_BYTES = 4;
 
 const KEY_LEN_BYTES = 32;
 
-
 /// transaction prefix when signing
 const TXID_PREFIX = 'TX';
 
@@ -55,7 +54,7 @@ const METADATA_LENGTH = 32;
 const MULTISIG_ACCOUNT_LIMIT = 255;
 
 /// max size of a teal program and its arguments in bytes
-const  LOGIC_SIG_MAX_SIZE = 1000;
+const LOGIC_SIG_MAX_SIZE = 1000;
 
 /// max execution cost of a teal program
 const LOGIC_SIG_MAX_COST = 20000;

@@ -52,202 +52,162 @@ import 'model/sign_transaction_request.dart';
 import 'model/versions_response.dart';
 import 'model/wallet_info_request.dart';
 
-
 part 'serializers.g.dart';
 
 @SerializersFor([
-APIV1DELETEKeyResponse,
-APIV1DELETEMultisigResponse,
-APIV1GETWalletsResponse,
-APIV1POSTKeyExportResponse,
-APIV1POSTKeyImportResponse,
-APIV1POSTKeyListResponse,
-APIV1POSTKeyResponse,
-APIV1POSTMasterKeyExportResponse,
-APIV1POSTMultisigExportResponse,
-APIV1POSTMultisigImportResponse,
-APIV1POSTMultisigListResponse,
-APIV1POSTMultisigProgramSignResponse,
-APIV1POSTMultisigTransactionSignResponse,
-APIV1POSTProgramSignResponse,
-APIV1POSTTransactionSignResponse,
-APIV1POSTWalletInfoResponse,
-APIV1POSTWalletInitResponse,
-APIV1POSTWalletReleaseResponse,
-APIV1POSTWalletRenameResponse,
-APIV1POSTWalletRenewResponse,
-APIV1POSTWalletResponse,
-APIV1Wallet,
-APIV1WalletHandle,
-CreateWalletRequest,
-DeleteKeyRequest,
-DeleteMultisigRequest,
-ExportKeyRequest,
-ExportMasterKeyRequest,
-ExportMultisigRequest,
-GenerateKeyRequest,
-ImportKeyRequest,
-ImportMultisigRequest,
-InitWalletHandleTokenRequest,
-ListKeysRequest,
-ListMultisigRequest,
-MultisigSig,
-MultisigSubsig,
-ReleaseWalletHandleTokenRequest,
-RenameWalletRequest,
-RenewWalletHandleTokenRequest,
-SignMultisigRequest,
-SignProgramMultisigRequest,
-SignProgramRequest,
-SignTransactionRequest,
-VersionsResponse,
-WalletInfoRequest,
-
+  APIV1DELETEKeyResponse,
+  APIV1DELETEMultisigResponse,
+  APIV1GETWalletsResponse,
+  APIV1POSTKeyExportResponse,
+  APIV1POSTKeyImportResponse,
+  APIV1POSTKeyListResponse,
+  APIV1POSTKeyResponse,
+  APIV1POSTMasterKeyExportResponse,
+  APIV1POSTMultisigExportResponse,
+  APIV1POSTMultisigImportResponse,
+  APIV1POSTMultisigListResponse,
+  APIV1POSTMultisigProgramSignResponse,
+  APIV1POSTMultisigTransactionSignResponse,
+  APIV1POSTProgramSignResponse,
+  APIV1POSTTransactionSignResponse,
+  APIV1POSTWalletInfoResponse,
+  APIV1POSTWalletInitResponse,
+  APIV1POSTWalletReleaseResponse,
+  APIV1POSTWalletRenameResponse,
+  APIV1POSTWalletRenewResponse,
+  APIV1POSTWalletResponse,
+  APIV1Wallet,
+  APIV1WalletHandle,
+  CreateWalletRequest,
+  DeleteKeyRequest,
+  DeleteMultisigRequest,
+  ExportKeyRequest,
+  ExportMasterKeyRequest,
+  ExportMultisigRequest,
+  GenerateKeyRequest,
+  ImportKeyRequest,
+  ImportMultisigRequest,
+  InitWalletHandleTokenRequest,
+  ListKeysRequest,
+  ListMultisigRequest,
+  MultisigSig,
+  MultisigSubsig,
+  ReleaseWalletHandleTokenRequest,
+  RenameWalletRequest,
+  RenewWalletHandleTokenRequest,
+  SignMultisigRequest,
+  SignProgramMultisigRequest,
+  SignProgramRequest,
+  SignTransactionRequest,
+  VersionsResponse,
+  WalletInfoRequest,
 ])
 
 //allow all models to be serialized within a list
 Serializers serializers = (_$serializers.toBuilder()
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1DELETEKeyResponse)]),
-() => new ListBuilder<APIV1DELETEKeyResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1DELETEMultisigResponse)]),
-() => new ListBuilder<APIV1DELETEMultisigResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1GETWalletsResponse)]),
-() => new ListBuilder<APIV1GETWalletsResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTKeyExportResponse)]),
-() => new ListBuilder<APIV1POSTKeyExportResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTKeyImportResponse)]),
-() => new ListBuilder<APIV1POSTKeyImportResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTKeyListResponse)]),
-() => new ListBuilder<APIV1POSTKeyListResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTKeyResponse)]),
-() => new ListBuilder<APIV1POSTKeyResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTMasterKeyExportResponse)]),
-() => new ListBuilder<APIV1POSTMasterKeyExportResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTMultisigExportResponse)]),
-() => new ListBuilder<APIV1POSTMultisigExportResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTMultisigImportResponse)]),
-() => new ListBuilder<APIV1POSTMultisigImportResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTMultisigListResponse)]),
-() => new ListBuilder<APIV1POSTMultisigListResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTMultisigProgramSignResponse)]),
-() => new ListBuilder<APIV1POSTMultisigProgramSignResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTMultisigTransactionSignResponse)]),
-() => new ListBuilder<APIV1POSTMultisigTransactionSignResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTProgramSignResponse)]),
-() => new ListBuilder<APIV1POSTProgramSignResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTTransactionSignResponse)]),
-() => new ListBuilder<APIV1POSTTransactionSignResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTWalletInfoResponse)]),
-() => new ListBuilder<APIV1POSTWalletInfoResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTWalletInitResponse)]),
-() => new ListBuilder<APIV1POSTWalletInitResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTWalletReleaseResponse)]),
-() => new ListBuilder<APIV1POSTWalletReleaseResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTWalletRenameResponse)]),
-() => new ListBuilder<APIV1POSTWalletRenameResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTWalletRenewResponse)]),
-() => new ListBuilder<APIV1POSTWalletRenewResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1POSTWalletResponse)]),
-() => new ListBuilder<APIV1POSTWalletResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1Wallet)]),
-() => new ListBuilder<APIV1Wallet>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(APIV1WalletHandle)]),
-() => new ListBuilder<APIV1WalletHandle>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(CreateWalletRequest)]),
-() => new ListBuilder<CreateWalletRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(DeleteKeyRequest)]),
-() => new ListBuilder<DeleteKeyRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(DeleteMultisigRequest)]),
-() => new ListBuilder<DeleteMultisigRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(ExportKeyRequest)]),
-() => new ListBuilder<ExportKeyRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(ExportMasterKeyRequest)]),
-() => new ListBuilder<ExportMasterKeyRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(ExportMultisigRequest)]),
-() => new ListBuilder<ExportMultisigRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(GenerateKeyRequest)]),
-() => new ListBuilder<GenerateKeyRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(ImportKeyRequest)]),
-() => new ListBuilder<ImportKeyRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(ImportMultisigRequest)]),
-() => new ListBuilder<ImportMultisigRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(InitWalletHandleTokenRequest)]),
-() => new ListBuilder<InitWalletHandleTokenRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(ListKeysRequest)]),
-() => new ListBuilder<ListKeysRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(ListMultisigRequest)]),
-() => new ListBuilder<ListMultisigRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(MultisigSig)]),
-() => new ListBuilder<MultisigSig>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(MultisigSubsig)]),
-() => new ListBuilder<MultisigSubsig>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(ReleaseWalletHandleTokenRequest)]),
-() => new ListBuilder<ReleaseWalletHandleTokenRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(RenameWalletRequest)]),
-() => new ListBuilder<RenameWalletRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(RenewWalletHandleTokenRequest)]),
-() => new ListBuilder<RenewWalletHandleTokenRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(SignMultisigRequest)]),
-() => new ListBuilder<SignMultisigRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(SignProgramMultisigRequest)]),
-() => new ListBuilder<SignProgramMultisigRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(SignProgramRequest)]),
-() => new ListBuilder<SignProgramRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(SignTransactionRequest)]),
-() => new ListBuilder<SignTransactionRequest>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(VersionsResponse)]),
-() => new ListBuilder<VersionsResponse>())
-..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(WalletInfoRequest)]),
-() => new ListBuilder<WalletInfoRequest>())
-
-).build();
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1DELETEKeyResponse)]),
+          () => ListBuilder<APIV1DELETEKeyResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1DELETEMultisigResponse)]),
+          () => ListBuilder<APIV1DELETEMultisigResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1GETWalletsResponse)]),
+          () => ListBuilder<APIV1GETWalletsResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTKeyExportResponse)]),
+          () => ListBuilder<APIV1POSTKeyExportResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTKeyImportResponse)]),
+          () => ListBuilder<APIV1POSTKeyImportResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTKeyListResponse)]),
+          () => ListBuilder<APIV1POSTKeyListResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTKeyResponse)]),
+          () => ListBuilder<APIV1POSTKeyResponse>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, [FullType(APIV1POSTMasterKeyExportResponse)]),
+          () => ListBuilder<APIV1POSTMasterKeyExportResponse>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, [FullType(APIV1POSTMultisigExportResponse)]),
+          () => ListBuilder<APIV1POSTMultisigExportResponse>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, [FullType(APIV1POSTMultisigImportResponse)]),
+          () => ListBuilder<APIV1POSTMultisigImportResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTMultisigListResponse)]),
+          () => ListBuilder<APIV1POSTMultisigListResponse>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, [FullType(APIV1POSTMultisigProgramSignResponse)]),
+          () => ListBuilder<APIV1POSTMultisigProgramSignResponse>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, [FullType(APIV1POSTMultisigTransactionSignResponse)]),
+          () => ListBuilder<APIV1POSTMultisigTransactionSignResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTProgramSignResponse)]),
+          () => ListBuilder<APIV1POSTProgramSignResponse>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, [FullType(APIV1POSTTransactionSignResponse)]),
+          () => ListBuilder<APIV1POSTTransactionSignResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTWalletInfoResponse)]),
+          () => ListBuilder<APIV1POSTWalletInfoResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTWalletInitResponse)]),
+          () => ListBuilder<APIV1POSTWalletInitResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTWalletReleaseResponse)]),
+          () => ListBuilder<APIV1POSTWalletReleaseResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTWalletRenameResponse)]),
+          () => ListBuilder<APIV1POSTWalletRenameResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTWalletRenewResponse)]),
+          () => ListBuilder<APIV1POSTWalletRenewResponse>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1POSTWalletResponse)]),
+          () => ListBuilder<APIV1POSTWalletResponse>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(APIV1Wallet)]),
+          () => ListBuilder<APIV1Wallet>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(APIV1WalletHandle)]),
+          () => ListBuilder<APIV1WalletHandle>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(CreateWalletRequest)]),
+          () => ListBuilder<CreateWalletRequest>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(DeleteKeyRequest)]),
+          () => ListBuilder<DeleteKeyRequest>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, [FullType(DeleteMultisigRequest)]), () => ListBuilder<DeleteMultisigRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(ExportKeyRequest)]), () => ListBuilder<ExportKeyRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(ExportMasterKeyRequest)]), () => ListBuilder<ExportMasterKeyRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(ExportMultisigRequest)]), () => ListBuilder<ExportMultisigRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(GenerateKeyRequest)]), () => ListBuilder<GenerateKeyRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(ImportKeyRequest)]), () => ListBuilder<ImportKeyRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(ImportMultisigRequest)]), () => ListBuilder<ImportMultisigRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(InitWalletHandleTokenRequest)]), () => ListBuilder<InitWalletHandleTokenRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(ListKeysRequest)]), () => ListBuilder<ListKeysRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(ListMultisigRequest)]), () => ListBuilder<ListMultisigRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(MultisigSig)]), () => ListBuilder<MultisigSig>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(MultisigSubsig)]), () => ListBuilder<MultisigSubsig>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(ReleaseWalletHandleTokenRequest)]), () => ListBuilder<ReleaseWalletHandleTokenRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(RenameWalletRequest)]), () => ListBuilder<RenameWalletRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(RenewWalletHandleTokenRequest)]), () => ListBuilder<RenewWalletHandleTokenRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(SignMultisigRequest)]), () => ListBuilder<SignMultisigRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(SignProgramMultisigRequest)]), () => ListBuilder<SignProgramMultisigRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(SignProgramRequest)]), () => ListBuilder<SignProgramRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(SignTransactionRequest)]), () => ListBuilder<SignTransactionRequest>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(VersionsResponse)]), () => ListBuilder<VersionsResponse>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(WalletInfoRequest)]), () => ListBuilder<WalletInfoRequest>()))
+    .build();
 
 Serializers standardSerializers =
-(serializers.toBuilder()
-..addPlugin(StandardJsonPlugin())).build();
+    (serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

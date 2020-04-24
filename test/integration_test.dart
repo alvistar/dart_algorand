@@ -533,8 +533,8 @@ void main() {
           walledId: walletID, walletPassword: walletPasswd);
 
       // get private key
-      final privateKey0 = await kmdClient.exportKey(handle: handle,
-          password: walletPasswd, address: address0);
+      final privateKey0 = await kmdClient.exportKey(
+          handle: handle, password: walletPasswd, address: address0);
 
       // get suggested parmas and fee
       final params = await algodClient.transactionParams();
@@ -555,8 +555,8 @@ void main() {
       txn.group = gid;
 
       // sign using kmd
-      final stxn1 = await kmdClient.signTransaction(handle: handle,
-          password: walletPasswd, transaction: txn);
+      final stxn1 = await kmdClient.signTransaction(
+          handle: handle, password: walletPasswd, transaction: txn);
 
       // sign offline
       final stxn2 = txn.sign(privateKey0);

@@ -7,7 +7,7 @@ part of 'rename_wallet_request.dart';
 // **************************************************************************
 
 Serializer<RenameWalletRequest> _$renameWalletRequestSerializer =
-    new _$RenameWalletRequestSerializer();
+    _$RenameWalletRequestSerializer();
 
 class _$RenameWalletRequestSerializer
     implements StructuredSerializer<RenameWalletRequest> {
@@ -49,7 +49,7 @@ class _$RenameWalletRequestSerializer
   RenameWalletRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new RenameWalletRequestBuilder();
+    final result = RenameWalletRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -86,7 +86,7 @@ class _$RenameWalletRequest extends RenameWalletRequest {
 
   factory _$RenameWalletRequest(
           [void Function(RenameWalletRequestBuilder) updates]) =>
-      (new RenameWalletRequestBuilder()..update(updates)).build();
+      (RenameWalletRequestBuilder()..update(updates)).build();
 
   _$RenameWalletRequest._({this.walletId, this.walletName, this.walletPassword})
       : super._();
@@ -98,7 +98,7 @@ class _$RenameWalletRequest extends RenameWalletRequest {
 
   @override
   RenameWalletRequestBuilder toBuilder() =>
-      new RenameWalletRequestBuilder()..replace(this);
+      RenameWalletRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -157,7 +157,7 @@ class RenameWalletRequestBuilder
   @override
   void replace(RenameWalletRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$RenameWalletRequest;
   }
@@ -170,7 +170,7 @@ class RenameWalletRequestBuilder
   @override
   _$RenameWalletRequest build() {
     final _$result = _$v ??
-        new _$RenameWalletRequest._(
+        _$RenameWalletRequest._(
             walletId: walletId,
             walletName: walletName,
             walletPassword: walletPassword);

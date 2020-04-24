@@ -15,8 +15,6 @@ abstract class Template {
 
 enum ValueType { integer, address, base64 }
 
-
-
 int put_uvarint(List<int> buf, int x) {
   var i = 0;
   while (x >= 0x80) {
@@ -38,7 +36,7 @@ Uint8List inject(
   assert(
       offsets.length == values.length && values.length == values_types.length);
 
-  var res = orig.toList() ;
+  var res = orig.toList();
 
   List replace(
       List<int> arr, List<int> new_val, int offset, int place_holder_length) {
@@ -47,7 +45,7 @@ Uint8List inject(
         arr.sublist(offset + place_holder_length);
   }
 
-  for (var i=0; i < offsets.length; i++) {
+  for (var i = 0; i < offsets.length; i++) {
     var val = values[i];
     final val_type = values_types[i];
     var dec_len = 0;
@@ -78,7 +76,7 @@ Uint8List inject(
 
     // update offsets
     if (dec_len != 0) {
-      for (var o=0; o < offsets.length; o++) {
+      for (var o = 0; o < offsets.length; o++) {
         offsets[o] += dec_len;
       }
     }

@@ -7,7 +7,7 @@ part of 'keyreg_transaction_type.dart';
 // **************************************************************************
 
 Serializer<KeyregTransactionType> _$keyregTransactionTypeSerializer =
-    new _$KeyregTransactionTypeSerializer();
+    _$KeyregTransactionTypeSerializer();
 
 class _$KeyregTransactionTypeSerializer
     implements StructuredSerializer<KeyregTransactionType> {
@@ -61,7 +61,7 @@ class _$KeyregTransactionTypeSerializer
   KeyregTransactionType deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new KeyregTransactionTypeBuilder();
+    final result = KeyregTransactionTypeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -110,7 +110,7 @@ class _$KeyregTransactionType extends KeyregTransactionType {
 
   factory _$KeyregTransactionType(
           [void Function(KeyregTransactionTypeBuilder) updates]) =>
-      (new KeyregTransactionTypeBuilder()..update(updates)).build();
+      (KeyregTransactionTypeBuilder()..update(updates)).build();
 
   _$KeyregTransactionType._(
       {this.selkey, this.votefst, this.votekd, this.votekey, this.votelst})
@@ -123,7 +123,7 @@ class _$KeyregTransactionType extends KeyregTransactionType {
 
   @override
   KeyregTransactionTypeBuilder toBuilder() =>
-      new KeyregTransactionTypeBuilder()..replace(this);
+      KeyregTransactionTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -199,7 +199,7 @@ class KeyregTransactionTypeBuilder
   @override
   void replace(KeyregTransactionType other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$KeyregTransactionType;
   }
@@ -212,7 +212,7 @@ class KeyregTransactionTypeBuilder
   @override
   _$KeyregTransactionType build() {
     final _$result = _$v ??
-        new _$KeyregTransactionType._(
+        _$KeyregTransactionType._(
             selkey: selkey,
             votefst: votefst,
             votekd: votekd,

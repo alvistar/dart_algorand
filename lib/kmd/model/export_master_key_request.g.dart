@@ -7,7 +7,7 @@ part of 'export_master_key_request.dart';
 // **************************************************************************
 
 Serializer<ExportMasterKeyRequest> _$exportMasterKeyRequestSerializer =
-    new _$ExportMasterKeyRequestSerializer();
+    _$ExportMasterKeyRequestSerializer();
 
 class _$ExportMasterKeyRequestSerializer
     implements StructuredSerializer<ExportMasterKeyRequest> {
@@ -43,7 +43,7 @@ class _$ExportMasterKeyRequestSerializer
   ExportMasterKeyRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ExportMasterKeyRequestBuilder();
+    final result = ExportMasterKeyRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -74,7 +74,7 @@ class _$ExportMasterKeyRequest extends ExportMasterKeyRequest {
 
   factory _$ExportMasterKeyRequest(
           [void Function(ExportMasterKeyRequestBuilder) updates]) =>
-      (new ExportMasterKeyRequestBuilder()..update(updates)).build();
+      (ExportMasterKeyRequestBuilder()..update(updates)).build();
 
   _$ExportMasterKeyRequest._({this.walletHandleToken, this.walletPassword})
       : super._();
@@ -86,7 +86,7 @@ class _$ExportMasterKeyRequest extends ExportMasterKeyRequest {
 
   @override
   ExportMasterKeyRequestBuilder toBuilder() =>
-      new ExportMasterKeyRequestBuilder()..replace(this);
+      ExportMasterKeyRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -139,7 +139,7 @@ class ExportMasterKeyRequestBuilder
   @override
   void replace(ExportMasterKeyRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$ExportMasterKeyRequest;
   }
@@ -152,7 +152,7 @@ class ExportMasterKeyRequestBuilder
   @override
   _$ExportMasterKeyRequest build() {
     final _$result = _$v ??
-        new _$ExportMasterKeyRequest._(
+        _$ExportMasterKeyRequest._(
             walletHandleToken: walletHandleToken,
             walletPassword: walletPassword);
     replace(_$result);

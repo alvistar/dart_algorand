@@ -1,6 +1,5 @@
 // This wordlist was taken from https://git.io/fhZUO
 
-
 ///    Return the wordlist used for mnemonics.
 const WORD_LIST_RAW = '''abandon
 ability

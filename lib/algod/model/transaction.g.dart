@@ -6,7 +6,7 @@ part of 'transaction.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Transaction> _$transactionSerializer = new _$TransactionSerializer();
+Serializer<Transaction> _$transactionSerializer = _$TransactionSerializer();
 
 class _$TransactionSerializer implements StructuredSerializer<Transaction> {
   @override
@@ -144,7 +144,7 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
   @override
   Transaction deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new TransactionBuilder();
+    final result = TransactionBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -288,7 +288,7 @@ class _$Transaction extends Transaction {
   final String type;
 
   factory _$Transaction([void Function(TransactionBuilder) updates]) =>
-      (new TransactionBuilder()..update(updates)).build();
+      (TransactionBuilder()..update(updates)).build();
 
   _$Transaction._(
       {this.curcfg,
@@ -318,7 +318,7 @@ class _$Transaction extends Transaction {
       (toBuilder()..update(updates)).build();
 
   @override
-  TransactionBuilder toBuilder() => new TransactionBuilder()..replace(this);
+  TransactionBuilder toBuilder() => TransactionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -420,19 +420,19 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
 
   AssetConfigTransactionTypeBuilder _curcfg;
   AssetConfigTransactionTypeBuilder get curcfg =>
-      _$this._curcfg ??= new AssetConfigTransactionTypeBuilder();
+      _$this._curcfg ??= AssetConfigTransactionTypeBuilder();
   set curcfg(AssetConfigTransactionTypeBuilder curcfg) =>
       _$this._curcfg = curcfg;
 
   AssetFreezeTransactionTypeBuilder _curfrz;
   AssetFreezeTransactionTypeBuilder get curfrz =>
-      _$this._curfrz ??= new AssetFreezeTransactionTypeBuilder();
+      _$this._curfrz ??= AssetFreezeTransactionTypeBuilder();
   set curfrz(AssetFreezeTransactionTypeBuilder curfrz) =>
       _$this._curfrz = curfrz;
 
   AssetTransferTransactionTypeBuilder _curxfer;
   AssetTransferTransactionTypeBuilder get curxfer =>
-      _$this._curxfer ??= new AssetTransferTransactionTypeBuilder();
+      _$this._curxfer ??= AssetTransferTransactionTypeBuilder();
   set curxfer(AssetTransferTransactionTypeBuilder curxfer) =>
       _$this._curxfer = curxfer;
 
@@ -467,7 +467,7 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
 
   KeyregTransactionTypeBuilder _keyreg;
   KeyregTransactionTypeBuilder get keyreg =>
-      _$this._keyreg ??= new KeyregTransactionTypeBuilder();
+      _$this._keyreg ??= KeyregTransactionTypeBuilder();
   set keyreg(KeyregTransactionTypeBuilder keyreg) => _$this._keyreg = keyreg;
 
   int _lastRound;
@@ -484,7 +484,7 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
 
   PaymentTransactionTypeBuilder _payment;
   PaymentTransactionTypeBuilder get payment =>
-      _$this._payment ??= new PaymentTransactionTypeBuilder();
+      _$this._payment ??= PaymentTransactionTypeBuilder();
   set payment(PaymentTransactionTypeBuilder payment) =>
       _$this._payment = payment;
 
@@ -502,7 +502,7 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
 
   TransactionResultsBuilder _txresults;
   TransactionResultsBuilder get txresults =>
-      _$this._txresults ??= new TransactionResultsBuilder();
+      _$this._txresults ??= TransactionResultsBuilder();
   set txresults(TransactionResultsBuilder txresults) =>
       _$this._txresults = txresults;
 
@@ -542,7 +542,7 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
   @override
   void replace(Transaction other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$Transaction;
   }
@@ -557,7 +557,7 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
     _$Transaction _$result;
     try {
       _$result = _$v ??
-          new _$Transaction._(
+          _$Transaction._(
               curcfg: _curcfg?.build(),
               curfrz: _curfrz?.build(),
               curxfer: _curxfer?.build(),
@@ -597,7 +597,7 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
         _$failedField = 'txresults';
         _txresults?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'Transaction', _$failedField, e.toString());
       }
       rethrow;

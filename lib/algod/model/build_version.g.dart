@@ -6,8 +6,7 @@ part of 'build_version.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<BuildVersion> _$buildVersionSerializer =
-    new _$BuildVersionSerializer();
+Serializer<BuildVersion> _$buildVersionSerializer = _$BuildVersionSerializer();
 
 class _$BuildVersionSerializer implements StructuredSerializer<BuildVersion> {
   @override
@@ -61,7 +60,7 @@ class _$BuildVersionSerializer implements StructuredSerializer<BuildVersion> {
   @override
   BuildVersion deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new BuildVersionBuilder();
+    final result = BuildVersionBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -115,7 +114,7 @@ class _$BuildVersion extends BuildVersion {
   final int minor;
 
   factory _$BuildVersion([void Function(BuildVersionBuilder) updates]) =>
-      (new BuildVersionBuilder()..update(updates)).build();
+      (BuildVersionBuilder()..update(updates)).build();
 
   _$BuildVersion._(
       {this.branch,
@@ -131,7 +130,7 @@ class _$BuildVersion extends BuildVersion {
       (toBuilder()..update(updates)).build();
 
   @override
-  BuildVersionBuilder toBuilder() => new BuildVersionBuilder()..replace(this);
+  BuildVersionBuilder toBuilder() => BuildVersionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -216,7 +215,7 @@ class BuildVersionBuilder
   @override
   void replace(BuildVersion other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$BuildVersion;
   }
@@ -229,7 +228,7 @@ class BuildVersionBuilder
   @override
   _$BuildVersion build() {
     final _$result = _$v ??
-        new _$BuildVersion._(
+        _$BuildVersion._(
             branch: branch,
             buildNumber: buildNumber,
             channel: channel,

@@ -7,9 +7,8 @@ class WrongKeyLengthError implements Exception {
 
 class WrongChecksumError implements Exception {
   @override
-  String toString() =>'checksum failed to validate';
+  String toString() => 'checksum failed to validate';
 }
-
 
 class WrongMnemonicLengthError implements Exception {
   @override
@@ -25,7 +24,6 @@ class WordNotInList implements Exception {
   @override
   String toString() => 'word not in list';
 }
-
 
 class TransactionGroupSizeError implements Exception {
   @override
@@ -91,7 +89,7 @@ class DuplicateSigMismatchError implements Exception {
 
 class InvalidProgram implements Exception {
   String message;
-  InvalidProgram ({this.message='invalid program for logic sig'});
+  InvalidProgram({this.message = 'invalid program for logic sig'});
   @override
   String toString() => message;
 }
@@ -102,7 +100,7 @@ class ClientError extends DioError {
     Response response,
     DioErrorType type = DioErrorType.DEFAULT,
     error,
-  }):super(request: request, response: response, type: type, error: error);
+  }) : super(request: request, response: response, type: type, error: error);
 
   @override
   String toString() {
@@ -110,7 +108,7 @@ class ClientError extends DioError {
 
     if (response?.data is Map) {
       m = response.data['message'];
-    } else  if (response?.data is String) {
+    } else if (response?.data is String) {
       m = response.data;
     }
     return m ?? super.toString();

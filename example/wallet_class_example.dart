@@ -14,7 +14,7 @@ void main() async {
 
   // get wallet information
   final info = await wallet.info();
-  print ('Wallet name: ${info.wallet.name}');
+  print('Wallet name: ${info.wallet.name}');
 
   // create an account
   final address = await wallet.generateKey();

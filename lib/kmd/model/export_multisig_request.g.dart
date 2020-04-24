@@ -7,7 +7,7 @@ part of 'export_multisig_request.dart';
 // **************************************************************************
 
 Serializer<ExportMultisigRequest> _$exportMultisigRequestSerializer =
-    new _$ExportMultisigRequestSerializer();
+    _$ExportMultisigRequestSerializer();
 
 class _$ExportMultisigRequestSerializer
     implements StructuredSerializer<ExportMultisigRequest> {
@@ -43,7 +43,7 @@ class _$ExportMultisigRequestSerializer
   ExportMultisigRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ExportMultisigRequestBuilder();
+    final result = ExportMultisigRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -74,7 +74,7 @@ class _$ExportMultisigRequest extends ExportMultisigRequest {
 
   factory _$ExportMultisigRequest(
           [void Function(ExportMultisigRequestBuilder) updates]) =>
-      (new ExportMultisigRequestBuilder()..update(updates)).build();
+      (ExportMultisigRequestBuilder()..update(updates)).build();
 
   _$ExportMultisigRequest._({this.address, this.walletHandleToken}) : super._();
 
@@ -85,7 +85,7 @@ class _$ExportMultisigRequest extends ExportMultisigRequest {
 
   @override
   ExportMultisigRequestBuilder toBuilder() =>
-      new ExportMultisigRequestBuilder()..replace(this);
+      ExportMultisigRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -136,7 +136,7 @@ class ExportMultisigRequestBuilder
   @override
   void replace(ExportMultisigRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$ExportMultisigRequest;
   }
@@ -149,7 +149,7 @@ class ExportMultisigRequestBuilder
   @override
   _$ExportMultisigRequest build() {
     final _$result = _$v ??
-        new _$ExportMultisigRequest._(
+        _$ExportMultisigRequest._(
             address: address, walletHandleToken: walletHandleToken);
     replace(_$result);
     return _$result;

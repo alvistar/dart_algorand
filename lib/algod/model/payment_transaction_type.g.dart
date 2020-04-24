@@ -7,7 +7,7 @@ part of 'payment_transaction_type.dart';
 // **************************************************************************
 
 Serializer<PaymentTransactionType> _$paymentTransactionTypeSerializer =
-    new _$PaymentTransactionTypeSerializer();
+    _$PaymentTransactionTypeSerializer();
 
 class _$PaymentTransactionTypeSerializer
     implements StructuredSerializer<PaymentTransactionType> {
@@ -67,7 +67,7 @@ class _$PaymentTransactionTypeSerializer
   PaymentTransactionType deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new PaymentTransactionTypeBuilder();
+    final result = PaymentTransactionTypeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -122,7 +122,7 @@ class _$PaymentTransactionType extends PaymentTransactionType {
 
   factory _$PaymentTransactionType(
           [void Function(PaymentTransactionTypeBuilder) updates]) =>
-      (new PaymentTransactionTypeBuilder()..update(updates)).build();
+      (PaymentTransactionTypeBuilder()..update(updates)).build();
 
   _$PaymentTransactionType._(
       {this.amount,
@@ -140,7 +140,7 @@ class _$PaymentTransactionType extends PaymentTransactionType {
 
   @override
   PaymentTransactionTypeBuilder toBuilder() =>
-      new PaymentTransactionTypeBuilder()..replace(this);
+      PaymentTransactionTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -225,7 +225,7 @@ class PaymentTransactionTypeBuilder
   @override
   void replace(PaymentTransactionType other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$PaymentTransactionType;
   }
@@ -238,7 +238,7 @@ class PaymentTransactionTypeBuilder
   @override
   _$PaymentTransactionType build() {
     final _$result = _$v ??
-        new _$PaymentTransactionType._(
+        _$PaymentTransactionType._(
             amount: amount,
             close: close,
             closeamount: closeamount,

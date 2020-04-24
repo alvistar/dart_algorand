@@ -1,28 +1,27 @@
-        import 'package:built_value/built_value.dart';
+import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'sign_transaction_request.g.dart';
 
-abstract class SignTransactionRequest implements Built<SignTransactionRequest, SignTransactionRequestBuilder> {
+abstract class SignTransactionRequest
+    implements Built<SignTransactionRequest, SignTransactionRequestBuilder> {
+  @nullable
+  @BuiltValueField(wireName: r'transaction')
+  String get transaction;
 
-    
-        @nullable
-    @BuiltValueField(wireName: r'transaction')
-    String get transaction;
-    
-        @nullable
-    @BuiltValueField(wireName: r'wallet_handle_token')
-    String get walletHandleToken;
-    
-        @nullable
-    @BuiltValueField(wireName: r'wallet_password')
-    String get walletPassword;
+  @nullable
+  @BuiltValueField(wireName: r'wallet_handle_token')
+  String get walletHandleToken;
 
-    // Boilerplate code needed to wire-up generated code
-    SignTransactionRequest._();
+  @nullable
+  @BuiltValueField(wireName: r'wallet_password')
+  String get walletPassword;
 
-    factory SignTransactionRequest([updates(SignTransactionRequestBuilder b)]) = _$SignTransactionRequest;
-    static Serializer<SignTransactionRequest> get serializer => _$signTransactionRequestSerializer;
+  // Boilerplate code needed to wire-up generated code
+  SignTransactionRequest._();
 
+  factory SignTransactionRequest([updates(SignTransactionRequestBuilder b)]) =
+      _$SignTransactionRequest;
+  static Serializer<SignTransactionRequest> get serializer =>
+      _$signTransactionRequestSerializer;
 }
-

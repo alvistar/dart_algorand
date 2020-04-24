@@ -7,7 +7,7 @@ part of 'asset_freeze_transaction_type.dart';
 // **************************************************************************
 
 Serializer<AssetFreezeTransactionType> _$assetFreezeTransactionTypeSerializer =
-    new _$AssetFreezeTransactionTypeSerializer();
+    _$AssetFreezeTransactionTypeSerializer();
 
 class _$AssetFreezeTransactionTypeSerializer
     implements StructuredSerializer<AssetFreezeTransactionType> {
@@ -49,7 +49,7 @@ class _$AssetFreezeTransactionTypeSerializer
   AssetFreezeTransactionType deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new AssetFreezeTransactionTypeBuilder();
+    final result = AssetFreezeTransactionTypeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -86,7 +86,7 @@ class _$AssetFreezeTransactionType extends AssetFreezeTransactionType {
 
   factory _$AssetFreezeTransactionType(
           [void Function(AssetFreezeTransactionTypeBuilder) updates]) =>
-      (new AssetFreezeTransactionTypeBuilder()..update(updates)).build();
+      (AssetFreezeTransactionTypeBuilder()..update(updates)).build();
 
   _$AssetFreezeTransactionType._({this.acct, this.freeze, this.id}) : super._();
 
@@ -97,7 +97,7 @@ class _$AssetFreezeTransactionType extends AssetFreezeTransactionType {
 
   @override
   AssetFreezeTransactionTypeBuilder toBuilder() =>
-      new AssetFreezeTransactionTypeBuilder()..replace(this);
+      AssetFreezeTransactionTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -155,7 +155,7 @@ class AssetFreezeTransactionTypeBuilder
   @override
   void replace(AssetFreezeTransactionType other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$AssetFreezeTransactionType;
   }
@@ -168,7 +168,7 @@ class AssetFreezeTransactionTypeBuilder
   @override
   _$AssetFreezeTransactionType build() {
     final _$result = _$v ??
-        new _$AssetFreezeTransactionType._(acct: acct, freeze: freeze, id: id);
+        _$AssetFreezeTransactionType._(acct: acct, freeze: freeze, id: id);
     replace(_$result);
     return _$result;
   }

@@ -24,17 +24,16 @@ void main() async {
 
   // create the asset config transaction
   final txn = AssetConfigTxn(
-    sender: managerAddress,
-    fee: feePerByte,
-    first_valid_round: firstValidRound,
-    last_valid_round: lastValidRound,
-    genesis_hash: genesisHash,
-    manager: newManager.address,
-    reserve: newReserve.address,
-    freeze: newFreeze.address,
-    clawback: newClawback.address,
-    index: index
-  );
+      sender: managerAddress,
+      fee: feePerByte,
+      first_valid_round: firstValidRound,
+      last_valid_round: lastValidRound,
+      genesis_hash: genesisHash,
+      manager: newManager.address,
+      reserve: newReserve.address,
+      freeze: newFreeze.address,
+      clawback: newClawback.address,
+      index: index);
 
   // sign the transction
   final signedTxn = txn.sign(managerPrivateKey);

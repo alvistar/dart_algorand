@@ -8,7 +8,7 @@ part of 'apiv1_post_transaction_sign_response.dart';
 
 Serializer<APIV1POSTTransactionSignResponse>
     _$aPIV1POSTTransactionSignResponseSerializer =
-    new _$APIV1POSTTransactionSignResponseSerializer();
+    _$APIV1POSTTransactionSignResponseSerializer();
 
 class _$APIV1POSTTransactionSignResponseSerializer
     implements StructuredSerializer<APIV1POSTTransactionSignResponse> {
@@ -50,7 +50,7 @@ class _$APIV1POSTTransactionSignResponseSerializer
   APIV1POSTTransactionSignResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTTransactionSignResponseBuilder();
+    final result = APIV1POSTTransactionSignResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -88,7 +88,7 @@ class _$APIV1POSTTransactionSignResponse
 
   factory _$APIV1POSTTransactionSignResponse(
           [void Function(APIV1POSTTransactionSignResponseBuilder) updates]) =>
-      (new APIV1POSTTransactionSignResponseBuilder()..update(updates)).build();
+      (APIV1POSTTransactionSignResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTTransactionSignResponse._(
       {this.error, this.message, this.signedTransaction})
@@ -101,7 +101,7 @@ class _$APIV1POSTTransactionSignResponse
 
   @override
   APIV1POSTTransactionSignResponseBuilder toBuilder() =>
-      new APIV1POSTTransactionSignResponseBuilder()..replace(this);
+      APIV1POSTTransactionSignResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -162,7 +162,7 @@ class APIV1POSTTransactionSignResponseBuilder
   @override
   void replace(APIV1POSTTransactionSignResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTTransactionSignResponse;
   }
@@ -175,7 +175,7 @@ class APIV1POSTTransactionSignResponseBuilder
   @override
   _$APIV1POSTTransactionSignResponse build() {
     final _$result = _$v ??
-        new _$APIV1POSTTransactionSignResponse._(
+        _$APIV1POSTTransactionSignResponse._(
             error: error,
             message: message,
             signedTransaction: signedTransaction);

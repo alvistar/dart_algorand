@@ -1,6 +1,6 @@
 import 'package:dart_algorand/dart_algorand.dart';
 
-void main () {
+void main() {
   // generate an account
   final account = generate_account();
 
@@ -10,10 +10,7 @@ void main () {
   // check if the address is valid
   if (is_valid_address(account.address)) {
     print('The address is valid!');
-  }
-  else {
+  } else {
     print('The address is invalid.');
   }
-
 }
-

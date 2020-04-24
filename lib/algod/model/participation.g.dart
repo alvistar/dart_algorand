@@ -7,7 +7,7 @@ part of 'participation.dart';
 // **************************************************************************
 
 Serializer<Participation> _$participationSerializer =
-    new _$ParticipationSerializer();
+    _$ParticipationSerializer();
 
 class _$ParticipationSerializer implements StructuredSerializer<Participation> {
   @override
@@ -56,7 +56,7 @@ class _$ParticipationSerializer implements StructuredSerializer<Participation> {
   Participation deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ParticipationBuilder();
+    final result = ParticipationBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -104,7 +104,7 @@ class _$Participation extends Participation {
   final String vrfpkb64;
 
   factory _$Participation([void Function(ParticipationBuilder) updates]) =>
-      (new ParticipationBuilder()..update(updates)).build();
+      (ParticipationBuilder()..update(updates)).build();
 
   _$Participation._(
       {this.partpkb64, this.votefst, this.votekd, this.votelst, this.vrfpkb64})
@@ -115,7 +115,7 @@ class _$Participation extends Participation {
       (toBuilder()..update(updates)).build();
 
   @override
-  ParticipationBuilder toBuilder() => new ParticipationBuilder()..replace(this);
+  ParticipationBuilder toBuilder() => ParticipationBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -191,7 +191,7 @@ class ParticipationBuilder
   @override
   void replace(Participation other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$Participation;
   }
@@ -204,7 +204,7 @@ class ParticipationBuilder
   @override
   _$Participation build() {
     final _$result = _$v ??
-        new _$Participation._(
+        _$Participation._(
             partpkb64: partpkb64,
             votefst: votefst,
             votekd: votekd,

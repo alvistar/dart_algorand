@@ -6,7 +6,7 @@ part of 'account.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Account> _$accountSerializer = new _$AccountSerializer();
+Serializer<Account> _$accountSerializer = _$AccountSerializer();
 
 class _$AccountSerializer implements StructuredSerializer<Account> {
   @override
@@ -40,8 +40,8 @@ class _$AccountSerializer implements StructuredSerializer<Account> {
       result
         ..add('assets')
         ..add(serializers.serialize(object.assets,
-            specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(AssetHolding)])));
+            specifiedType: const FullType(
+                BuiltMap, [FullType(String), FullType(AssetHolding)])));
     }
     if (object.participation != null) {
       result
@@ -77,8 +77,8 @@ class _$AccountSerializer implements StructuredSerializer<Account> {
       result
         ..add('thisassettotal')
         ..add(serializers.serialize(object.thisassettotal,
-            specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(AssetParams)])));
+            specifiedType: const FullType(
+                BuiltMap, [FullType(String), FullType(AssetParams)])));
     }
     return result;
   }
@@ -86,7 +86,7 @@ class _$AccountSerializer implements StructuredSerializer<Account> {
   @override
   Account deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new AccountBuilder();
+    final result = AccountBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -108,10 +108,8 @@ class _$AccountSerializer implements StructuredSerializer<Account> {
           break;
         case 'assets':
           result.assets.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(AssetHolding)
-              ])));
+              specifiedType: const FullType(
+                  BuiltMap, [FullType(String), FullType(AssetHolding)])));
           break;
         case 'participation':
           result.participation.replace(serializers.deserialize(value,
@@ -135,10 +133,8 @@ class _$AccountSerializer implements StructuredSerializer<Account> {
           break;
         case 'thisassettotal':
           result.thisassettotal.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(AssetParams)
-              ])));
+              specifiedType: const FullType(
+                  BuiltMap, [FullType(String), FullType(AssetParams)])));
           break;
       }
     }
@@ -170,7 +166,7 @@ class _$Account extends Account {
   final BuiltMap<String, AssetParams> thisassettotal;
 
   factory _$Account([void Function(AccountBuilder) updates]) =>
-      (new AccountBuilder()..update(updates)).build();
+      (AccountBuilder()..update(updates)).build();
 
   _$Account._(
       {this.address,
@@ -190,7 +186,7 @@ class _$Account extends Account {
       (toBuilder()..update(updates)).build();
 
   @override
-  AccountBuilder toBuilder() => new AccountBuilder()..replace(this);
+  AccountBuilder toBuilder() => AccountBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -265,13 +261,13 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
 
   MapBuilder<String, AssetHolding> _assets;
   MapBuilder<String, AssetHolding> get assets =>
-      _$this._assets ??= new MapBuilder<String, AssetHolding>();
+      _$this._assets ??= MapBuilder<String, AssetHolding>();
   set assets(MapBuilder<String, AssetHolding> assets) =>
       _$this._assets = assets;
 
   ParticipationBuilder _participation;
   ParticipationBuilder get participation =>
-      _$this._participation ??= new ParticipationBuilder();
+      _$this._participation ??= ParticipationBuilder();
   set participation(ParticipationBuilder participation) =>
       _$this._participation = participation;
 
@@ -294,7 +290,7 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
 
   MapBuilder<String, AssetParams> _thisassettotal;
   MapBuilder<String, AssetParams> get thisassettotal =>
-      _$this._thisassettotal ??= new MapBuilder<String, AssetParams>();
+      _$this._thisassettotal ??= MapBuilder<String, AssetParams>();
   set thisassettotal(MapBuilder<String, AssetParams> thisassettotal) =>
       _$this._thisassettotal = thisassettotal;
 
@@ -320,7 +316,7 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
   @override
   void replace(Account other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$Account;
   }
@@ -335,7 +331,7 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
     _$Account _$result;
     try {
       _$result = _$v ??
-          new _$Account._(
+          _$Account._(
               address: address,
               amount: amount,
               amountwithoutpendingrewards: amountwithoutpendingrewards,
@@ -357,7 +353,7 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
         _$failedField = 'thisassettotal';
         _thisassettotal?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'Account', _$failedField, e.toString());
       }
       rethrow;

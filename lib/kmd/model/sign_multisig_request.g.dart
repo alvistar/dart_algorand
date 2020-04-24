@@ -7,7 +7,7 @@ part of 'sign_multisig_request.dart';
 // **************************************************************************
 
 Serializer<SignMultisigRequest> _$signMultisigRequestSerializer =
-    new _$SignMultisigRequestSerializer();
+    _$SignMultisigRequestSerializer();
 
 class _$SignMultisigRequestSerializer
     implements StructuredSerializer<SignMultisigRequest> {
@@ -61,7 +61,7 @@ class _$SignMultisigRequestSerializer
   SignMultisigRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new SignMultisigRequestBuilder();
+    final result = SignMultisigRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -110,7 +110,7 @@ class _$SignMultisigRequest extends SignMultisigRequest {
 
   factory _$SignMultisigRequest(
           [void Function(SignMultisigRequestBuilder) updates]) =>
-      (new SignMultisigRequestBuilder()..update(updates)).build();
+      (SignMultisigRequestBuilder()..update(updates)).build();
 
   _$SignMultisigRequest._(
       {this.partialMultisig,
@@ -127,7 +127,7 @@ class _$SignMultisigRequest extends SignMultisigRequest {
 
   @override
   SignMultisigRequestBuilder toBuilder() =>
-      new SignMultisigRequestBuilder()..replace(this);
+      SignMultisigRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -168,7 +168,7 @@ class SignMultisigRequestBuilder
 
   MultisigSigBuilder _partialMultisig;
   MultisigSigBuilder get partialMultisig =>
-      _$this._partialMultisig ??= new MultisigSigBuilder();
+      _$this._partialMultisig ??= MultisigSigBuilder();
   set partialMultisig(MultisigSigBuilder partialMultisig) =>
       _$this._partialMultisig = partialMultisig;
 
@@ -207,7 +207,7 @@ class SignMultisigRequestBuilder
   @override
   void replace(SignMultisigRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$SignMultisigRequest;
   }
@@ -222,7 +222,7 @@ class SignMultisigRequestBuilder
     _$SignMultisigRequest _$result;
     try {
       _$result = _$v ??
-          new _$SignMultisigRequest._(
+          _$SignMultisigRequest._(
               partialMultisig: _partialMultisig?.build(),
               publicKey: publicKey,
               transaction: transaction,
@@ -234,7 +234,7 @@ class SignMultisigRequestBuilder
         _$failedField = 'partialMultisig';
         _partialMultisig?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'SignMultisigRequest', _$failedField, e.toString());
       }
       rethrow;

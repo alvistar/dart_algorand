@@ -7,7 +7,7 @@ part of 'list_keys_request.dart';
 // **************************************************************************
 
 Serializer<ListKeysRequest> _$listKeysRequestSerializer =
-    new _$ListKeysRequestSerializer();
+    _$ListKeysRequestSerializer();
 
 class _$ListKeysRequestSerializer
     implements StructuredSerializer<ListKeysRequest> {
@@ -33,7 +33,7 @@ class _$ListKeysRequestSerializer
   ListKeysRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ListKeysRequestBuilder();
+    final result = ListKeysRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -57,7 +57,7 @@ class _$ListKeysRequest extends ListKeysRequest {
   final String walletHandleToken;
 
   factory _$ListKeysRequest([void Function(ListKeysRequestBuilder) updates]) =>
-      (new ListKeysRequestBuilder()..update(updates)).build();
+      (ListKeysRequestBuilder()..update(updates)).build();
 
   _$ListKeysRequest._({this.walletHandleToken}) : super._();
 
@@ -66,8 +66,7 @@ class _$ListKeysRequest extends ListKeysRequest {
       (toBuilder()..update(updates)).build();
 
   @override
-  ListKeysRequestBuilder toBuilder() =>
-      new ListKeysRequestBuilder()..replace(this);
+  ListKeysRequestBuilder toBuilder() => ListKeysRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -111,7 +110,7 @@ class ListKeysRequestBuilder
   @override
   void replace(ListKeysRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$ListKeysRequest;
   }
@@ -124,7 +123,7 @@ class ListKeysRequestBuilder
   @override
   _$ListKeysRequest build() {
     final _$result =
-        _$v ?? new _$ListKeysRequest._(walletHandleToken: walletHandleToken);
+        _$v ?? _$ListKeysRequest._(walletHandleToken: walletHandleToken);
     replace(_$result);
     return _$result;
   }

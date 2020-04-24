@@ -7,7 +7,7 @@ part of 'transaction_list.dart';
 // **************************************************************************
 
 Serializer<TransactionList> _$transactionListSerializer =
-    new _$TransactionListSerializer();
+    _$TransactionListSerializer();
 
 class _$TransactionListSerializer
     implements StructuredSerializer<TransactionList> {
@@ -24,8 +24,7 @@ class _$TransactionListSerializer
       result
         ..add('transactions')
         ..add(serializers.serialize(object.transactions,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(Transaction)])));
+            specifiedType: const FullType(BuiltList, [FullType(Transaction)])));
     }
     return result;
   }
@@ -34,7 +33,7 @@ class _$TransactionListSerializer
   TransactionList deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new TransactionListBuilder();
+    final result = TransactionListBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -44,8 +43,8 @@ class _$TransactionListSerializer
       switch (key) {
         case 'transactions':
           result.transactions.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(Transaction)]))
+                  specifiedType:
+                      const FullType(BuiltList, [FullType(Transaction)]))
               as BuiltList<Object>);
           break;
       }
@@ -60,7 +59,7 @@ class _$TransactionList extends TransactionList {
   final BuiltList<Transaction> transactions;
 
   factory _$TransactionList([void Function(TransactionListBuilder) updates]) =>
-      (new TransactionListBuilder()..update(updates)).build();
+      (TransactionListBuilder()..update(updates)).build();
 
   _$TransactionList._({this.transactions}) : super._();
 
@@ -69,8 +68,7 @@ class _$TransactionList extends TransactionList {
       (toBuilder()..update(updates)).build();
 
   @override
-  TransactionListBuilder toBuilder() =>
-      new TransactionListBuilder()..replace(this);
+  TransactionListBuilder toBuilder() => TransactionListBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -97,7 +95,7 @@ class TransactionListBuilder
 
   ListBuilder<Transaction> _transactions;
   ListBuilder<Transaction> get transactions =>
-      _$this._transactions ??= new ListBuilder<Transaction>();
+      _$this._transactions ??= ListBuilder<Transaction>();
   set transactions(ListBuilder<Transaction> transactions) =>
       _$this._transactions = transactions;
 
@@ -114,7 +112,7 @@ class TransactionListBuilder
   @override
   void replace(TransactionList other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$TransactionList;
   }
@@ -129,14 +127,14 @@ class TransactionListBuilder
     _$TransactionList _$result;
     try {
       _$result =
-          _$v ?? new _$TransactionList._(transactions: _transactions?.build());
+          _$v ?? _$TransactionList._(transactions: _transactions?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'transactions';
         _transactions?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'TransactionList', _$failedField, e.toString());
       }
       rethrow;

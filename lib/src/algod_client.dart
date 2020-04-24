@@ -70,7 +70,7 @@ class AlgodClient {
   /// Broadcast list of a signed transaction objects to the network.
   /// Returns first transaction id
   Future<String> sendTransactions(List<SignedTransactionBase> txns) async {
-    final serialized =<int>[];
+    final serialized = <int>[];
     for (var txn in txns) {
       serialized.addAll(base64Decode(msgpack_encode(txn)));
     }

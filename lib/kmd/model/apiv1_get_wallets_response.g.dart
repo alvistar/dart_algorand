@@ -7,7 +7,7 @@ part of 'apiv1_get_wallets_response.dart';
 // **************************************************************************
 
 Serializer<APIV1GETWalletsResponse> _$aPIV1GETWalletsResponseSerializer =
-    new _$APIV1GETWalletsResponseSerializer();
+    _$APIV1GETWalletsResponseSerializer();
 
 class _$APIV1GETWalletsResponseSerializer
     implements StructuredSerializer<APIV1GETWalletsResponse> {
@@ -40,8 +40,7 @@ class _$APIV1GETWalletsResponseSerializer
       result
         ..add('wallets')
         ..add(serializers.serialize(object.wallets,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(APIV1Wallet)])));
+            specifiedType: const FullType(BuiltList, [FullType(APIV1Wallet)])));
     }
     return result;
   }
@@ -50,7 +49,7 @@ class _$APIV1GETWalletsResponseSerializer
   APIV1GETWalletsResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1GETWalletsResponseBuilder();
+    final result = APIV1GETWalletsResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -68,8 +67,8 @@ class _$APIV1GETWalletsResponseSerializer
           break;
         case 'wallets':
           result.wallets.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(APIV1Wallet)]))
+                  specifiedType:
+                      const FullType(BuiltList, [FullType(APIV1Wallet)]))
               as BuiltList<Object>);
           break;
       }
@@ -89,7 +88,7 @@ class _$APIV1GETWalletsResponse extends APIV1GETWalletsResponse {
 
   factory _$APIV1GETWalletsResponse(
           [void Function(APIV1GETWalletsResponseBuilder) updates]) =>
-      (new APIV1GETWalletsResponseBuilder()..update(updates)).build();
+      (APIV1GETWalletsResponseBuilder()..update(updates)).build();
 
   _$APIV1GETWalletsResponse._({this.error, this.message, this.wallets})
       : super._();
@@ -101,7 +100,7 @@ class _$APIV1GETWalletsResponse extends APIV1GETWalletsResponse {
 
   @override
   APIV1GETWalletsResponseBuilder toBuilder() =>
-      new APIV1GETWalletsResponseBuilder()..replace(this);
+      APIV1GETWalletsResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -143,7 +142,7 @@ class APIV1GETWalletsResponseBuilder
 
   ListBuilder<APIV1Wallet> _wallets;
   ListBuilder<APIV1Wallet> get wallets =>
-      _$this._wallets ??= new ListBuilder<APIV1Wallet>();
+      _$this._wallets ??= ListBuilder<APIV1Wallet>();
   set wallets(ListBuilder<APIV1Wallet> wallets) => _$this._wallets = wallets;
 
   APIV1GETWalletsResponseBuilder();
@@ -161,7 +160,7 @@ class APIV1GETWalletsResponseBuilder
   @override
   void replace(APIV1GETWalletsResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1GETWalletsResponse;
   }
@@ -176,7 +175,7 @@ class APIV1GETWalletsResponseBuilder
     _$APIV1GETWalletsResponse _$result;
     try {
       _$result = _$v ??
-          new _$APIV1GETWalletsResponse._(
+          _$APIV1GETWalletsResponse._(
               error: error, message: message, wallets: _wallets?.build());
     } catch (_) {
       String _$failedField;
@@ -184,7 +183,7 @@ class APIV1GETWalletsResponseBuilder
         _$failedField = 'wallets';
         _wallets?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'APIV1GETWalletsResponse', _$failedField, e.toString());
       }
       rethrow;

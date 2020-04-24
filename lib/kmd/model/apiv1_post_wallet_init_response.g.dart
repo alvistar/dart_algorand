@@ -8,7 +8,7 @@ part of 'apiv1_post_wallet_init_response.dart';
 
 Serializer<APIV1POSTWalletInitResponse>
     _$aPIV1POSTWalletInitResponseSerializer =
-    new _$APIV1POSTWalletInitResponseSerializer();
+    _$APIV1POSTWalletInitResponseSerializer();
 
 class _$APIV1POSTWalletInitResponseSerializer
     implements StructuredSerializer<APIV1POSTWalletInitResponse> {
@@ -50,7 +50,7 @@ class _$APIV1POSTWalletInitResponseSerializer
   APIV1POSTWalletInitResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTWalletInitResponseBuilder();
+    final result = APIV1POSTWalletInitResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -87,7 +87,7 @@ class _$APIV1POSTWalletInitResponse extends APIV1POSTWalletInitResponse {
 
   factory _$APIV1POSTWalletInitResponse(
           [void Function(APIV1POSTWalletInitResponseBuilder) updates]) =>
-      (new APIV1POSTWalletInitResponseBuilder()..update(updates)).build();
+      (APIV1POSTWalletInitResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTWalletInitResponse._(
       {this.error, this.message, this.walletHandleToken})
@@ -100,7 +100,7 @@ class _$APIV1POSTWalletInitResponse extends APIV1POSTWalletInitResponse {
 
   @override
   APIV1POSTWalletInitResponseBuilder toBuilder() =>
-      new APIV1POSTWalletInitResponseBuilder()..replace(this);
+      APIV1POSTWalletInitResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -161,7 +161,7 @@ class APIV1POSTWalletInitResponseBuilder
   @override
   void replace(APIV1POSTWalletInitResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTWalletInitResponse;
   }
@@ -174,7 +174,7 @@ class APIV1POSTWalletInitResponseBuilder
   @override
   _$APIV1POSTWalletInitResponse build() {
     final _$result = _$v ??
-        new _$APIV1POSTWalletInitResponse._(
+        _$APIV1POSTWalletInitResponse._(
             error: error,
             message: message,
             walletHandleToken: walletHandleToken);

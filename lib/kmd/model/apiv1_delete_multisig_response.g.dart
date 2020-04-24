@@ -8,7 +8,7 @@ part of 'apiv1_delete_multisig_response.dart';
 
 Serializer<APIV1DELETEMultisigResponse>
     _$aPIV1DELETEMultisigResponseSerializer =
-    new _$APIV1DELETEMultisigResponseSerializer();
+    _$APIV1DELETEMultisigResponseSerializer();
 
 class _$APIV1DELETEMultisigResponseSerializer
     implements StructuredSerializer<APIV1DELETEMultisigResponse> {
@@ -44,7 +44,7 @@ class _$APIV1DELETEMultisigResponseSerializer
   APIV1DELETEMultisigResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1DELETEMultisigResponseBuilder();
+    final result = APIV1DELETEMultisigResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -75,7 +75,7 @@ class _$APIV1DELETEMultisigResponse extends APIV1DELETEMultisigResponse {
 
   factory _$APIV1DELETEMultisigResponse(
           [void Function(APIV1DELETEMultisigResponseBuilder) updates]) =>
-      (new APIV1DELETEMultisigResponseBuilder()..update(updates)).build();
+      (APIV1DELETEMultisigResponseBuilder()..update(updates)).build();
 
   _$APIV1DELETEMultisigResponse._({this.error, this.message}) : super._();
 
@@ -86,7 +86,7 @@ class _$APIV1DELETEMultisigResponse extends APIV1DELETEMultisigResponse {
 
   @override
   APIV1DELETEMultisigResponseBuilder toBuilder() =>
-      new APIV1DELETEMultisigResponseBuilder()..replace(this);
+      APIV1DELETEMultisigResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -138,7 +138,7 @@ class APIV1DELETEMultisigResponseBuilder
   @override
   void replace(APIV1DELETEMultisigResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1DELETEMultisigResponse;
   }
@@ -150,8 +150,8 @@ class APIV1DELETEMultisigResponseBuilder
 
   @override
   _$APIV1DELETEMultisigResponse build() {
-    final _$result = _$v ??
-        new _$APIV1DELETEMultisigResponse._(error: error, message: message);
+    final _$result =
+        _$v ?? _$APIV1DELETEMultisigResponse._(error: error, message: message);
     replace(_$result);
     return _$result;
   }

@@ -12,10 +12,11 @@ class LogicSigTransaction implements SignedTransactionBase {
   LogicSigTransaction({@required this.transaction, this.lsig});
 
   factory LogicSigTransaction.undictify(Map<String, dynamic> m) {
-    return LogicSigTransaction (
-      transaction: Transaction.undictify(Map.from(m['txn'])),
-      lsig: m.containsKey('lsig') ? LogicSig.undictify(Map.from(m['lsig'])) : null
-    );
+    return LogicSigTransaction(
+        transaction: Transaction.undictify(Map.from(m['txn'])),
+        lsig: m.containsKey('lsig')
+            ? LogicSig.undictify(Map.from(m['lsig']))
+            : null);
   }
 
   // Verify LogicSig against the transaction.

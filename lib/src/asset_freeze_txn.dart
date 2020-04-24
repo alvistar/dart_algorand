@@ -93,6 +93,5 @@ class AssetFreezeTxn extends Transaction {
       'new_freeze_state': m.containsKey('afrz') ? m['afrz'] : false,
       'target': encode_address(m['fadd'])
     };
-
   }
 }

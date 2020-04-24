@@ -7,7 +7,7 @@ part of 'import_multisig_request.dart';
 // **************************************************************************
 
 Serializer<ImportMultisigRequest> _$importMultisigRequestSerializer =
-    new _$ImportMultisigRequestSerializer();
+    _$ImportMultisigRequestSerializer();
 
 class _$ImportMultisigRequestSerializer
     implements StructuredSerializer<ImportMultisigRequest> {
@@ -34,8 +34,7 @@ class _$ImportMultisigRequestSerializer
       result
         ..add('pks')
         ..add(serializers.serialize(object.pks,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+            specifiedType: const FullType(BuiltList, [FullType(String)])));
     }
     if (object.threshold != null) {
       result
@@ -56,7 +55,7 @@ class _$ImportMultisigRequestSerializer
   ImportMultisigRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ImportMultisigRequestBuilder();
+    final result = ImportMultisigRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,8 +69,7 @@ class _$ImportMultisigRequestSerializer
           break;
         case 'pks':
           result.pks.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
+                  specifiedType: const FullType(BuiltList, [FullType(String)]))
               as BuiltList<Object>);
           break;
         case 'threshold':
@@ -101,7 +99,7 @@ class _$ImportMultisigRequest extends ImportMultisigRequest {
 
   factory _$ImportMultisigRequest(
           [void Function(ImportMultisigRequestBuilder) updates]) =>
-      (new ImportMultisigRequestBuilder()..update(updates)).build();
+      (ImportMultisigRequestBuilder()..update(updates)).build();
 
   _$ImportMultisigRequest._(
       {this.multisigVersion, this.pks, this.threshold, this.walletHandleToken})
@@ -114,7 +112,7 @@ class _$ImportMultisigRequest extends ImportMultisigRequest {
 
   @override
   ImportMultisigRequestBuilder toBuilder() =>
-      new ImportMultisigRequestBuilder()..replace(this);
+      ImportMultisigRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -155,7 +153,7 @@ class ImportMultisigRequestBuilder
       _$this._multisigVersion = multisigVersion;
 
   ListBuilder<String> _pks;
-  ListBuilder<String> get pks => _$this._pks ??= new ListBuilder<String>();
+  ListBuilder<String> get pks => _$this._pks ??= ListBuilder<String>();
   set pks(ListBuilder<String> pks) => _$this._pks = pks;
 
   int _threshold;
@@ -183,7 +181,7 @@ class ImportMultisigRequestBuilder
   @override
   void replace(ImportMultisigRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$ImportMultisigRequest;
   }
@@ -198,7 +196,7 @@ class ImportMultisigRequestBuilder
     _$ImportMultisigRequest _$result;
     try {
       _$result = _$v ??
-          new _$ImportMultisigRequest._(
+          _$ImportMultisigRequest._(
               multisigVersion: multisigVersion,
               pks: _pks?.build(),
               threshold: threshold,
@@ -209,7 +207,7 @@ class ImportMultisigRequestBuilder
         _$failedField = 'pks';
         _pks?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'ImportMultisigRequest', _$failedField, e.toString());
       }
       rethrow;

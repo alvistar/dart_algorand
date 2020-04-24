@@ -8,7 +8,7 @@ part of 'apiv1_post_wallet_rename_response.dart';
 
 Serializer<APIV1POSTWalletRenameResponse>
     _$aPIV1POSTWalletRenameResponseSerializer =
-    new _$APIV1POSTWalletRenameResponseSerializer();
+    _$APIV1POSTWalletRenameResponseSerializer();
 
 class _$APIV1POSTWalletRenameResponseSerializer
     implements StructuredSerializer<APIV1POSTWalletRenameResponse> {
@@ -50,7 +50,7 @@ class _$APIV1POSTWalletRenameResponseSerializer
   APIV1POSTWalletRenameResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTWalletRenameResponseBuilder();
+    final result = APIV1POSTWalletRenameResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -87,7 +87,7 @@ class _$APIV1POSTWalletRenameResponse extends APIV1POSTWalletRenameResponse {
 
   factory _$APIV1POSTWalletRenameResponse(
           [void Function(APIV1POSTWalletRenameResponseBuilder) updates]) =>
-      (new APIV1POSTWalletRenameResponseBuilder()..update(updates)).build();
+      (APIV1POSTWalletRenameResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTWalletRenameResponse._({this.error, this.message, this.wallet})
       : super._();
@@ -99,7 +99,7 @@ class _$APIV1POSTWalletRenameResponse extends APIV1POSTWalletRenameResponse {
 
   @override
   APIV1POSTWalletRenameResponseBuilder toBuilder() =>
-      new APIV1POSTWalletRenameResponseBuilder()..replace(this);
+      APIV1POSTWalletRenameResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -141,7 +141,7 @@ class APIV1POSTWalletRenameResponseBuilder
   set message(String message) => _$this._message = message;
 
   APIV1WalletBuilder _wallet;
-  APIV1WalletBuilder get wallet => _$this._wallet ??= new APIV1WalletBuilder();
+  APIV1WalletBuilder get wallet => _$this._wallet ??= APIV1WalletBuilder();
   set wallet(APIV1WalletBuilder wallet) => _$this._wallet = wallet;
 
   APIV1POSTWalletRenameResponseBuilder();
@@ -159,7 +159,7 @@ class APIV1POSTWalletRenameResponseBuilder
   @override
   void replace(APIV1POSTWalletRenameResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTWalletRenameResponse;
   }
@@ -174,7 +174,7 @@ class APIV1POSTWalletRenameResponseBuilder
     _$APIV1POSTWalletRenameResponse _$result;
     try {
       _$result = _$v ??
-          new _$APIV1POSTWalletRenameResponse._(
+          _$APIV1POSTWalletRenameResponse._(
               error: error, message: message, wallet: _wallet?.build());
     } catch (_) {
       String _$failedField;
@@ -182,7 +182,7 @@ class APIV1POSTWalletRenameResponseBuilder
         _$failedField = 'wallet';
         _wallet?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'APIV1POSTWalletRenameResponse', _$failedField, e.toString());
       }
       rethrow;

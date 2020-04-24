@@ -211,7 +211,8 @@ class Multisig {
       if (subsig.signature != null) {
         verify_key = VerifyKey(subsig.public_key);
         try {
-          verify_key.verify(signature: Signature(subsig.signature), message: message);
+          verify_key.verify(
+              signature: Signature(subsig.signature), message: message);
           verified_count += 1;
         } catch (e) {
           return false;

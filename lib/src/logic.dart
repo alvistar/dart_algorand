@@ -140,12 +140,11 @@ ByteConstBlock read_byte_const_block(Uint8List program, int pc) {
 }
 
 /// Performs basic program validation: instruction count and program cost
-bool check_program(Uint8List program, List<Uint8List> args)  {
+bool check_program(Uint8List program, List<Uint8List> args) {
   return (read_program(program, args)).good;
 }
 
-ProgramData read_program(
-    Uint8List program, List<Uint8List> args) {
+ProgramData read_program(Uint8List program, List<Uint8List> args) {
   final ints = <int>[];
   final bytes = <Uint8List>[];
 

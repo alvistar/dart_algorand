@@ -30,8 +30,7 @@ abstract class SignMultisigRequest
   // Boilerplate code needed to wire-up generated code
   SignMultisigRequest._();
 
-  factory SignMultisigRequest(
-      [Function(SignMultisigRequestBuilder) updates]) =
+  factory SignMultisigRequest([Function(SignMultisigRequestBuilder) updates]) =
       _$SignMultisigRequest;
 
   static Serializer<SignMultisigRequest> get serializer =>

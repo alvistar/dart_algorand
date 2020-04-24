@@ -7,7 +7,7 @@ part of 'transaction_params.dart';
 // **************************************************************************
 
 Serializer<TransactionParams> _$transactionParamsSerializer =
-    new _$TransactionParamsSerializer();
+    _$TransactionParamsSerializer();
 
 class _$TransactionParamsSerializer
     implements StructuredSerializer<TransactionParams> {
@@ -63,7 +63,7 @@ class _$TransactionParamsSerializer
   TransactionParams deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new TransactionParamsBuilder();
+    final result = TransactionParamsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -118,7 +118,7 @@ class _$TransactionParams extends TransactionParams {
 
   factory _$TransactionParams(
           [void Function(TransactionParamsBuilder) updates]) =>
-      (new TransactionParamsBuilder()..update(updates)).build();
+      (TransactionParamsBuilder()..update(updates)).build();
 
   _$TransactionParams._(
       {this.consensusVersion,
@@ -135,7 +135,7 @@ class _$TransactionParams extends TransactionParams {
 
   @override
   TransactionParamsBuilder toBuilder() =>
-      new TransactionParamsBuilder()..replace(this);
+      TransactionParamsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -222,7 +222,7 @@ class TransactionParamsBuilder
   @override
   void replace(TransactionParams other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$TransactionParams;
   }
@@ -235,7 +235,7 @@ class TransactionParamsBuilder
   @override
   _$TransactionParams build() {
     final _$result = _$v ??
-        new _$TransactionParams._(
+        _$TransactionParams._(
             consensusVersion: consensusVersion,
             fee: fee,
             genesisID: genesisID,

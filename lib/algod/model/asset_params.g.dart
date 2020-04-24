@@ -6,7 +6,7 @@ part of 'asset_params.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<AssetParams> _$assetParamsSerializer = new _$AssetParamsSerializer();
+Serializer<AssetParams> _$assetParamsSerializer = _$AssetParamsSerializer();
 
 class _$AssetParamsSerializer implements StructuredSerializer<AssetParams> {
   @override
@@ -96,7 +96,7 @@ class _$AssetParamsSerializer implements StructuredSerializer<AssetParams> {
   @override
   AssetParams deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new AssetParamsBuilder();
+    final result = AssetParamsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -186,7 +186,7 @@ class _$AssetParams extends AssetParams {
   final String url;
 
   factory _$AssetParams([void Function(AssetParamsBuilder) updates]) =>
-      (new AssetParamsBuilder()..update(updates)).build();
+      (AssetParamsBuilder()..update(updates)).build();
 
   _$AssetParams._(
       {this.assetname,
@@ -208,7 +208,7 @@ class _$AssetParams extends AssetParams {
       (toBuilder()..update(updates)).build();
 
   @override
-  AssetParamsBuilder toBuilder() => new AssetParamsBuilder()..replace(this);
+  AssetParamsBuilder toBuilder() => AssetParamsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -349,7 +349,7 @@ class AssetParamsBuilder implements Builder<AssetParams, AssetParamsBuilder> {
   @override
   void replace(AssetParams other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$AssetParams;
   }
@@ -362,7 +362,7 @@ class AssetParamsBuilder implements Builder<AssetParams, AssetParamsBuilder> {
   @override
   _$AssetParams build() {
     final _$result = _$v ??
-        new _$AssetParams._(
+        _$AssetParams._(
             assetname: assetname,
             clawbackaddr: clawbackaddr,
             creator: creator,

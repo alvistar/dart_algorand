@@ -6,7 +6,7 @@ part of 'asset.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Asset> _$assetSerializer = new _$AssetSerializer();
+Serializer<Asset> _$assetSerializer = _$AssetSerializer();
 
 class _$AssetSerializer implements StructuredSerializer<Asset> {
   @override
@@ -36,7 +36,7 @@ class _$AssetSerializer implements StructuredSerializer<Asset> {
   @override
   Asset deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new AssetBuilder();
+    final result = AssetBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -66,7 +66,7 @@ class _$Asset extends Asset {
   final AssetParams assetParams;
 
   factory _$Asset([void Function(AssetBuilder) updates]) =>
-      (new AssetBuilder()..update(updates)).build();
+      (AssetBuilder()..update(updates)).build();
 
   _$Asset._({this.assetIndex, this.assetParams}) : super._();
 
@@ -75,7 +75,7 @@ class _$Asset extends Asset {
       (toBuilder()..update(updates)).build();
 
   @override
-  AssetBuilder toBuilder() => new AssetBuilder()..replace(this);
+  AssetBuilder toBuilder() => AssetBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -108,7 +108,7 @@ class AssetBuilder implements Builder<Asset, AssetBuilder> {
 
   AssetParamsBuilder _assetParams;
   AssetParamsBuilder get assetParams =>
-      _$this._assetParams ??= new AssetParamsBuilder();
+      _$this._assetParams ??= AssetParamsBuilder();
   set assetParams(AssetParamsBuilder assetParams) =>
       _$this._assetParams = assetParams;
 
@@ -126,7 +126,7 @@ class AssetBuilder implements Builder<Asset, AssetBuilder> {
   @override
   void replace(Asset other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$Asset;
   }
@@ -141,16 +141,14 @@ class AssetBuilder implements Builder<Asset, AssetBuilder> {
     _$Asset _$result;
     try {
       _$result = _$v ??
-          new _$Asset._(
-              assetIndex: assetIndex, assetParams: _assetParams?.build());
+          _$Asset._(assetIndex: assetIndex, assetParams: _assetParams?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'assetParams';
         _assetParams?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            'Asset', _$failedField, e.toString());
+        throw BuiltValueNestedFieldError('Asset', _$failedField, e.toString());
       }
       rethrow;
     }

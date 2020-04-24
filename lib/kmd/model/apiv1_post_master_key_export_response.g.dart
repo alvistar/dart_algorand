@@ -8,7 +8,7 @@ part of 'apiv1_post_master_key_export_response.dart';
 
 Serializer<APIV1POSTMasterKeyExportResponse>
     _$aPIV1POSTMasterKeyExportResponseSerializer =
-    new _$APIV1POSTMasterKeyExportResponseSerializer();
+    _$APIV1POSTMasterKeyExportResponseSerializer();
 
 class _$APIV1POSTMasterKeyExportResponseSerializer
     implements StructuredSerializer<APIV1POSTMasterKeyExportResponse> {
@@ -50,7 +50,7 @@ class _$APIV1POSTMasterKeyExportResponseSerializer
   APIV1POSTMasterKeyExportResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTMasterKeyExportResponseBuilder();
+    final result = APIV1POSTMasterKeyExportResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -88,7 +88,7 @@ class _$APIV1POSTMasterKeyExportResponse
 
   factory _$APIV1POSTMasterKeyExportResponse(
           [void Function(APIV1POSTMasterKeyExportResponseBuilder) updates]) =>
-      (new APIV1POSTMasterKeyExportResponseBuilder()..update(updates)).build();
+      (APIV1POSTMasterKeyExportResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTMasterKeyExportResponse._(
       {this.error, this.masterDerivationKey, this.message})
@@ -101,7 +101,7 @@ class _$APIV1POSTMasterKeyExportResponse
 
   @override
   APIV1POSTMasterKeyExportResponseBuilder toBuilder() =>
-      new APIV1POSTMasterKeyExportResponseBuilder()..replace(this);
+      APIV1POSTMasterKeyExportResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -162,7 +162,7 @@ class APIV1POSTMasterKeyExportResponseBuilder
   @override
   void replace(APIV1POSTMasterKeyExportResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTMasterKeyExportResponse;
   }
@@ -175,7 +175,7 @@ class APIV1POSTMasterKeyExportResponseBuilder
   @override
   _$APIV1POSTMasterKeyExportResponse build() {
     final _$result = _$v ??
-        new _$APIV1POSTMasterKeyExportResponse._(
+        _$APIV1POSTMasterKeyExportResponse._(
             error: error,
             masterDerivationKey: masterDerivationKey,
             message: message);

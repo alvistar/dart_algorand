@@ -7,7 +7,7 @@ part of 'sign_program_request.dart';
 // **************************************************************************
 
 Serializer<SignProgramRequest> _$signProgramRequestSerializer =
-    new _$SignProgramRequestSerializer();
+    _$SignProgramRequestSerializer();
 
 class _$SignProgramRequestSerializer
     implements StructuredSerializer<SignProgramRequest> {
@@ -51,7 +51,7 @@ class _$SignProgramRequestSerializer
   SignProgramRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new SignProgramRequestBuilder();
+    final result = SignProgramRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -94,7 +94,7 @@ class _$SignProgramRequest extends SignProgramRequest {
 
   factory _$SignProgramRequest(
           [void Function(SignProgramRequestBuilder) updates]) =>
-      (new SignProgramRequestBuilder()..update(updates)).build();
+      (SignProgramRequestBuilder()..update(updates)).build();
 
   _$SignProgramRequest._(
       {this.address, this.data, this.walletHandleToken, this.walletPassword})
@@ -107,7 +107,7 @@ class _$SignProgramRequest extends SignProgramRequest {
 
   @override
   SignProgramRequestBuilder toBuilder() =>
-      new SignProgramRequestBuilder()..replace(this);
+      SignProgramRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -176,7 +176,7 @@ class SignProgramRequestBuilder
   @override
   void replace(SignProgramRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$SignProgramRequest;
   }
@@ -189,7 +189,7 @@ class SignProgramRequestBuilder
   @override
   _$SignProgramRequest build() {
     final _$result = _$v ??
-        new _$SignProgramRequest._(
+        _$SignProgramRequest._(
             address: address,
             data: data,
             walletHandleToken: walletHandleToken,

@@ -7,7 +7,7 @@ part of 'apiv1_post_key_list_response.dart';
 // **************************************************************************
 
 Serializer<APIV1POSTKeyListResponse> _$aPIV1POSTKeyListResponseSerializer =
-    new _$APIV1POSTKeyListResponseSerializer();
+    _$APIV1POSTKeyListResponseSerializer();
 
 class _$APIV1POSTKeyListResponseSerializer
     implements StructuredSerializer<APIV1POSTKeyListResponse> {
@@ -28,8 +28,7 @@ class _$APIV1POSTKeyListResponseSerializer
       result
         ..add('addresses')
         ..add(serializers.serialize(object.addresses,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+            specifiedType: const FullType(BuiltList, [FullType(String)])));
     }
     if (object.error != null) {
       result
@@ -50,7 +49,7 @@ class _$APIV1POSTKeyListResponseSerializer
   APIV1POSTKeyListResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTKeyListResponseBuilder();
+    final result = APIV1POSTKeyListResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -60,8 +59,7 @@ class _$APIV1POSTKeyListResponseSerializer
       switch (key) {
         case 'addresses':
           result.addresses.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
+                  specifiedType: const FullType(BuiltList, [FullType(String)]))
               as BuiltList<Object>);
           break;
         case 'error':
@@ -89,7 +87,7 @@ class _$APIV1POSTKeyListResponse extends APIV1POSTKeyListResponse {
 
   factory _$APIV1POSTKeyListResponse(
           [void Function(APIV1POSTKeyListResponseBuilder) updates]) =>
-      (new APIV1POSTKeyListResponseBuilder()..update(updates)).build();
+      (APIV1POSTKeyListResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTKeyListResponse._({this.addresses, this.error, this.message})
       : super._();
@@ -101,7 +99,7 @@ class _$APIV1POSTKeyListResponse extends APIV1POSTKeyListResponse {
 
   @override
   APIV1POSTKeyListResponseBuilder toBuilder() =>
-      new APIV1POSTKeyListResponseBuilder()..replace(this);
+      APIV1POSTKeyListResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -135,7 +133,7 @@ class APIV1POSTKeyListResponseBuilder
 
   ListBuilder<String> _addresses;
   ListBuilder<String> get addresses =>
-      _$this._addresses ??= new ListBuilder<String>();
+      _$this._addresses ??= ListBuilder<String>();
   set addresses(ListBuilder<String> addresses) => _$this._addresses = addresses;
 
   bool _error;
@@ -161,7 +159,7 @@ class APIV1POSTKeyListResponseBuilder
   @override
   void replace(APIV1POSTKeyListResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTKeyListResponse;
   }
@@ -176,7 +174,7 @@ class APIV1POSTKeyListResponseBuilder
     _$APIV1POSTKeyListResponse _$result;
     try {
       _$result = _$v ??
-          new _$APIV1POSTKeyListResponse._(
+          _$APIV1POSTKeyListResponse._(
               addresses: _addresses?.build(), error: error, message: message);
     } catch (_) {
       String _$failedField;
@@ -184,7 +182,7 @@ class APIV1POSTKeyListResponseBuilder
         _$failedField = 'addresses';
         _addresses?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'APIV1POSTKeyListResponse', _$failedField, e.toString());
       }
       rethrow;

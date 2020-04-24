@@ -8,7 +8,7 @@ part of 'asset_transfer_transaction_type.dart';
 
 Serializer<AssetTransferTransactionType>
     _$assetTransferTransactionTypeSerializer =
-    new _$AssetTransferTransactionTypeSerializer();
+    _$AssetTransferTransactionTypeSerializer();
 
 class _$AssetTransferTransactionTypeSerializer
     implements StructuredSerializer<AssetTransferTransactionType> {
@@ -62,7 +62,7 @@ class _$AssetTransferTransactionTypeSerializer
   AssetTransferTransactionType deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new AssetTransferTransactionTypeBuilder();
+    final result = AssetTransferTransactionTypeBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -111,7 +111,7 @@ class _$AssetTransferTransactionType extends AssetTransferTransactionType {
 
   factory _$AssetTransferTransactionType(
           [void Function(AssetTransferTransactionTypeBuilder) updates]) =>
-      (new AssetTransferTransactionTypeBuilder()..update(updates)).build();
+      (AssetTransferTransactionTypeBuilder()..update(updates)).build();
 
   _$AssetTransferTransactionType._(
       {this.amt, this.closeto, this.id, this.rcv, this.snd})
@@ -124,7 +124,7 @@ class _$AssetTransferTransactionType extends AssetTransferTransactionType {
 
   @override
   AssetTransferTransactionTypeBuilder toBuilder() =>
-      new AssetTransferTransactionTypeBuilder()..replace(this);
+      AssetTransferTransactionTypeBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -200,7 +200,7 @@ class AssetTransferTransactionTypeBuilder
   @override
   void replace(AssetTransferTransactionType other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$AssetTransferTransactionType;
   }
@@ -213,7 +213,7 @@ class AssetTransferTransactionTypeBuilder
   @override
   _$AssetTransferTransactionType build() {
     final _$result = _$v ??
-        new _$AssetTransferTransactionType._(
+        _$AssetTransferTransactionType._(
             amt: amt, closeto: closeto, id: id, rcv: rcv, snd: snd);
     replace(_$result);
     return _$result;

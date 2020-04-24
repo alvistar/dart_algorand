@@ -188,21 +188,20 @@ class Transaction implements Mappable {
       args.addAll(AssetTransferTxn.undictify(m));
 
       txn = AssetTransferTxn(
-        sender: args['sender'],
-        fee: args['fee'],
-        first_valid_round: args['first'],
-        last_valid_round: args['last'],
-        genesis_hash: args['gh'],
-        note: args['note'],
-        genesis_id: args['gen'],
-        lease: args['lx'],
-        flat_fee: true,
-        receiver: args['receiver'],
-        amt: args['amt'],
-        index: args['index'],
-        close_assets_to: args['close_assets_to'],
-        revocation_target: args['revocation_target']
-      );
+          sender: args['sender'],
+          fee: args['fee'],
+          first_valid_round: args['first'],
+          last_valid_round: args['last'],
+          genesis_hash: args['gh'],
+          note: args['note'],
+          genesis_id: args['gen'],
+          lease: args['lx'],
+          flat_fee: true,
+          receiver: args['receiver'],
+          amt: args['amt'],
+          index: args['index'],
+          close_assets_to: args['close_assets_to'],
+          revocation_target: args['revocation_target']);
     }
 
     if (args.containsKey('grp')) {

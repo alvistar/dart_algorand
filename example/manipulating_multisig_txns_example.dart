@@ -14,7 +14,8 @@ void main() async {
   // create a multisig account
   final version = 1; // multisig version
   final threshold = 2; //  how many signatures are necessary
-  final msig = Multisig(version: version,
+  final msig = Multisig(
+      version: version,
       threshold: threshold,
       addresses: [account1.address, account2.address]);
 
@@ -23,15 +24,14 @@ void main() async {
 
   // create transaction
   final txn = PaymentTxn(
-    sender: msig.address(),
-    fee: params.fee,
-    first_valid_round: params.lastRound,
-    last_valid_round: params.lastRound + 100,
-    genesis_hash: params.genesishashb64,
-    receiver: account3.address,
-    genesis_id: params.genesisID,
-    amt: 10000
-  );
+      sender: msig.address(),
+      fee: params.fee,
+      first_valid_round: params.lastRound,
+      last_valid_round: params.lastRound + 100,
+      genesis_hash: params.genesishashb64,
+      receiver: account3.address,
+      genesis_id: params.genesisID,
+      amt: 10000);
 
   // create a SignedTransaction object
   final mtx = MultisigTransaction(transaction: txn, multisig: msig);

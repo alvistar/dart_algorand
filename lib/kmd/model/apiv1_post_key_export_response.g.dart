@@ -7,7 +7,7 @@ part of 'apiv1_post_key_export_response.dart';
 // **************************************************************************
 
 Serializer<APIV1POSTKeyExportResponse> _$aPIV1POSTKeyExportResponseSerializer =
-    new _$APIV1POSTKeyExportResponseSerializer();
+    _$APIV1POSTKeyExportResponseSerializer();
 
 class _$APIV1POSTKeyExportResponseSerializer
     implements StructuredSerializer<APIV1POSTKeyExportResponse> {
@@ -49,7 +49,7 @@ class _$APIV1POSTKeyExportResponseSerializer
   APIV1POSTKeyExportResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTKeyExportResponseBuilder();
+    final result = APIV1POSTKeyExportResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -86,7 +86,7 @@ class _$APIV1POSTKeyExportResponse extends APIV1POSTKeyExportResponse {
 
   factory _$APIV1POSTKeyExportResponse(
           [void Function(APIV1POSTKeyExportResponseBuilder) updates]) =>
-      (new APIV1POSTKeyExportResponseBuilder()..update(updates)).build();
+      (APIV1POSTKeyExportResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTKeyExportResponse._({this.error, this.message, this.privateKey})
       : super._();
@@ -98,7 +98,7 @@ class _$APIV1POSTKeyExportResponse extends APIV1POSTKeyExportResponse {
 
   @override
   APIV1POSTKeyExportResponseBuilder toBuilder() =>
-      new APIV1POSTKeyExportResponseBuilder()..replace(this);
+      APIV1POSTKeyExportResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -157,7 +157,7 @@ class APIV1POSTKeyExportResponseBuilder
   @override
   void replace(APIV1POSTKeyExportResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTKeyExportResponse;
   }
@@ -170,7 +170,7 @@ class APIV1POSTKeyExportResponseBuilder
   @override
   _$APIV1POSTKeyExportResponse build() {
     final _$result = _$v ??
-        new _$APIV1POSTKeyExportResponse._(
+        _$APIV1POSTKeyExportResponse._(
             error: error, message: message, privateKey: privateKey);
     replace(_$result);
     return _$result;

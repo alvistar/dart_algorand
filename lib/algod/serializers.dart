@@ -30,7 +30,7 @@ import 'model/version.dart';
 part 'serializers.g.dart';
 
 // ignore: unnecessary_const
-@SerializersFor(const [
+@SerializersFor([
   Account,
   Asset,
   AssetConfigTransactionType,
@@ -105,12 +105,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, [FullType(TransactionParams)]),
           () => ListBuilder<TransactionParams>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, [FullType(AssetHolding)]),
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(AssetHolding)]),
           () => ListBuilder<AssetHolding>())
       ..addBuilderFactory(const FullType(BuiltList, [FullType(Version)]),
           () => ListBuilder<Version>()))
-
     .build();
 
 Serializers standardSerializers =

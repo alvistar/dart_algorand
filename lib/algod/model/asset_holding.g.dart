@@ -6,8 +6,7 @@ part of 'asset_holding.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<AssetHolding> _$assetHoldingSerializer =
-    new _$AssetHoldingSerializer();
+Serializer<AssetHolding> _$assetHoldingSerializer = _$AssetHoldingSerializer();
 
 class _$AssetHoldingSerializer implements StructuredSerializer<AssetHolding> {
   @override
@@ -34,7 +33,7 @@ class _$AssetHoldingSerializer implements StructuredSerializer<AssetHolding> {
   @override
   AssetHolding deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new AssetHoldingBuilder();
+    final result = AssetHoldingBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,17 +69,17 @@ class _$AssetHolding extends AssetHolding {
   final bool frozen;
 
   factory _$AssetHolding([void Function(AssetHoldingBuilder) updates]) =>
-      (new AssetHoldingBuilder()..update(updates)).build();
+      (AssetHoldingBuilder()..update(updates)).build();
 
   _$AssetHolding._({this.creator, this.amount, this.frozen}) : super._() {
     if (creator == null) {
-      throw new BuiltValueNullFieldError('AssetHolding', 'creator');
+      throw BuiltValueNullFieldError('AssetHolding', 'creator');
     }
     if (amount == null) {
-      throw new BuiltValueNullFieldError('AssetHolding', 'amount');
+      throw BuiltValueNullFieldError('AssetHolding', 'amount');
     }
     if (frozen == null) {
-      throw new BuiltValueNullFieldError('AssetHolding', 'frozen');
+      throw BuiltValueNullFieldError('AssetHolding', 'frozen');
     }
   }
 
@@ -89,7 +88,7 @@ class _$AssetHolding extends AssetHolding {
       (toBuilder()..update(updates)).build();
 
   @override
-  AssetHoldingBuilder toBuilder() => new AssetHoldingBuilder()..replace(this);
+  AssetHoldingBuilder toBuilder() => AssetHoldingBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -147,7 +146,7 @@ class AssetHoldingBuilder
   @override
   void replace(AssetHolding other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$AssetHolding;
   }
@@ -160,7 +159,7 @@ class AssetHoldingBuilder
   @override
   _$AssetHolding build() {
     final _$result = _$v ??
-        new _$AssetHolding._(creator: creator, amount: amount, frozen: frozen);
+        _$AssetHolding._(creator: creator, amount: amount, frozen: frozen);
     replace(_$result);
     return _$result;
   }

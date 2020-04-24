@@ -1,4 +1,4 @@
-const LANGSPEC=r'''
+const LANGSPEC = r'''
 {
   "EvalMaxVersion": 1,
   "LogicSigVersion": 1,

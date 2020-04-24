@@ -17,8 +17,7 @@ abstract class ImportKeyRequest
   // Boilerplate code needed to wire-up generated code
   ImportKeyRequest._();
 
-  factory ImportKeyRequest(
-      [Function(ImportKeyRequestBuilder) updates]) =
+  factory ImportKeyRequest([Function(ImportKeyRequestBuilder) updates]) =
       _$ImportKeyRequest;
 
   static Serializer<ImportKeyRequest> get serializer =>

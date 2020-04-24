@@ -8,7 +8,7 @@ part of 'apiv1_post_multisig_export_response.dart';
 
 Serializer<APIV1POSTMultisigExportResponse>
     _$aPIV1POSTMultisigExportResponseSerializer =
-    new _$APIV1POSTMultisigExportResponseSerializer();
+    _$APIV1POSTMultisigExportResponseSerializer();
 
 class _$APIV1POSTMultisigExportResponseSerializer
     implements StructuredSerializer<APIV1POSTMultisigExportResponse> {
@@ -47,8 +47,7 @@ class _$APIV1POSTMultisigExportResponseSerializer
       result
         ..add('pks')
         ..add(serializers.serialize(object.pks,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+            specifiedType: const FullType(BuiltList, [FullType(String)])));
     }
     if (object.threshold != null) {
       result
@@ -63,7 +62,7 @@ class _$APIV1POSTMultisigExportResponseSerializer
   APIV1POSTMultisigExportResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTMultisigExportResponseBuilder();
+    final result = APIV1POSTMultisigExportResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -85,8 +84,7 @@ class _$APIV1POSTMultisigExportResponseSerializer
           break;
         case 'pks':
           result.pks.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
+                  specifiedType: const FullType(BuiltList, [FullType(String)]))
               as BuiltList<Object>);
           break;
         case 'threshold':
@@ -115,7 +113,7 @@ class _$APIV1POSTMultisigExportResponse
 
   factory _$APIV1POSTMultisigExportResponse(
           [void Function(APIV1POSTMultisigExportResponseBuilder) updates]) =>
-      (new APIV1POSTMultisigExportResponseBuilder()..update(updates)).build();
+      (APIV1POSTMultisigExportResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTMultisigExportResponse._(
       {this.error,
@@ -132,7 +130,7 @@ class _$APIV1POSTMultisigExportResponse
 
   @override
   APIV1POSTMultisigExportResponseBuilder toBuilder() =>
-      new APIV1POSTMultisigExportResponseBuilder()..replace(this);
+      APIV1POSTMultisigExportResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -187,7 +185,7 @@ class APIV1POSTMultisigExportResponseBuilder
       _$this._multisigVersion = multisigVersion;
 
   ListBuilder<String> _pks;
-  ListBuilder<String> get pks => _$this._pks ??= new ListBuilder<String>();
+  ListBuilder<String> get pks => _$this._pks ??= ListBuilder<String>();
   set pks(ListBuilder<String> pks) => _$this._pks = pks;
 
   int _threshold;
@@ -211,7 +209,7 @@ class APIV1POSTMultisigExportResponseBuilder
   @override
   void replace(APIV1POSTMultisigExportResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTMultisigExportResponse;
   }
@@ -226,7 +224,7 @@ class APIV1POSTMultisigExportResponseBuilder
     _$APIV1POSTMultisigExportResponse _$result;
     try {
       _$result = _$v ??
-          new _$APIV1POSTMultisigExportResponse._(
+          _$APIV1POSTMultisigExportResponse._(
               error: error,
               message: message,
               multisigVersion: multisigVersion,
@@ -238,7 +236,7 @@ class APIV1POSTMultisigExportResponseBuilder
         _$failedField = 'pks';
         _pks?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'APIV1POSTMultisigExportResponse', _$failedField, e.toString());
       }
       rethrow;

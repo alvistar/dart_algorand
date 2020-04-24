@@ -8,7 +8,7 @@ part of 'apiv1_post_multisig_transaction_sign_response.dart';
 
 Serializer<APIV1POSTMultisigTransactionSignResponse>
     _$aPIV1POSTMultisigTransactionSignResponseSerializer =
-    new _$APIV1POSTMultisigTransactionSignResponseSerializer();
+    _$APIV1POSTMultisigTransactionSignResponseSerializer();
 
 class _$APIV1POSTMultisigTransactionSignResponseSerializer
     implements StructuredSerializer<APIV1POSTMultisigTransactionSignResponse> {
@@ -50,7 +50,7 @@ class _$APIV1POSTMultisigTransactionSignResponseSerializer
   APIV1POSTMultisigTransactionSignResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTMultisigTransactionSignResponseBuilder();
+    final result = APIV1POSTMultisigTransactionSignResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -89,7 +89,7 @@ class _$APIV1POSTMultisigTransactionSignResponse
   factory _$APIV1POSTMultisigTransactionSignResponse(
           [void Function(APIV1POSTMultisigTransactionSignResponseBuilder)
               updates]) =>
-      (new APIV1POSTMultisigTransactionSignResponseBuilder()..update(updates))
+      (APIV1POSTMultisigTransactionSignResponseBuilder()..update(updates))
           .build();
 
   _$APIV1POSTMultisigTransactionSignResponse._(
@@ -104,7 +104,7 @@ class _$APIV1POSTMultisigTransactionSignResponse
 
   @override
   APIV1POSTMultisigTransactionSignResponseBuilder toBuilder() =>
-      new APIV1POSTMultisigTransactionSignResponseBuilder()..replace(this);
+      APIV1POSTMultisigTransactionSignResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -165,7 +165,7 @@ class APIV1POSTMultisigTransactionSignResponseBuilder
   @override
   void replace(APIV1POSTMultisigTransactionSignResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTMultisigTransactionSignResponse;
   }
@@ -179,7 +179,7 @@ class APIV1POSTMultisigTransactionSignResponseBuilder
   @override
   _$APIV1POSTMultisigTransactionSignResponse build() {
     final _$result = _$v ??
-        new _$APIV1POSTMultisigTransactionSignResponse._(
+        _$APIV1POSTMultisigTransactionSignResponse._(
             error: error, message: message, multisig: multisig);
     replace(_$result);
     return _$result;

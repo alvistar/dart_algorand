@@ -7,7 +7,7 @@ part of 'multisig_subsig.dart';
 // **************************************************************************
 
 Serializer<MultisigSubsig> _$multisigSubsigSerializer =
-    new _$MultisigSubsigSerializer();
+    _$MultisigSubsigSerializer();
 
 class _$MultisigSubsigSerializer
     implements StructuredSerializer<MultisigSubsig> {
@@ -39,7 +39,7 @@ class _$MultisigSubsigSerializer
   MultisigSubsig deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new MultisigSubsigBuilder();
+    final result = MultisigSubsigBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -69,7 +69,7 @@ class _$MultisigSubsig extends MultisigSubsig {
   final String sig;
 
   factory _$MultisigSubsig([void Function(MultisigSubsigBuilder) updates]) =>
-      (new MultisigSubsigBuilder()..update(updates)).build();
+      (MultisigSubsigBuilder()..update(updates)).build();
 
   _$MultisigSubsig._({this.key, this.sig}) : super._();
 
@@ -78,8 +78,7 @@ class _$MultisigSubsig extends MultisigSubsig {
       (toBuilder()..update(updates)).build();
 
   @override
-  MultisigSubsigBuilder toBuilder() =>
-      new MultisigSubsigBuilder()..replace(this);
+  MultisigSubsigBuilder toBuilder() => MultisigSubsigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -127,7 +126,7 @@ class MultisigSubsigBuilder
   @override
   void replace(MultisigSubsig other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$MultisigSubsig;
   }
@@ -139,7 +138,7 @@ class MultisigSubsigBuilder
 
   @override
   _$MultisigSubsig build() {
-    final _$result = _$v ?? new _$MultisigSubsig._(key: key, sig: sig);
+    final _$result = _$v ?? _$MultisigSubsig._(key: key, sig: sig);
     replace(_$result);
     return _$result;
   }

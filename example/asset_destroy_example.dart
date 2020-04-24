@@ -19,14 +19,13 @@ void main() async {
 
   // create the asset config transaction
   final txn = AssetConfigTxn(
-    sender: creatorAddress,
-    fee: feePerByte,
-    first_valid_round: firstValidRound,
-    last_valid_round: lastValidRound,
-    genesis_hash: genesisHash,
-    index: index,
-    strict_empty_address_check: false
-  );
+      sender: creatorAddress,
+      fee: feePerByte,
+      first_valid_round: firstValidRound,
+      last_valid_round: lastValidRound,
+      genesis_hash: genesisHash,
+      index: index,
+      strict_empty_address_check: false);
 
   // sign the transction
   final signedTxn = txn.sign(creatorPrivateKey);

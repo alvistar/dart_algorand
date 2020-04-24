@@ -8,7 +8,7 @@ part of 'apiv1_post_wallet_renew_response.dart';
 
 Serializer<APIV1POSTWalletRenewResponse>
     _$aPIV1POSTWalletRenewResponseSerializer =
-    new _$APIV1POSTWalletRenewResponseSerializer();
+    _$APIV1POSTWalletRenewResponseSerializer();
 
 class _$APIV1POSTWalletRenewResponseSerializer
     implements StructuredSerializer<APIV1POSTWalletRenewResponse> {
@@ -50,7 +50,7 @@ class _$APIV1POSTWalletRenewResponseSerializer
   APIV1POSTWalletRenewResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTWalletRenewResponseBuilder();
+    final result = APIV1POSTWalletRenewResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -88,7 +88,7 @@ class _$APIV1POSTWalletRenewResponse extends APIV1POSTWalletRenewResponse {
 
   factory _$APIV1POSTWalletRenewResponse(
           [void Function(APIV1POSTWalletRenewResponseBuilder) updates]) =>
-      (new APIV1POSTWalletRenewResponseBuilder()..update(updates)).build();
+      (APIV1POSTWalletRenewResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTWalletRenewResponse._(
       {this.error, this.message, this.walletHandle})
@@ -101,7 +101,7 @@ class _$APIV1POSTWalletRenewResponse extends APIV1POSTWalletRenewResponse {
 
   @override
   APIV1POSTWalletRenewResponseBuilder toBuilder() =>
-      new APIV1POSTWalletRenewResponseBuilder()..replace(this);
+      APIV1POSTWalletRenewResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -144,7 +144,7 @@ class APIV1POSTWalletRenewResponseBuilder
 
   APIV1WalletHandleBuilder _walletHandle;
   APIV1WalletHandleBuilder get walletHandle =>
-      _$this._walletHandle ??= new APIV1WalletHandleBuilder();
+      _$this._walletHandle ??= APIV1WalletHandleBuilder();
   set walletHandle(APIV1WalletHandleBuilder walletHandle) =>
       _$this._walletHandle = walletHandle;
 
@@ -163,7 +163,7 @@ class APIV1POSTWalletRenewResponseBuilder
   @override
   void replace(APIV1POSTWalletRenewResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTWalletRenewResponse;
   }
@@ -178,7 +178,7 @@ class APIV1POSTWalletRenewResponseBuilder
     _$APIV1POSTWalletRenewResponse _$result;
     try {
       _$result = _$v ??
-          new _$APIV1POSTWalletRenewResponse._(
+          _$APIV1POSTWalletRenewResponse._(
               error: error,
               message: message,
               walletHandle: _walletHandle?.build());
@@ -188,7 +188,7 @@ class APIV1POSTWalletRenewResponseBuilder
         _$failedField = 'walletHandle';
         _walletHandle?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'APIV1POSTWalletRenewResponse', _$failedField, e.toString());
       }
       rethrow;

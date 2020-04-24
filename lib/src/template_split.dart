@@ -28,13 +28,13 @@ class Split extends Template {
 
   Split(
       {this.owner,
-        this.receiver_1,
-        this.receiver_2,
-        this.ratn,
-        this.ratd,
-        this.expiry_round,
-        this.min_pay,
-        this.max_fee});
+      this.receiver_1,
+      this.receiver_2,
+      this.ratn,
+      this.ratd,
+      this.expiry_round,
+      this.min_pay,
+      this.max_fee});
 
   /// Return a byte array to be used in LogicSig.
   @override

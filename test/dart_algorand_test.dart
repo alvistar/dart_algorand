@@ -73,7 +73,8 @@ void main() {
           throwsA(isA<InvalidProgram>()));
 
       var program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
-      final program_hash = '6Z3C3LDVWGMX23BMSYMANACQOSINPFIRF77H7N3AWJZYV6OH6GWTJKVMXY';
+      final program_hash =
+          '6Z3C3LDVWGMX23BMSYMANACQOSINPFIRF77H7N3AWJZYV6OH6GWTJKVMXY';
       final public_key = decode_address(program_hash);
       var lsig = LogicSig(program: program);
       expect(lsig.program, program);
@@ -140,7 +141,8 @@ void main() {
       final account_2 = generate_account();
 
       // create multisig address with invalid version
-      final msig = Multisig(version: 1,
+      final msig = Multisig(
+          version: 1,
           threshold: 2,
           addresses: [account_1.address, account_2.address]);
 
@@ -182,9 +184,12 @@ void main() {
     });
 
     test('transaction', () {
-      final from_address = '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU';
-      final to_address = 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI';
-      final mn = 'advice pudding treat near rule blouse same whisper inner electric'
+      final from_address =
+          '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU';
+      final to_address =
+          'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI';
+      final mn =
+          'advice pudding treat near rule blouse same whisper inner electric'
           ' quit surface sunny dismiss leader blood seat clown cost exist ho'
           'spital century reform able sponsor';
 
@@ -198,8 +203,7 @@ void main() {
           amt: 2000,
           note: base64Decode('8xMCTuLQ810='),
           genesis_id: 'devnet-v1.0',
-          flat_fee: true
-      );
+          flat_fee: true);
 
       final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x22]);
       final args = <Uint8List>[
@@ -241,8 +245,8 @@ void main() {
     });
 
     test('parse intcblock', () {
-      final data = Uint8List.fromList(
-          [0x20, 0x05, 0x00, 0x01, 0xc8, 0x03, 0x7b, 0x02]);
+      final data =
+          Uint8List.fromList([0x20, 0x05, 0x00, 0x01, 0xc8, 0x03, 0x7b, 0x02]);
 
       final results = read_int_const_block(data, 0);
       expect(results.size, data.length);
@@ -250,13 +254,44 @@ void main() {
     });
 
     test('parse bytecblock', () {
-      final data = Uint8List.fromList(
-          [0x026, 0x02, 0x0d, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38,
-            0x39, 0x30, 0x31, 0x32, 0x33, 0x02, 0x01, 0x02]);
+      final data = Uint8List.fromList([
+        0x026,
+        0x02,
+        0x0d,
+        0x31,
+        0x32,
+        0x33,
+        0x34,
+        0x35,
+        0x36,
+        0x37,
+        0x38,
+        0x39,
+        0x30,
+        0x31,
+        0x32,
+        0x33,
+        0x02,
+        0x01,
+        0x02
+      ]);
 
       final expected = <Uint8List>[
-        Uint8List.fromList([0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38,
-          0x39, 0x30, 0x31, 0x32, 0x33]),
+        Uint8List.fromList([
+          0x31,
+          0x32,
+          0x33,
+          0x34,
+          0x35,
+          0x36,
+          0x37,
+          0x38,
+          0x39,
+          0x30,
+          0x31,
+          0x32,
+          0x33
+        ]),
         Uint8List.fromList([0x1, 0x2])
       ];
 
@@ -306,10 +341,10 @@ void main() {
       final arg = Uint8List.fromList(List.filled(1000, 0x31));
       args.add(arg);
 
-      expect(() async => await read_program(program, args),
-          throwsA(predicate((e) =>
-          e is InvalidProgram &&
-              e.message == 'program too long')));
+      expect(
+          () async => await read_program(program, args),
+          throwsA(predicate(
+              (e) => e is InvalidProgram && e.message == 'program too long')));
     });
 
     test('check program long', () {
@@ -317,25 +352,25 @@ void main() {
       final int1 = Uint8List(1000);
       final program2 = Uint8List.fromList(program + int1);
 
-      expect(() async => await read_program(program2, []),
-          throwsA(predicate((e) =>
-          e is InvalidProgram &&
-              e.message == 'program too long')));
+      expect(
+          () async => await read_program(program2, []),
+          throwsA(predicate(
+              (e) => e is InvalidProgram && e.message == 'program too long')));
     });
 
     test('check program invalid opcode', () {
       final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x01, 0x81]);
       final args = <Uint8List>[];
 
-      expect(() async => await read_program(program, args),
+      expect(
+          () async => await read_program(program, args),
           throwsA(predicate((e) =>
-          e is InvalidProgram &&
-              e.message == 'invalid instruction 129')));
+              e is InvalidProgram && e.message == 'invalid instruction 129')));
     });
 
     test('check program costly', () async {
-      final program = Uint8List.fromList(
-          [0x01, 0x26, 0x01, 0x01, 0x01, 0x01, 0x28, 0x02]);
+      final program =
+          Uint8List.fromList([0x01, 0x26, 0x01, 0x01, 0x01, 0x01, 0x28, 0x02]);
 
       expect(await check_program(program, []), isTrue);
 
@@ -347,9 +382,10 @@ void main() {
       final keccak256800 = Uint8List.fromList(List.filled(800, 0x02));
       final program3 = Uint8List.fromList(program + keccak256800);
 
-      expect(() async => await read_program(program3, []),
+      expect(
+          () async => await read_program(program3, []),
           throwsA(predicate((e) =>
-          e is InvalidProgram &&
+              e is InvalidProgram &&
               e.message == 'program too costly to run')));
     });
   });
@@ -364,15 +400,11 @@ void main() {
 
   group('Multisig', () {
     test('merge', () {
-      final msig = Multisig(
-          version: 1,
-          threshold: 2,
-          addresses: [
-            'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA',
-            'BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM',
-            '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU'
-          ]
-      );
+      final msig = Multisig(version: 1, threshold: 2, addresses: [
+        'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA',
+        'BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM',
+        '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU'
+      ]);
 
       final mn = 'auction inquiry lava second expand liberty glass involve '
           'ginger illness length room item discover ahead table doctor '
@@ -386,12 +418,13 @@ void main() {
           first_valid_round: 62229,
           last_valid_round: 63229,
           genesis_hash: '/rNsORAUOQDD2lVCyhg2sA/S+BlZElfNI/YEL5jINp0=',
-          receiver: 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
+          receiver:
+              'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
           amt: 1000,
           note: base64Decode('RSYiABhShvs='),
           genesis_id: 'devnet-v38.0',
-          close_remainder_to: 'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA'
-      );
+          close_remainder_to:
+              'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA');
 
       final mtx = MultisigTransaction(transaction: txn, multisig: msig);
       mtx.sign(sk);
@@ -439,14 +472,11 @@ void main() {
       expect(msgpack_encode(mtx_final), golden2);
     });
     test('sign', () {
-      final msig = Multisig(
-          version: 1,
-          threshold: 2,
-          addresses: [
-            'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA',
-            'BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM',
-            '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU'
-          ]);
+      final msig = Multisig(version: 1, threshold: 2, addresses: [
+        'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA',
+        'BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM',
+        '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU'
+      ]);
 
       final mn = 'advice pudding treat near rule blouse same whisper inner '
           'electric quit surface sunny dismiss leader blood seat clown '
@@ -460,12 +490,13 @@ void main() {
           first_valid_round: 12466,
           last_valid_round: 13466,
           genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
-          receiver: 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
+          receiver:
+              'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
           amt: 1000,
           note: base64Decode('X4Bl4wQ9rCo='),
           genesis_id: 'devnet-v33.0',
-          close_remainder_to: 'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA'
-      );
+          close_remainder_to:
+              'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA');
 
       final mtx = MultisigTransaction(transaction: txn, multisig: msig);
       mtx.sign(sk);
@@ -484,33 +515,30 @@ void main() {
 
       expect(msgpack_encode(mtx), golden);
 
-      final txid_golden = 'TDIO6RJWJIVDDJZELMSX5CPJW7MUNM3QR4YAHYAKHF3W2CFRTI7A';
+      final txid_golden =
+          'TDIO6RJWJIVDDJZELMSX5CPJW7MUNM3QR4YAHYAKHF3W2CFRTI7A';
       expect(txn.get_txid(), txid_golden);
     });
 
     test('Msig address', () {
-      final msig = Multisig(
-          version: 1,
-          threshold: 2,
-          addresses: [
-            'XMHLMNAVJIMAW2RHJXLXKKK4G3J3U6VONNO3BTAQYVDC3MHTGDP3J5OCRU',
-            'HTNOX33OCQI2JCOLZ2IRM3BC2WZ6JUILSLEORBPFI6W7GU5Q4ZW6LINHLA',
-            'E6JSNTY4PVCY3IRZ6XEDHEO6VIHCQ5KGXCIQKFQCMB2N6HXRY4IB43VSHI']
-      );
+      final msig = Multisig(version: 1, threshold: 2, addresses: [
+        'XMHLMNAVJIMAW2RHJXLXKKK4G3J3U6VONNO3BTAQYVDC3MHTGDP3J5OCRU',
+        'HTNOX33OCQI2JCOLZ2IRM3BC2WZ6JUILSLEORBPFI6W7GU5Q4ZW6LINHLA',
+        'E6JSNTY4PVCY3IRZ6XEDHEO6VIHCQ5KGXCIQKFQCMB2N6HXRY4IB43VSHI'
+      ]);
 
-      final golden = 'UCE2U2JC4O4ZR6W763GUQCG57HQCDZEUJY4J5I6VYY4HQZUJDF7AKZO5GM';
+      final golden =
+          'UCE2U2JC4O4ZR6W763GUQCG57HQCDZEUJY4J5I6VYY4HQZUJDF7AKZO5GM';
       expect(msig.address(), golden);
 
-      final msig2 = Multisig(
-          version: 1,
-          threshold: 2,
-          addresses: [
-            'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA',
-            'BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM',
-            '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU']
-      );
+      final msig2 = Multisig(version: 1, threshold: 2, addresses: [
+        'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA',
+        'BFRTECKTOOE7A5LHCF3TTEOH2A7BW46IYT2SX5VP6ANKEXHZYJY77SJTVM',
+        '47YPQTIGQEO7T4Y4RWDYWEKV6RTR2UNBQXBABEEGM72ESWDQNCQ52OPASU'
+      ]);
 
-      final golden2 = 'RWJLJCMQAFZ2ATP2INM2GZTKNL6OULCCUBO5TQPXH3V2KR4AG7U5UA5JNM';
+      final golden2 =
+          'RWJLJCMQAFZ2ATP2INM2GZTKNL6OULCCUBO5TQPXH3V2KR4AG7U5UA5JNM';
       expect(msig2.address(), golden2);
     });
 
@@ -529,15 +557,13 @@ void main() {
           last_valid_round: 1334,
           genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
           receiver: account_2.address,
-          amt: 1000
-      );
+          amt: 1000);
 
       //  create multisig address with invalid version
       final msig = Multisig(
           version: 2,
           threshold: 2,
-          addresses: [account_1.address, account_2.address]
-      );
+          addresses: [account_1.address, account_2.address]);
 
       expect(() => msig.validate(), throwsA(isA<UnknownMsigVersionError>()));
 
@@ -566,8 +592,7 @@ void main() {
       final msig_2 = Multisig(
           version: 1,
           threshold: 2,
-          addresses: [account_2.address, account_3.address]
-      );
+          addresses: [account_2.address, account_3.address]);
 
       // try to merge with different addresses
       final mtx_2 = MultisigTransaction(transaction: txn, multisig: msig_2);
@@ -583,10 +608,11 @@ void main() {
       msig_3.subsigs[0].signature = Utf8Encoder().convert('sig3');
 
       // try to merge
-      expect(() =>
-          MultisigTransaction.merge(
-              [MultisigTransaction(transaction: txn, multisig: msig_2),
-                MultisigTransaction(transaction: txn, multisig: msig_3)]),
+      expect(
+          () => MultisigTransaction.merge([
+                MultisigTransaction(transaction: txn, multisig: msig_2),
+                MultisigTransaction(transaction: txn, multisig: msig_3)
+              ]),
           throwsA(isA<DuplicateSigMismatchError>()));
     });
   });
@@ -594,9 +620,9 @@ void main() {
   group('Mnemonic', () {
     test('Private key from mnemonic', () {
       final mn =
-      ('awful drop leaf tennis indoor begin mandate discover uncle se' +
-          'ven only coil atom any hospital uncover make any climb actor ' +
-          'armed measure need above hundred');
+          ('awful drop leaf tennis indoor begin mandate discover uncle se' +
+              'ven only coil atom any hospital uncover make any climb actor ' +
+              'armed measure need above hundred');
 
       expect(mnemonic.to_private_key(mn),
           'hdhQ/fKNOVHg8D5kLzE21SKHKLyt7DSMAlYq4IUnepIJ+9J2LAj4bFrmv23Xp6kB3mZ111Dgfoxcdphkfbbh/Q==');
@@ -605,9 +631,7 @@ void main() {
     test('Private key from/to', () {
       final account = generate_account();
       final mn = mnemonic.from_private_key(account.private_key);
-      expect(mn
-          .split(' ')
-          .length, MNEMONIC_LEN);
+      expect(mn.split(' ').length, MNEMONIC_LEN);
       expect(account.private_key, mnemonic.to_private_key(mn));
     });
 
@@ -643,7 +667,7 @@ void main() {
 
     test('Word list', () {
       final result =
-      mnemonic.mnemonicChecksum(Utf8Encoder().convert(WORD_LIST_RAW));
+          mnemonic.mnemonicChecksum(Utf8Encoder().convert(WORD_LIST_RAW));
 
       expect(result, 'venue');
     });
@@ -651,8 +675,7 @@ void main() {
     test('Wrong length', () {
       final mn = 'abandon abandon abandon';
       expect(
-              () => mnemonic.to_key(mn),
-          throwsA(isA<WrongMnemonicLengthError>()));
+          () => mnemonic.to_key(mn), throwsA(isA<WrongMnemonicLengthError>()));
     });
 
     test('Bytes wrong len', () {
@@ -671,9 +694,11 @@ void main() {
     });
 
     test('Is valid', () {
-      final valid = 'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJI';
+      final valid =
+          'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJI';
       expect(is_valid_address(valid), isTrue);
-      final invalid = 'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJG';
+      final invalid =
+          'MO2H6ZU47Q36GJ6GVHUKGEBEQINN7ZWVACMWZQGIYUOE3RBSRVYHV4ACJG';
       expect(is_valid_address(invalid), isFalse);
     });
   });
@@ -914,7 +939,8 @@ void main() {
     });
 
     test('Serialize txgroup', () {
-      final address = '7ZUECA7HFLZTXENRV24SHLU4AVPUTMTTDUFUBNBD64C73F3UHRTHAIOF6Q';
+      final address =
+          '7ZUECA7HFLZTXENRV24SHLU4AVPUTMTTDUFUBNBD64C73F3UHRTHAIOF6Q';
       final gh = 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=';
 
       final txn = PaymentTxn(
@@ -926,8 +952,7 @@ void main() {
           receiver: address,
           amt: 1000,
           genesis_id: 'testnet-v1.0',
-          close_remainder_to: address
-      );
+          close_remainder_to: address);
 
       final txid = txn.get_txid();
       final txid_decoded = base32.decode(txid);
@@ -1010,12 +1035,12 @@ void main() {
           last_valid_round: 13466,
           genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
           receiver:
-          'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
+              'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
           amt: 1000,
           note: base64Decode('6gAVR0Nsv5Y='),
           genesis_id: 'devnet-v33.0',
           close_remainder_to:
-          'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA');
+              'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA');
 
       final signed_txn = txn.sign(sk);
 
@@ -1039,8 +1064,40 @@ void main() {
       final pk = address_from_private_key(sk);
 
       // @formatter:off
-      final lease = Uint8List.fromList([1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3,
-        4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]);
+      final lease = Uint8List.fromList([
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ]);
       // @formatter:on
 
       final txn = PaymentTxn(
@@ -1049,13 +1106,14 @@ void main() {
           first_valid_round: 12466,
           last_valid_round: 13466,
           genesis_hash: 'JgsgCaCTqIaLeVhyL6XlRu3n7Rfk2FxMeK+wRSaQ7dI=',
-          receiver: 'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
+          receiver:
+              'PNWOET7LLOWMBMLE4KOCELCX6X3D3Q4H2Q4QJASYIEOF7YIPPQBG3YQ5YI',
           note: base64Decode('6gAVR0Nsv5Y='),
           amt: 1000,
-          close_remainder_to: 'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA',
+          close_remainder_to:
+              'IDUTJEUIEVSMXTU4LGTJWZ2UE2E6TIODUKU6UW3FU3UKIQQ77RLUBBBFLA',
           genesis_id: 'devnet-v33.0',
-          lease: lease
-      );
+          lease: lease);
 
       final signed_txn = txn.sign(sk);
 
@@ -1070,7 +1128,6 @@ void main() {
 
       expect(golden, msgpack_encode(signed_txn));
     });
-
 
     test('Serialize keyreg', () {
       final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
@@ -1201,20 +1258,20 @@ void main() {
     test('Asset Empty address error', () {
       final pk = 'DN7MBMCL5JQ3PFUQS7TMX5AH4EEKOBJVDUF4TCV6WERATKFLQF4MQUPZTA';
 
-      expect(() =>
-          AssetConfigTxn(
-            sender: pk,
-            fee: 10,
-            first_valid_round: 322575,
-            last_valid_round: 323575,
-            genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
-            reserve: pk,
-            freeze: pk,
-            clawback: pk,
-            index: 1234,
-          ), throwsA(isA<EmptyAddressError>()));
-    }
-    );
+      expect(
+          () => AssetConfigTxn(
+                sender: pk,
+                fee: 10,
+                first_valid_round: 322575,
+                last_valid_round: 323575,
+                genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
+                reserve: pk,
+                freeze: pk,
+                clawback: pk,
+                index: 1234,
+              ),
+          throwsA(isA<EmptyAddressError>()));
+    });
 
     test('Asset serialize asset config', () {
       final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
@@ -1266,8 +1323,7 @@ void main() {
           last_valid_round: 323575,
           genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
           index: 1,
-          strict_empty_address_check: false
-      );
+          strict_empty_address_check: false);
 
       final signed_txn = txn.sign(sk);
 
@@ -1326,12 +1382,11 @@ void main() {
           last_valid_round: 323576,
           genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
           receiver:
-          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
           amt: 1,
           index: 1,
           close_assets_to:
-          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4');
-
+              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4');
 
       final signed_txn = txn.sign(sk);
 
@@ -1345,7 +1400,6 @@ void main() {
 
       expect(msgpack_encode(signed_txn), golden);
     });
-
 
     test('Serialize asset accept', () {
       final mn = 'awful drop leaf tennis indoor begin mandate discover uncle se'
@@ -1362,7 +1416,7 @@ void main() {
           last_valid_round: 323575,
           genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
           receiver:
-          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
           amt: 0,
           index: 1);
 
@@ -1393,10 +1447,10 @@ void main() {
           last_valid_round: 323575,
           genesis_hash: 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=',
           receiver:
-          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
           amt: 1,
           revocation_target:
-          'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
+              'BH55E5RMBD4GYWXGX5W5PJ5JAHPGM5OXKDQH5DC4O2MGI7NW4H6VOE4CP4',
           index: 1);
 
       final signed_txn = txn.sign(sk);
@@ -1413,7 +1467,8 @@ void main() {
     });
 
     test('Group ID', () {
-      final address = 'UPYAFLHSIPMJOHVXU2MPLQ46GXJKSDCEMZ6RLCQ7GWB5PRDKJUWKKXECXI';
+      final address =
+          'UPYAFLHSIPMJOHVXU2MPLQ46GXJKSDCEMZ6RLCQ7GWB5PRDKJUWKKXECXI';
       final from_address = address;
       final to_address = address;
       final fee = 1000;
@@ -1451,8 +1506,7 @@ void main() {
           amt: amount,
           note: note2,
           genesis_id: genesis_id,
-          flat_fee: true
-      );
+          flat_fee: true);
 
       // preserve original tx{1,2} objects
 
@@ -1462,12 +1516,14 @@ void main() {
       var stx1 = SignedTransaction(transaction: tx1_copy);
       var stx2 = SignedTransaction(transaction: tx2_copy);
 
-      final goldenTx1 = 'gaN0eG6Ko2FtdM0H0KNmZWXNA+iiZnbOAArW/6NnZW6rZGV2bmV0LXYxLjCiZ2j'
+      final goldenTx1 =
+          'gaN0eG6Ko2FtdM0H0KNmZWXNA+iiZnbOAArW/6NnZW6rZGV2bmV0LXYxLjCiZ2j'
           'EILAtz+3tknW6iiStLW4gnSvbXUqW3ul3ghinaDc5pY9Bomx2zgAK2uekbm90Zc'
           'QIwRKw5cJ0CMqjcmN2xCCj8AKs8kPYlx63ppj1w5410qkMRGZ9FYofNYPXxGpNL'
           'KNzbmTEIKPwAqzyQ9iXHremmPXDnjXSqQxEZn0Vih81g9fEak0spHR5cGWjcGF5';
 
-      final goldenTx2 = 'gaN0eG6Ko2FtdM0H0KNmZWXNA+iiZnbOAArXc6NnZW6rZGV2bmV0LXYxLjCiZ2j'
+      final goldenTx2 =
+          'gaN0eG6Ko2FtdM0H0KNmZWXNA+iiZnbOAArXc6NnZW6rZGV2bmV0LXYxLjCiZ2j'
           'EILAtz+3tknW6iiStLW4gnSvbXUqW3ul3ghinaDc5pY9Bomx2zgAK21ukbm90Zc'
           'QIdBlHI6BdrIijcmN2xCCj8AKs8kPYlx63ppj1w5410qkMRGZ9FYofNYPXxGpNL'
           'KNzbmTEIKPwAqzyQ9iXHremmPXDnjXSqQxEZn0Vih81g9fEak0spHR5cGWjcGF5';
@@ -1486,7 +1542,8 @@ void main() {
       var txg = base64Encode(base64Decode(msgpack_encode(stx1)) +
           base64Decode(msgpack_encode(stx2)));
 
-      final goldenTxg = 'gaN0eG6Lo2FtdM0H0KNmZWXNA+iiZnbOAArW/6NnZW6rZGV2bmV0LXYxLjCiZ2j'
+      final goldenTxg =
+          'gaN0eG6Lo2FtdM0H0KNmZWXNA+iiZnbOAArW/6NnZW6rZGV2bmV0LXYxLjCiZ2j'
           'EILAtz+3tknW6iiStLW4gnSvbXUqW3ul3ghinaDc5pY9Bo2dycMQgLiQ9OBup9H'
           '/bZLSfQUH2S6iHUM6FQ3PLuv9FNKyt09SibHbOAAra56Rub3RlxAjBErDlwnQIy'
           'qNyY3bEIKPwAqzyQ9iXHremmPXDnjXSqQxEZn0Vih81g9fEak0so3NuZMQgo/AC'
@@ -1533,11 +1590,15 @@ void main() {
 
   group('template', () {
     test("split", () {
-      final addr1 = 'WO3QIJ6T4DZHBX5PWJH26JLHFSRT7W7M2DJOULPXDTUS6TUX7ZRIO4KDFY';
-      final addr2 = 'W6UUUSEAOGLBHT7VFT4H2SDATKKSG6ZBUIJXTZMSLW36YS44FRP5NVAU7U';
-      final addr3 = 'XCIBIN7RT4ZXGBMVAMU3QS6L5EKB7XGROC5EPCNHHYXUIBAA5Q6C5Y7NEU';
+      final addr1 =
+          'WO3QIJ6T4DZHBX5PWJH26JLHFSRT7W7M2DJOULPXDTUS6TUX7ZRIO4KDFY';
+      final addr2 =
+          'W6UUUSEAOGLBHT7VFT4H2SDATKKSG6ZBUIJXTZMSLW36YS44FRP5NVAU7U';
+      final addr3 =
+          'XCIBIN7RT4ZXGBMVAMU3QS6L5EKB7XGROC5EPCNHHYXUIBAA5Q6C5Y7NEU';
 
-      final s = Split(owner: addr1,
+      final s = Split(
+          owner: addr1,
           receiver_1: addr2,
           receiver_2: addr3,
           ratn: 30,
@@ -1560,8 +1621,10 @@ void main() {
     });
 
     test('HTLC', () {
-      final addr1 = '726KBOYUJJNE5J5UHCSGQGWIBZWKCBN4WYD7YVSTEXEVNFPWUIJ7TAEOPM';
-      final addr2 = '42NJMHTPFVPXVSDGA6JGKUV6TARV5UZTMPFIREMLXHETRKIVW34QFSDFRE';
+      final addr1 =
+          '726KBOYUJJNE5J5UHCSGQGWIBZWKCBN4WYD7YVSTEXEVNFPWUIJ7TAEOPM';
+      final addr2 =
+          '42NJMHTPFVPXVSDGA6JGKUV6TARV5UZTMPFIREMLXHETRKIVW34QFSDFRE';
 
       final s = HTLC(
           owner: addr1,
@@ -1569,8 +1632,7 @@ void main() {
           hash_function: 'sha256',
           hash_image: 'f4OxZX/x/FO5LcGBSKHWXfwtSx+j1ncoSt3SABJtkGk=',
           expiry_round: 600000,
-          max_fee: 1000
-      );
+          max_fee: 1000);
 
       final golden_addr = 'KNBD7ATNUVQ4NTLOI72EEUWBVMBNK'
           'MPHWVBCETERV2W7T2YO6CVMLJRBM4';

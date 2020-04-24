@@ -27,14 +27,13 @@ void main() async {
       genesis_hash: params.genesishashb64,
       receiver: account1.address,
       genesis_id: params.genesisID,
-      amt: 10000
-  );
+      amt: 10000);
 
   // note, transaction is signed by logic only (no delegation)
   // that means sender address must match to program hash
 
   final lstx = LogicSigTransaction(transaction: txn, lsig: lsig);
-  assert (lstx.verify());
+  assert(lstx.verify());
 
   // send them over the network
   // await acl.sendTransaction(lstx);

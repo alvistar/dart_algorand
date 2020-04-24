@@ -7,7 +7,7 @@ part of 'transaction_id.dart';
 // **************************************************************************
 
 Serializer<TransactionID> _$transactionIDSerializer =
-    new _$TransactionIDSerializer();
+    _$TransactionIDSerializer();
 
 class _$TransactionIDSerializer implements StructuredSerializer<TransactionID> {
   @override
@@ -32,7 +32,7 @@ class _$TransactionIDSerializer implements StructuredSerializer<TransactionID> {
   TransactionID deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new TransactionIDBuilder();
+    final result = TransactionIDBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -56,7 +56,7 @@ class _$TransactionID extends TransactionID {
   final String txId;
 
   factory _$TransactionID([void Function(TransactionIDBuilder) updates]) =>
-      (new TransactionIDBuilder()..update(updates)).build();
+      (TransactionIDBuilder()..update(updates)).build();
 
   _$TransactionID._({this.txId}) : super._();
 
@@ -65,7 +65,7 @@ class _$TransactionID extends TransactionID {
       (toBuilder()..update(updates)).build();
 
   @override
-  TransactionIDBuilder toBuilder() => new TransactionIDBuilder()..replace(this);
+  TransactionIDBuilder toBuilder() => TransactionIDBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -106,7 +106,7 @@ class TransactionIDBuilder
   @override
   void replace(TransactionID other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$TransactionID;
   }
@@ -118,7 +118,7 @@ class TransactionIDBuilder
 
   @override
   _$TransactionID build() {
-    final _$result = _$v ?? new _$TransactionID._(txId: txId);
+    final _$result = _$v ?? _$TransactionID._(txId: txId);
     replace(_$result);
     return _$result;
   }

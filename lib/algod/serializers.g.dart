@@ -6,7 +6,7 @@ part of serializers;
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$serializers = (new Serializers().toBuilder()
+Serializers _$serializers = (Serializers().toBuilder()
       ..add(Account.serializer)
       ..add(Asset.serializer)
       ..add(AssetConfigTransactionType.serializer)
@@ -30,23 +30,18 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(TransactionParams.serializer)
       ..add(TransactionResults.serializer)
       ..add(Version.serializer)
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(Asset)]),
+          () => ListBuilder<Asset>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(String)]),
+          () => ListBuilder<String>())
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(Transaction)]),
+          () => ListBuilder<Transaction>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Asset)]),
-          () => new ListBuilder<Asset>())
+          const FullType(BuiltMap, [FullType(String), FullType(AssetHolding)]),
+          () => MapBuilder<String, AssetHolding>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Transaction)]),
-          () => new ListBuilder<Transaction>())
-      ..addBuilderFactory(
-          const FullType(BuiltMap,
-              const [const FullType(String), const FullType(AssetHolding)]),
-          () => new MapBuilder<String, AssetHolding>())
-      ..addBuilderFactory(
-          const FullType(BuiltMap,
-              const [const FullType(String), const FullType(AssetParams)]),
-          () => new MapBuilder<String, AssetParams>()))
+          const FullType(BuiltMap, [FullType(String), FullType(AssetParams)]),
+          () => MapBuilder<String, AssetParams>()))
     .build();
 
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

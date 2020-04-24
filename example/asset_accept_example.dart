@@ -23,7 +23,8 @@ void main() async {
     last_valid_round: lastValidRound,
     genesis_hash: genesisHash,
     index: index,
-    receiver: senderAddress, // to start accepting assets, set receiver to sender
+    receiver:
+        senderAddress, // to start accepting assets, set receiver to sender
     amt: 0, // to start accepting assets, set amount to 0
   );
 

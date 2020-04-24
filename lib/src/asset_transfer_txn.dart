@@ -37,15 +37,15 @@ class AssetTransferTxn extends Transaction {
     this.revocation_target,
     flat_fee = false,
   }) : super(
-      sender: sender,
-      fee: fee,
-      first_valid_round: first_valid_round,
-      last_valid_round: last_valid_round,
-      note: note,
-      genesis_id: genesis_id,
-      genesis_hash: genesis_hash,
-      lease: lease,
-      type: ASSET_TRANSFER_TXN) {
+            sender: sender,
+            fee: fee,
+            first_valid_round: first_valid_round,
+            last_valid_round: last_valid_round,
+            note: note,
+            genesis_id: genesis_id,
+            genesis_hash: genesis_hash,
+            lease: lease,
+            type: ASSET_TRANSFER_TXN) {
     this.fee = flat_fee
         ? max(MIN_TXN_FEE, fee)
         : max(estimate_size() * fee, MIN_TXN_FEE);
@@ -79,8 +79,10 @@ class AssetTransferTxn extends Transaction {
       'receiver': m.containsKey('arcv') ? encode_address(m['arcv']) : null,
       'amt': m.containsKey('aamt') ? m['aamt'] : 0,
       'index': m.containsKey('xaid') ? m['xaid'] : null,
-      'close_assets_to': m.containsKey('aclose') ? encode_address(m['aclose']) : null,
-      'revocation_target': m.containsKey('asnd') ? encode_address(m['asnd']) : null
+      'close_assets_to':
+          m.containsKey('aclose') ? encode_address(m['aclose']) : null,
+      'revocation_target':
+          m.containsKey('asnd') ? encode_address(m['asnd']) : null
     };
   }
 }

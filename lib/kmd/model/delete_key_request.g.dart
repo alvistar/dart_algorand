@@ -7,7 +7,7 @@ part of 'delete_key_request.dart';
 // **************************************************************************
 
 Serializer<DeleteKeyRequest> _$deleteKeyRequestSerializer =
-    new _$DeleteKeyRequestSerializer();
+    _$DeleteKeyRequestSerializer();
 
 class _$DeleteKeyRequestSerializer
     implements StructuredSerializer<DeleteKeyRequest> {
@@ -45,7 +45,7 @@ class _$DeleteKeyRequestSerializer
   DeleteKeyRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new DeleteKeyRequestBuilder();
+    final result = DeleteKeyRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -82,7 +82,7 @@ class _$DeleteKeyRequest extends DeleteKeyRequest {
 
   factory _$DeleteKeyRequest(
           [void Function(DeleteKeyRequestBuilder) updates]) =>
-      (new DeleteKeyRequestBuilder()..update(updates)).build();
+      (DeleteKeyRequestBuilder()..update(updates)).build();
 
   _$DeleteKeyRequest._(
       {this.address, this.walletHandleToken, this.walletPassword})
@@ -94,7 +94,7 @@ class _$DeleteKeyRequest extends DeleteKeyRequest {
 
   @override
   DeleteKeyRequestBuilder toBuilder() =>
-      new DeleteKeyRequestBuilder()..replace(this);
+      DeleteKeyRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -154,7 +154,7 @@ class DeleteKeyRequestBuilder
   @override
   void replace(DeleteKeyRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$DeleteKeyRequest;
   }
@@ -167,7 +167,7 @@ class DeleteKeyRequestBuilder
   @override
   _$DeleteKeyRequest build() {
     final _$result = _$v ??
-        new _$DeleteKeyRequest._(
+        _$DeleteKeyRequest._(
             address: address,
             walletHandleToken: walletHandleToken,
             walletPassword: walletPassword);

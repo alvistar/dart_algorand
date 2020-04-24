@@ -7,7 +7,7 @@ part of 'export_key_request.dart';
 // **************************************************************************
 
 Serializer<ExportKeyRequest> _$exportKeyRequestSerializer =
-    new _$ExportKeyRequestSerializer();
+    _$ExportKeyRequestSerializer();
 
 class _$ExportKeyRequestSerializer
     implements StructuredSerializer<ExportKeyRequest> {
@@ -45,7 +45,7 @@ class _$ExportKeyRequestSerializer
   ExportKeyRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ExportKeyRequestBuilder();
+    final result = ExportKeyRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -82,7 +82,7 @@ class _$ExportKeyRequest extends ExportKeyRequest {
 
   factory _$ExportKeyRequest(
           [void Function(ExportKeyRequestBuilder) updates]) =>
-      (new ExportKeyRequestBuilder()..update(updates)).build();
+      (ExportKeyRequestBuilder()..update(updates)).build();
 
   _$ExportKeyRequest._(
       {this.address, this.walletHandleToken, this.walletPassword})
@@ -94,7 +94,7 @@ class _$ExportKeyRequest extends ExportKeyRequest {
 
   @override
   ExportKeyRequestBuilder toBuilder() =>
-      new ExportKeyRequestBuilder()..replace(this);
+      ExportKeyRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -154,7 +154,7 @@ class ExportKeyRequestBuilder
   @override
   void replace(ExportKeyRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$ExportKeyRequest;
   }
@@ -167,7 +167,7 @@ class ExportKeyRequestBuilder
   @override
   _$ExportKeyRequest build() {
     final _$result = _$v ??
-        new _$ExportKeyRequest._(
+        _$ExportKeyRequest._(
             address: address,
             walletHandleToken: walletHandleToken,
             walletPassword: walletPassword);

@@ -306,7 +306,7 @@ class AlgodApi {
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
-            contentTypes.isNotEmpty ? contentTypes[0] :  'application/json',
+            contentTypes.isNotEmpty ? contentTypes[0] : 'application/json',
       ),
       cancelToken: cancelToken,
     )

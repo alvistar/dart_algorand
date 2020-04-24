@@ -7,7 +7,7 @@ part of 'sign_program_multisig_request.dart';
 // **************************************************************************
 
 Serializer<SignProgramMultisigRequest> _$signProgramMultisigRequestSerializer =
-    new _$SignProgramMultisigRequestSerializer();
+    _$SignProgramMultisigRequestSerializer();
 
 class _$SignProgramMultisigRequestSerializer
     implements StructuredSerializer<SignProgramMultisigRequest> {
@@ -46,8 +46,7 @@ class _$SignProgramMultisigRequestSerializer
       result
         ..add('public_key')
         ..add(serializers.serialize(object.publicKey,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(int)])));
+            specifiedType: const FullType(BuiltList, [FullType(int)])));
     }
     if (object.walletHandleToken != null) {
       result
@@ -68,7 +67,7 @@ class _$SignProgramMultisigRequestSerializer
   SignProgramMultisigRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new SignProgramMultisigRequestBuilder();
+    final result = SignProgramMultisigRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -90,8 +89,7 @@ class _$SignProgramMultisigRequestSerializer
           break;
         case 'public_key':
           result.publicKey.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
+                  specifiedType: const FullType(BuiltList, [FullType(int)]))
               as BuiltList<Object>);
           break;
         case 'wallet_handle_token':
@@ -125,7 +123,7 @@ class _$SignProgramMultisigRequest extends SignProgramMultisigRequest {
 
   factory _$SignProgramMultisigRequest(
           [void Function(SignProgramMultisigRequestBuilder) updates]) =>
-      (new SignProgramMultisigRequestBuilder()..update(updates)).build();
+      (SignProgramMultisigRequestBuilder()..update(updates)).build();
 
   _$SignProgramMultisigRequest._(
       {this.address,
@@ -143,7 +141,7 @@ class _$SignProgramMultisigRequest extends SignProgramMultisigRequest {
 
   @override
   SignProgramMultisigRequestBuilder toBuilder() =>
-      new SignProgramMultisigRequestBuilder()..replace(this);
+      SignProgramMultisigRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -197,13 +195,12 @@ class SignProgramMultisigRequestBuilder
 
   MultisigSigBuilder _partialMultisig;
   MultisigSigBuilder get partialMultisig =>
-      _$this._partialMultisig ??= new MultisigSigBuilder();
+      _$this._partialMultisig ??= MultisigSigBuilder();
   set partialMultisig(MultisigSigBuilder partialMultisig) =>
       _$this._partialMultisig = partialMultisig;
 
   ListBuilder<int> _publicKey;
-  ListBuilder<int> get publicKey =>
-      _$this._publicKey ??= new ListBuilder<int>();
+  ListBuilder<int> get publicKey => _$this._publicKey ??= ListBuilder<int>();
   set publicKey(ListBuilder<int> publicKey) => _$this._publicKey = publicKey;
 
   String _walletHandleToken;
@@ -234,7 +231,7 @@ class SignProgramMultisigRequestBuilder
   @override
   void replace(SignProgramMultisigRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$SignProgramMultisigRequest;
   }
@@ -249,7 +246,7 @@ class SignProgramMultisigRequestBuilder
     _$SignProgramMultisigRequest _$result;
     try {
       _$result = _$v ??
-          new _$SignProgramMultisigRequest._(
+          _$SignProgramMultisigRequest._(
               address: address,
               data: data,
               partialMultisig: _partialMultisig?.build(),
@@ -264,7 +261,7 @@ class SignProgramMultisigRequestBuilder
         _$failedField = 'publicKey';
         _publicKey?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'SignProgramMultisigRequest', _$failedField, e.toString());
       }
       rethrow;

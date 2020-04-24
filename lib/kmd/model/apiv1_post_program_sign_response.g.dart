@@ -8,7 +8,7 @@ part of 'apiv1_post_program_sign_response.dart';
 
 Serializer<APIV1POSTProgramSignResponse>
     _$aPIV1POSTProgramSignResponseSerializer =
-    new _$APIV1POSTProgramSignResponseSerializer();
+    _$APIV1POSTProgramSignResponseSerializer();
 
 class _$APIV1POSTProgramSignResponseSerializer
     implements StructuredSerializer<APIV1POSTProgramSignResponse> {
@@ -50,7 +50,7 @@ class _$APIV1POSTProgramSignResponseSerializer
   APIV1POSTProgramSignResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTProgramSignResponseBuilder();
+    final result = APIV1POSTProgramSignResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -87,7 +87,7 @@ class _$APIV1POSTProgramSignResponse extends APIV1POSTProgramSignResponse {
 
   factory _$APIV1POSTProgramSignResponse(
           [void Function(APIV1POSTProgramSignResponseBuilder) updates]) =>
-      (new APIV1POSTProgramSignResponseBuilder()..update(updates)).build();
+      (APIV1POSTProgramSignResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTProgramSignResponse._({this.error, this.message, this.sig})
       : super._();
@@ -99,7 +99,7 @@ class _$APIV1POSTProgramSignResponse extends APIV1POSTProgramSignResponse {
 
   @override
   APIV1POSTProgramSignResponseBuilder toBuilder() =>
-      new APIV1POSTProgramSignResponseBuilder()..replace(this);
+      APIV1POSTProgramSignResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -159,7 +159,7 @@ class APIV1POSTProgramSignResponseBuilder
   @override
   void replace(APIV1POSTProgramSignResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTProgramSignResponse;
   }
@@ -172,7 +172,7 @@ class APIV1POSTProgramSignResponseBuilder
   @override
   _$APIV1POSTProgramSignResponse build() {
     final _$result = _$v ??
-        new _$APIV1POSTProgramSignResponse._(
+        _$APIV1POSTProgramSignResponse._(
             error: error, message: message, sig: sig);
     replace(_$result);
     return _$result;

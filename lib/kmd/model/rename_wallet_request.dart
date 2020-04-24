@@ -1,28 +1,27 @@
-        import 'package:built_value/built_value.dart';
+import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'rename_wallet_request.g.dart';
 
-abstract class RenameWalletRequest implements Built<RenameWalletRequest, RenameWalletRequestBuilder> {
+abstract class RenameWalletRequest
+    implements Built<RenameWalletRequest, RenameWalletRequestBuilder> {
+  @nullable
+  @BuiltValueField(wireName: r'wallet_id')
+  String get walletId;
 
-    
-        @nullable
-    @BuiltValueField(wireName: r'wallet_id')
-    String get walletId;
-    
-        @nullable
-    @BuiltValueField(wireName: r'wallet_name')
-    String get walletName;
-    
-        @nullable
-    @BuiltValueField(wireName: r'wallet_password')
-    String get walletPassword;
+  @nullable
+  @BuiltValueField(wireName: r'wallet_name')
+  String get walletName;
 
-    // Boilerplate code needed to wire-up generated code
-    RenameWalletRequest._();
+  @nullable
+  @BuiltValueField(wireName: r'wallet_password')
+  String get walletPassword;
 
-    factory RenameWalletRequest([updates(RenameWalletRequestBuilder b)]) = _$RenameWalletRequest;
-    static Serializer<RenameWalletRequest> get serializer => _$renameWalletRequestSerializer;
+  // Boilerplate code needed to wire-up generated code
+  RenameWalletRequest._();
 
+  factory RenameWalletRequest([updates(RenameWalletRequestBuilder b)]) =
+      _$RenameWalletRequest;
+  static Serializer<RenameWalletRequest> get serializer =>
+      _$renameWalletRequestSerializer;
 }
-

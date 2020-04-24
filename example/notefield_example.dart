@@ -33,10 +33,8 @@ void main() async {
       receiver: account1.address,
       genesis_id: params.genesisID,
       note: utf8.encode('Some Text'),
-      amt: 10000
-  );
+      amt: 10000);
 
   // sign it
   txn.sign(sk);
-
 }

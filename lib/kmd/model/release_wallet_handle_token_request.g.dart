@@ -8,7 +8,7 @@ part of 'release_wallet_handle_token_request.dart';
 
 Serializer<ReleaseWalletHandleTokenRequest>
     _$releaseWalletHandleTokenRequestSerializer =
-    new _$ReleaseWalletHandleTokenRequestSerializer();
+    _$ReleaseWalletHandleTokenRequestSerializer();
 
 class _$ReleaseWalletHandleTokenRequestSerializer
     implements StructuredSerializer<ReleaseWalletHandleTokenRequest> {
@@ -38,7 +38,7 @@ class _$ReleaseWalletHandleTokenRequestSerializer
   ReleaseWalletHandleTokenRequest deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ReleaseWalletHandleTokenRequestBuilder();
+    final result = ReleaseWalletHandleTokenRequestBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -64,7 +64,7 @@ class _$ReleaseWalletHandleTokenRequest
 
   factory _$ReleaseWalletHandleTokenRequest(
           [void Function(ReleaseWalletHandleTokenRequestBuilder) updates]) =>
-      (new ReleaseWalletHandleTokenRequestBuilder()..update(updates)).build();
+      (ReleaseWalletHandleTokenRequestBuilder()..update(updates)).build();
 
   _$ReleaseWalletHandleTokenRequest._({this.walletHandleToken}) : super._();
 
@@ -75,7 +75,7 @@ class _$ReleaseWalletHandleTokenRequest
 
   @override
   ReleaseWalletHandleTokenRequestBuilder toBuilder() =>
-      new ReleaseWalletHandleTokenRequestBuilder()..replace(this);
+      ReleaseWalletHandleTokenRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -121,7 +121,7 @@ class ReleaseWalletHandleTokenRequestBuilder
   @override
   void replace(ReleaseWalletHandleTokenRequest other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$ReleaseWalletHandleTokenRequest;
   }
@@ -134,7 +134,7 @@ class ReleaseWalletHandleTokenRequestBuilder
   @override
   _$ReleaseWalletHandleTokenRequest build() {
     final _$result = _$v ??
-        new _$ReleaseWalletHandleTokenRequest._(
+        _$ReleaseWalletHandleTokenRequest._(
             walletHandleToken: walletHandleToken);
     replace(_$result);
     return _$result;

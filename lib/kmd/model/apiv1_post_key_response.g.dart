@@ -7,7 +7,7 @@ part of 'apiv1_post_key_response.dart';
 // **************************************************************************
 
 Serializer<APIV1POSTKeyResponse> _$aPIV1POSTKeyResponseSerializer =
-    new _$APIV1POSTKeyResponseSerializer();
+    _$APIV1POSTKeyResponseSerializer();
 
 class _$APIV1POSTKeyResponseSerializer
     implements StructuredSerializer<APIV1POSTKeyResponse> {
@@ -49,7 +49,7 @@ class _$APIV1POSTKeyResponseSerializer
   APIV1POSTKeyResponse deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new APIV1POSTKeyResponseBuilder();
+    final result = APIV1POSTKeyResponseBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -86,7 +86,7 @@ class _$APIV1POSTKeyResponse extends APIV1POSTKeyResponse {
 
   factory _$APIV1POSTKeyResponse(
           [void Function(APIV1POSTKeyResponseBuilder) updates]) =>
-      (new APIV1POSTKeyResponseBuilder()..update(updates)).build();
+      (APIV1POSTKeyResponseBuilder()..update(updates)).build();
 
   _$APIV1POSTKeyResponse._({this.address, this.error, this.message})
       : super._();
@@ -98,7 +98,7 @@ class _$APIV1POSTKeyResponse extends APIV1POSTKeyResponse {
 
   @override
   APIV1POSTKeyResponseBuilder toBuilder() =>
-      new APIV1POSTKeyResponseBuilder()..replace(this);
+      APIV1POSTKeyResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -156,7 +156,7 @@ class APIV1POSTKeyResponseBuilder
   @override
   void replace(APIV1POSTKeyResponse other) {
     if (other == null) {
-      throw new ArgumentError.notNull('other');
+      throw ArgumentError.notNull('other');
     }
     _$v = other as _$APIV1POSTKeyResponse;
   }
@@ -169,7 +169,7 @@ class APIV1POSTKeyResponseBuilder
   @override
   _$APIV1POSTKeyResponse build() {
     final _$result = _$v ??
-        new _$APIV1POSTKeyResponse._(
+        _$APIV1POSTKeyResponse._(
             address: address, error: error, message: message);
     replace(_$result);
     return _$result;

@@ -22,8 +22,7 @@ void main() async {
       genesis_hash: params.genesishashb64,
       receiver: receiver.address,
       genesis_id: params.genesisID,
-      amt: 10000
-  );
+      amt: 10000);
 
   final txn2 = PaymentTxn(
       sender: receiver.address,
@@ -33,8 +32,7 @@ void main() async {
       genesis_hash: params.genesishashb64,
       receiver: sender.address,
       genesis_id: params.genesisID,
-      amt: 10000
-  );
+      amt: 10000);
 
   // get group id and assign it to transactions
   final gid = calculate_group_id([txn1, txn2]);

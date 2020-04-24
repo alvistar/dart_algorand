@@ -20,16 +20,15 @@ void main() async {
 
   // create the asset config transaction
   final txn = AssetTransferTxn(
-    sender: senderAddress,
-    fee: feePerByte,
-    first_valid_round: firstValidRound,
-    last_valid_round: lastValidRound,
-    genesis_hash: genesisHash,
-    index: index,
-    receiver: receiver.address,
-    amt: 100,
-    close_assets_to: closeAssetsTo.address
-  );
+      sender: senderAddress,
+      fee: feePerByte,
+      first_valid_round: firstValidRound,
+      last_valid_round: lastValidRound,
+      genesis_hash: genesisHash,
+      index: index,
+      receiver: receiver.address,
+      amt: 100,
+      close_assets_to: closeAssetsTo.address);
 
   // sign the transction
   final signedTxn = txn.sign(senderPrivateKey);
