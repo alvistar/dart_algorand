@@ -507,6 +507,12 @@ void main() {
     test('ledger supply', () async {
       await algodClient.ledgerSupply();
     });
+    
+    test('block info', () async {
+      final lastRound = (await algodClient.status()).lastRound;
+      final result = await algodClient.blockInfo(lastRound);
+      expect(result.hash, isNotEmpty);
+    });
 
   });
 }

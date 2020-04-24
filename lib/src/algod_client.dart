@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dart_algorand/algod/model/block.dart';
 import 'package:dart_algorand/algod/model/node_status.dart';
 import 'package:dart_algorand/algod/model/pending_transactions.dart';
 import 'package:dart_algorand/algod/model/supply.dart';
@@ -135,6 +136,11 @@ class AlgodClient {
   /// Return supply details for node's ledger
   Future<Supply> ledgerSupply() async {
     return (await api.getSupply()).data;
+  }
+
+  /// Return block information of block number [round]
+  Future<Block> blockInfo(int round) async {
+    return (await api.getBlock(round)).data;
   }
 
 }
