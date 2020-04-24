@@ -61,7 +61,7 @@ class AlgodClient {
 
   /// Broadcast a signed transaction object to the network.
   /// Returns transaction ID
-  Future<String> sendTransaction(SignedTransaction transaction) async {
+  Future<String> sendTransaction(SignedTransactionBase transaction) async {
     return (await api.rawTransaction(base64Decode(msgpack_encode(transaction))))
         .data
         .txId;
@@ -69,7 +69,7 @@ class AlgodClient {
 
   /// Broadcast list of a signed transaction objects to the network.
   /// Returns first transaction id
-  Future<String> sendTransactions(List<SignedTransaction> txns) async {
+  Future<String> sendTransactions(List<SignedTransactionBase> txns) async {
     final serialized =<int>[];
     for (var txn in txns) {
       serialized.addAll(base64Decode(msgpack_encode(txn)));

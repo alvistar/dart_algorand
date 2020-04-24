@@ -12,7 +12,7 @@ import 'encoding.dart';
 Function eq = const ListEquality().equals;
 
 /// Represents a signed transaction.
-class MultisigTransaction {
+class MultisigTransaction implements SignedTransactionBase {
   Transaction transaction;
   Multisig multisig;
 

@@ -5,7 +5,7 @@ import 'package:dart_algorand/dart_algorand.dart';
 import 'logic_sig.dart';
 
 /// Represents a logic signed transaction
-class LogicSigTransaction {
+class LogicSigTransaction implements SignedTransactionBase {
   Transaction transaction;
   LogicSig lsig;
 

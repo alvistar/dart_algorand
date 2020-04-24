@@ -301,7 +301,9 @@ class PaymentTxn extends Transaction {
   }
 }
 
-class SignedTransaction implements Mappable {
+abstract class SignedTransactionBase {}
+
+class SignedTransaction implements Mappable, SignedTransactionBase {
   String signature;
   Transaction transaction;
 
