@@ -13,6 +13,9 @@ import 'package:dart_algorand/src/logic_sig.dart';
 import 'package:dart_algorand/src/logic_sig_txn.dart';
 import 'package:dart_algorand/src/mnemonic.dart' as mnemonic;
 import 'package:dart_algorand/src/multisig_txn.dart';
+import 'package:dart_algorand/src/template.dart';
+import 'package:dart_algorand/src/template_htlc.dart';
+import 'package:dart_algorand/src/template_split.dart';
 import 'package:dart_algorand/src/wordlist.dart';
 import 'package:test/test.dart';
 import 'package:base32/base32.dart';
@@ -1525,6 +1528,60 @@ void main() {
 
       txns = assign_group_id(txns: [tx1, tx2], address: 'NONEXISTENT');
       expect(txns.length, 0);
+    });
+  });
+
+  group('template', () {
+    test("split", () {
+      final addr1 = 'WO3QIJ6T4DZHBX5PWJH26JLHFSRT7W7M2DJOULPXDTUS6TUX7ZRIO4KDFY';
+      final addr2 = 'W6UUUSEAOGLBHT7VFT4H2SDATKKSG6ZBUIJXTZMSLW36YS44FRP5NVAU7U';
+      final addr3 = 'XCIBIN7RT4ZXGBMVAMU3QS6L5EKB7XGROC5EPCNHHYXUIBAA5Q6C5Y7NEU';
+
+      final s = Split(owner: addr1,
+          receiver_1: addr2,
+          receiver_2: addr3,
+          ratn: 30,
+          ratd: 100,
+          expiry_round: 123456,
+          min_pay: 10000,
+          max_fee: 5000000);
+
+      final golden = 'ASAIAcCWsQICAMDEBx5kkE4mAyCztwQn0+DycN+vsk+vJWcsoz/b7NDS'
+          '6i33HOkvTpf+YiC3qUpIgHGWE8/1LPh9SGCalSN7IaITeeWSXbfsS5ws'
+          'XyC4kBQ38Z8zcwWVAym4S8vpFB/c0XC6R4mnPi9EBADsPDEQIhIxASMM'
+          'EDIEJBJAABkxCSgSMQcyAxIQMQglEhAxAiEEDRAiQAAuMwAAMwEAEjEJ'
+          'MgMSEDMABykSEDMBByoSEDMACCEFCzMBCCEGCxIQMwAIIQcPEBA=';
+
+      final golden_addr = 'KPYGWKTV7CKMPMTLQRNGMEQRSYTYD'
+          'HUOFNV4UDSBDLC44CLIJPQWRTCPBU';
+
+      expect(s.get_program(), base64Decode(golden));
+      expect(s.get_address(), golden_addr);
+    });
+
+    test('HTLC', () {
+      final addr1 = '726KBOYUJJNE5J5UHCSGQGWIBZWKCBN4WYD7YVSTEXEVNFPWUIJ7TAEOPM';
+      final addr2 = '42NJMHTPFVPXVSDGA6JGKUV6TARV5UZTMPFIREMLXHETRKIVW34QFSDFRE';
+
+      final s = HTLC(
+          owner: addr1,
+          receiver: addr2,
+          hash_function: 'sha256',
+          hash_image: 'f4OxZX/x/FO5LcGBSKHWXfwtSx+j1ncoSt3SABJtkGk=',
+          expiry_round: 600000,
+          max_fee: 1000
+      );
+
+      final golden_addr = 'KNBD7ATNUVQ4NTLOI72EEUWBVMBNK'
+          'MPHWVBCETERV2W7T2YO6CVMLJRBM4';
+
+      final golden = 'ASAE6AcBAMDPJCYDIOaalh5vLV96yGYHkmVSvpgjXtMzY8qIkYu5yTip'
+          'Fbb5IH+DsWV/8fxTuS3BgUih1l38LUsfo9Z3KErd0gASbZBpIP68oLsU'
+          'SlpOp7Q4pGgayA5soQW8tgf8VlMlyVaV9qITMQEiDjEQIxIQMQcyAxIQ'
+          'MQgkEhAxCSgSLQEpEhAxCSoSMQIlDRAREA==';
+
+      expect(s.get_program(), base64Decode(golden));
+      expect(s.get_address(), golden_addr);
     });
   });
 }
