@@ -519,5 +519,12 @@ void main() {
       expect(result.versions, contains('v1'));
     });
 
+    test('suggested fee', () async {
+      final result = await algodClient.suggestedFee();
+      expect(result.fee, greaterThan(0));
+    });
+
+    
+
   });
 }

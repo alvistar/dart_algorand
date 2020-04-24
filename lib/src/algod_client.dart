@@ -4,6 +4,7 @@ import 'package:dart_algorand/algod/model/block.dart';
 import 'package:dart_algorand/algod/model/node_status.dart';
 import 'package:dart_algorand/algod/model/pending_transactions.dart';
 import 'package:dart_algorand/algod/model/supply.dart';
+import 'package:dart_algorand/algod/model/transaction_fee.dart';
 import 'package:dart_algorand/algod/model/transaction_params.dart';
 import 'package:dart_algorand/algod/model/version.dart';
 import 'package:dio/dio.dart';
@@ -143,4 +144,8 @@ class AlgodClient {
     return (await api.getBlock(round)).data;
   }
 
+  /// Return suggested transaction fee.
+  Future<TransactionFee> suggestedFee() async {
+    return (await api.suggestedFee()).data;
+  }
 }
