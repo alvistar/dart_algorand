@@ -15,7 +15,7 @@ void main() {
   group('Integration tests', () {
     AlgodClient algodClient;
     KmdClient kmdClient;
-    String account0;
+    String address0;
 
     Future<String> getWalletId() async {
       final wallets = await kmdClient.listWallets();
@@ -47,7 +47,7 @@ void main() {
         var accountInfo = await algodClient.accountInformation(k);
         if (accountInfo.amount > max_balance) {
           max_balance = accountInfo.amount;
-          account0 = k;
+          address0 = k;
         }
       }
     });
@@ -76,13 +76,13 @@ void main() {
       // get suggested params and fee
       final params = await algodClient.transactionParams();
 
-      // get account0 private key
+      // get address0 private key
       final privateKey0 = await kmdClient.exportKey(
-          handle: handle, password: walletPasswd, address: account0);
+          handle: handle, password: walletPasswd, address: address0);
 
       // create bid
       final bid = Bid(
-          bidder: account0,
+          bidder: address0,
           bid_currency: 10000,
           max_price: 260,
           bid_id: 3,
@@ -95,7 +95,7 @@ void main() {
 
       // Create transaction
       final txn = PaymentTxn(
-          sender: account0,
+          sender: address0,
           fee: params.fee,
           first_valid_round: params.lastRound,
           last_valid_round: params.lastRound + 100,
@@ -149,7 +149,7 @@ void main() {
 
       // create transaction
       final txn = PaymentTxn(
-          sender: account0,
+          sender: address0,
           fee: params.fee,
           first_valid_round: params.lastRound,
           last_valid_round: params.lastRound + 100,
@@ -162,9 +162,9 @@ void main() {
       final signedTxn = await kmdClient.signTransaction(
           handle: handle, password: walletPasswd, transaction: txn);
 
-      // get account0 private key
+      // get address0 private key
       final privateKey0 = await kmdClient.exportKey(
-          handle: handle, password: walletPasswd, address: account0);
+          handle: handle, password: walletPasswd, address: address0);
 
       // sign transaction with account
       final signedTxnLocal = txn.sign(privateKey0);
@@ -185,12 +185,12 @@ void main() {
 
       // get transaction info in two different ways
       final info1 = await algodClient.transactionsByAddress(
-          address: account0,
+          address: address0,
           first: params.lastRound - 2,
           last: params.lastRound + 2);
 
       final info2 = await algodClient.transactionInfo(
-          address: account0, transactionID: txid);
+          address: address0, transactionID: txid);
 
       expect(info1.transactions, isNotEmpty);
       expect(info2.tx, txid);
@@ -244,7 +244,7 @@ void main() {
           last_valid_round: params.lastRound + 100,
           genesis_id: params.genesisID,
           genesis_hash: params.genesishashb64,
-          receiver: account0,
+          receiver: address0,
           amt: 1000);
 
       // check the multisig account is valid
@@ -351,7 +351,7 @@ void main() {
 
       final list_keys = await kmdClient.listKeysInWallet(handle);
 
-      expect(list_keys, contains(account0));
+      expect(list_keys, contains(address0));
 
       // test multisig
       final list_multisig = await kmdClient.listMultiSig(handle);
@@ -360,6 +360,129 @@ void main() {
       // test getting the master derivation key
       final mdk = await kmdClient.exportMasterDerivationKey(
           handle: handle, walletPassword: walletPasswd);
+    });
+
+    test('wallet', () async {
+      // initialize wallet
+      final w = await Wallet.init(
+          walletName: walletName,
+          walletPassword: walletPasswd,
+          kmdClient: kmdClient);
+
+      AlgoAccount account1;
+      String address2, msigAddress;
+
+      addTearDown(() async {
+        // delete keys
+        await w.deleteKey(account1.address);
+        await w.deleteKey(address2);
+        await w.deleteKey(msigAddress);
+      });
+
+      // get master derivation key
+      final mdk = await w.exportMasterDerivationKey();
+
+      // get mnemonic
+      final mn = await w.getMnemonic();
+
+      // make sure mnemonic can be converted back to mdk
+      expect(mdk, to_master_derivation_key(mn));
+
+      // generate account with account and check if it's valid
+      account1 = generate_account();
+
+      // import generated account
+      final importKey = await w.importKey(account1.private_key);
+      expect(importKey, account1.address);
+
+      // check account is in the wallet
+      final keys = await w.listKeys();
+      expect(keys, contains(account1.address));
+
+      // generate account with kmd
+      address2 = await w.generateKey();
+      final privateKey2 = await w.exportKey(address2);
+
+      // get suggested params and fee
+      final params = await algodClient.transactionParams();
+
+      // create transaction
+      final txn = PaymentTxn(
+          sender: address0,
+          fee: params.fee,
+          first_valid_round: params.lastRound,
+          last_valid_round: params.lastRound + 100,
+          genesis_hash: params.genesishashb64,
+          genesis_id: params.genesisID,
+          receiver: account1.address,
+          amt: 100000);
+
+      // sign transaction with wallet
+      final signedKmd = await w.signTransaction(txn);
+
+      // get address0 private key
+      final privateKey0 = await w.exportKey(address0);
+
+      // sign transaction offline
+      final signedOffline = txn.sign(privateKey0);
+
+      // check that signing both ways result in the same thing
+      expect(msgpack_encode(signedOffline), msgpack_encode(signedKmd));
+
+      // create multisig account and transaction
+      final msig = Multisig(
+          version: 1, threshold: 2, addresses: [account1.address, address2]);
+
+      final mtxn = PaymentTxn(
+          sender: msig.address(),
+          fee: params.fee,
+          first_valid_round: params.lastRound,
+          last_valid_round: params.lastRound + 100,
+          genesis_hash: params.genesishashb64,
+          genesis_id: params.genesisID,
+          receiver: address0,
+          amt: 1000);
+
+      // import multisig account and transaction
+      msigAddress = await w.importMultisig(msig);
+
+      // check that the multisig account is listed
+      final msigs = await w.listMultisig();
+
+      expect(msigs, contains(msigAddress));
+
+      // export multisig account
+      final exported = await w.exportMultisig(msigAddress);
+      expect(exported.subsigs.length, 2);
+
+      // create multisig transaction
+      final mtx = MultisigTransaction(transaction: mtxn, multisig: msig);
+
+      // sign the multisig using kmd
+      final msig_1 = await w.signMultisigTransaction(account1.address, mtx);
+      final signedMsigKmd = await w.signMultisigTransaction(address2, msig_1);
+
+      // sign the multisig offline
+      final mtx1 = MultisigTransaction(transaction: mtxn, multisig: msig);
+      mtx1.sign(account1.private_key);
+      final mtx2 = MultisigTransaction(transaction: mtxn, multisig: msig);
+      mtx2.sign(privateKey2);
+      final signedMsigOffline = MultisigTransaction.merge([mtx1, mtx2]);
+
+      // check they are the same
+      expect(msgpack_encode(signedMsigOffline), msgpack_encode(signedMsigKmd));
+
+      // test renaming the wallet
+      await w.rename(walletName + '1');
+      var info = await w.info();
+      expect(info.wallet.name, walletName + '1');
+
+      await w.rename(walletName);
+      info = await w.info();
+      expect(info.wallet.name, walletName);
+
+      // test releasing the handle
+      await w.releaseHandle();
     });
   });
 }

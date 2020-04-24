@@ -7,6 +7,16 @@ import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/wordlist.dart';
 import 'package:pinenacl/api.dart';
 
+/// Return the mnemonic for the master derivation key.
+String from_master_derivation_key(String key) {
+  return from_key(base64Decode(key));
+}
+
+/// Return the master derivation key for the mnemonic.
+String to_master_derivation_key(String mnemonic) {
+  return base64Encode(to_key(mnemonic));
+}
+
 /// Return the private key for the mnemonic.
 String to_private_key(String mnemonic) {
   final keyBytes = to_key(mnemonic);
