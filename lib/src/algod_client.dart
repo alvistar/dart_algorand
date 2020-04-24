@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dart_algorand/algod/model/node_status.dart';
 import 'package:dart_algorand/algod/model/pending_transactions.dart';
+import 'package:dart_algorand/algod/model/supply.dart';
 import 'package:dart_algorand/algod/model/transaction_params.dart';
 import 'package:dart_algorand/algod/model/version.dart';
 import 'package:dio/dio.dart';
@@ -129,6 +130,11 @@ class AlgodClient {
   /// Return algod versions.
   Future<Version> versions() async {
     return (await api.getVersion()).data;
+  }
+
+  /// Return supply details for node's ledger
+  Future<Supply> ledgerSupply() async {
+    return (await api.getSupply()).data;
   }
 
 }

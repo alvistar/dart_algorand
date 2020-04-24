@@ -504,6 +504,9 @@ void main() {
       await algodClient.versions();
     });
 
-    
+    test('ledger supply', () async {
+      await algodClient.ledgerSupply();
+    });
+
   });
 }
