@@ -14,5 +14,10 @@ export 'src/kmd_client.dart';
 export 'src/algod_client.dart';
 export 'src/wallet.dart';
 export 'src/multisig_txn.dart';
+export 'src/logic_sig.dart';
+export 'src/logic_sig_txn.dart';
+export 'src/asset_config_txn.dart';
+export 'src/asset_freeze_txn.dart';
+export 'src/asset_transfer_txn.dart';
 
 // TODO: Export any libraries intended for clients of this package.

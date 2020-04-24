@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:dart_algorand/dart_algorand.dart';
 
@@ -8,16 +8,11 @@ void main() async {
   // create an algod client
   final acl = AlgodClient(token: algodToken, url: algodUrl);
 
-  final mnemonic =
-      'such chapter crane ugly uncover fun kitten duty culture giant skirt '
-      'reunion pizza pill web monster upon dolphin aunt close marble dune '
-      'kangaroo ability merit';
+  final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x00, 0x22]);
+  final lsig = LogicSig(program: program);
+  final sender = lsig.address();
 
-  // convert passphrase to secret key
-  final sk = to_private_key(mnemonic);
-  final address = address_from_private_key(sk);
-
-  // generate three accounts
+  // generate account
   final account1 = generate_account();
 
   // get suggested params
@@ -25,18 +20,22 @@ void main() async {
 
   // create transaction
   final txn = PaymentTxn(
-      sender: address,
+      sender: sender,
       fee: params.fee,
       first_valid_round: params.lastRound,
       last_valid_round: params.lastRound + 100,
       genesis_hash: params.genesishashb64,
       receiver: account1.address,
       genesis_id: params.genesisID,
-      note: utf8.encode('Some Text'),
       amt: 10000
   );
 
-  // sign it
-  txn.sign(sk);
+  // note, transaction is signed by logic only (no delegation)
+  // that means sender address must match to program hash
 
+  final lstx = LogicSigTransaction(transaction: txn, lsig: lsig);
+  assert (lstx.verify());
+
+  // send them over the network
+  // await acl.sendTransaction(lstx);
 }

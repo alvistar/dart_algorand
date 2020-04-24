@@ -243,266 +243,404 @@ void main() async {
 ```
 
 ### working with transaction group
-```python
-import params
-from algosdk import algod, kmd, transaction
+```dart
+import 'package:dart_algorand/dart_algorand.dart';
 
-private_key_sender, sender = account.generate_account()
-private_key_receiver, receiver = account.generate_account()
+import 'params.dart';
 
-# create an algod and kmd client
-acl = algod.AlgodClient(params.algod_token, params.algod_address)
-kcl = kmd.KMDClient(params.kmd_token, params.kmd_address)
+void main() async {
+  // create an algod and kmd client
+  final acl = AlgodClient(token: algodToken, url: algodUrl);
+  final kcl = KmdClient(token: kmdToken, url: kmdUrl);
 
-# get suggested parameters
-params = acl.suggested_params()
-gen = params["genesisID"]
-gh = params["genesishashb64"]
-last_round = params["lastRound"]
-fee = params["fee"]
+  final sender = generate_account();
+  final receiver = generate_account();
 
-# create a transaction
-amount = 10000
-txn1 = transaction.PaymentTxn(sender, fee, last_round, last_round+100, gh, receiver, amount)
-txn2 = transaction.PaymentTxn(receiver, fee, last_round, last_round+100, gh, sender, amount)
+  // get suggested params
+  final params = await acl.transactionParams();
 
-# get group id and assign it to transactions
-gid = transaction.calculate_group_id([txn1, txn2])
-txn1.transaction.group = gid
-txn2.transaction.group = gid
+  // create transaction
+  final txn1 = PaymentTxn(
+      sender: sender.address,
+      fee: params.fee,
+      first_valid_round: params.lastRound,
+      last_valid_round: params.lastRound + 100,
+      genesis_hash: params.genesishashb64,
+      receiver: receiver.address,
+      genesis_id: params.genesisID,
+      amt: 10000
+  );
 
-# sign transactions
-stxn1 = txn1.sign(private_key_sender)
-stxn2 = txn2.sign(private_key_receiver)
+  final txn2 = PaymentTxn(
+      sender: receiver.address,
+      fee: params.fee,
+      first_valid_round: params.lastRound,
+      last_valid_round: params.lastRound + 100,
+      genesis_hash: params.genesishashb64,
+      receiver: sender.address,
+      genesis_id: params.genesisID,
+      amt: 10000
+  );
 
-# send them over network
-acl.send_transactions([stxn1, stxn2])
+  // get group id and assign it to transactions
+  final gid = calculate_group_id([txn1, txn2]);
+  txn1.group = gid;
+  txn2.group = gid;
+
+  // sign transactions
+  final stxn1 = txn1.sign(sender.private_key);
+  final stxn2 = txn2.sign(receiver.private_key);
+
+  // send them over network
+  // await acl.sendTransactions([stxn1, stxn2]);
+}
 ```
 
 ### working with logic sig
 
 Example below creates a LogicSig transaction signed by a program that never approves the transfer.
 
-```python
-import params
-from algosdk import algod, transaction
+```dart
+import 'dart:typed_data';
 
-program = b"\x01\x20\x01\x00\x22"  # int 0
-lsig = transaction.LogicSig(program)
-sender = lsig.address()
+import 'package:dart_algorand/dart_algorand.dart';
 
-# create an algod client
-acl = algod.AlgodClient(params.algod_token, params.algod_address)
+import 'params.dart';
 
-# get suggested parameters
-params = acl.suggested_params()
-gen = params["genesisID"]
-gh = params["genesishashb64"]
-last_round = params["lastRound"]
-fee = params["fee"]
+void main() async {
+  // create an algod client
+  final acl = AlgodClient(token: algodToken, url: algodUrl);
 
-# create a transaction
-amount = 10000
-txn = transaction.PaymentTxn(sender, fee, last_round, last_round+100, gh, receiver, amount)
+  final program = Uint8List.fromList([0x01, 0x20, 0x01, 0x00, 0x22]);
+  final lsig = LogicSig(program: program);
+  final sender = lsig.address();
 
-# note, transaction is signed by logic only (no delegation)
-# that means sender address must match to program hash
-lstx = transaction.LogicSigTransaction(txn, lsig)
-assert lstx.verify()
+  // generate account
+  final account1 = generate_account();
 
-# send them over network
-acl.send_transaction(lstx)
+  // get suggested params
+  final params = await acl.transactionParams();
+
+  // create transaction
+  final txn = PaymentTxn(
+      sender: sender,
+      fee: params.fee,
+      first_valid_round: params.lastRound,
+      last_valid_round: params.lastRound + 100,
+      genesis_hash: params.genesishashb64,
+      receiver: account1.address,
+      genesis_id: params.genesisID,
+      amt: 10000
+  );
+
+  // note, transaction is signed by logic only (no delegation)
+  // that means sender address must match to program hash
+
+  final lstx = LogicSigTransaction(transaction: txn, lsig: lsig);
+  assert (lstx.verify());
+
+  // send them over the network
+  // await acl.sendTransaction(lstx);
+}
 ```
 
 ### working with assets
 Assets can be managed by sending three types of transactions: AssetConfigTxn, AssetFreezeTxn, and AssetTransferTxn. Shown below are examples of how to use these transactions.
 #### creating an asset
-```python
-from algosdk import account, transaction
+```dart
+import 'dart:convert';
 
-private_key, address = account.generate_account() # creator
-_, freeze = account.generate_account() # account that can freeze other accounts for this asset
-_, manager = account.generate_account() # account able to update asset configuration
-_, clawback = account.generate_account() # account allowed to take this asset from any other account
-_, reserve = account.generate_account() # account that holds reserves for this asset
+import 'package:dart_algorand/dart_algorand.dart';
+import 'package:dart_algorand/src/asset_config_txn.dart';
 
-fee_per_byte = 10
-first_valid_round = 1000
-last_valid_round = 2000
-genesis_hash = "SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI="
+void main() async {
+  final creator = generate_account();
+  final freeze = generate_account();
+  final manager = generate_account();
+  final clawback = generate_account();
+  final reserve = generate_account();
 
-total = 100 # how many of this asset there will be
-assetname = "assetname"
-unitname = "unitname"
-url = "website"
-metadata = bytes("fACPO4nRgO55j1ndAK3W6Sgc4APkcyFh", "ascii") # should be a 32-byte hash
-default_frozen = False # whether accounts should be frozen by default
+  final feePerByte = 10;
+  final firstValidRound = 1000;
+  final lastValidRound = 2000;
+  final genesisHash = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=';
 
-# create the asset creation transaction
-txn = transaction.AssetConfigTxn(address, fee_per_byte, first_valid_round,
-            last_valid_round, genesis_hash, total=total, manager=manager,
-            reserve=reserve, freeze=freeze, clawback=clawback,
-            unit_name=unitname, asset_name=assetname, url=url,
-            metadata_hash=metadata, default_frozen=default_frozen)
+  final total = 100; // how many of this asset there will be
+  final assetName = 'assetname';
+  final unitName = 'unitname';
+  final url = 'website';
 
-# sign the transaction
-signed_txn = txn.sign(private_key)
+  final metadata = AsciiEncoder()
+      .convert('fACPO4nRgO55j1ndAK3W6Sgc4APkcyFh'); // should be a 32-byte hash
+
+  final defaultFrozen = false; // whether accounts should be frozen by default
+
+// create the asset creation transaction
+  final txn = AssetConfigTxn(
+      sender: creator.address,
+      fee: feePerByte,
+      first_valid_round: firstValidRound,
+      last_valid_round: lastValidRound,
+      genesis_hash: genesisHash,
+      total: total,
+      manager: manager.address,
+      reserve: reserve.address,
+      freeze: freeze.address,
+      clawback: clawback.address,
+      unit_name: unitName,
+      asset_name: assetName,
+      url: url,
+      metadata_hash: metadata,
+      default_frozen: defaultFrozen
+  );
+
+// sign the transaction
+  final signed_txn = txn.sign(creator.private_key);
+}
 ```
 #### updating asset configuration
 This transaction must be sent from the manager's account.
-```python
-from algosdk import account, transaction
+```dart
+import 'package:dart_algorand/dart_algorand.dart';
+import 'package:dart_algorand/src/asset_config_txn.dart';
 
-manager_private_key = "manager private key"
-manager_address = "manager address"
-_, new_freeze = account.generate_account() # account that can freeze other accounts for this asset
-_, new_manager = account.generate_account() # account able to update asset configuration
-_, new_clawback = account.generate_account() # account allowed to take this asset from any other account
-_, new_reserve = account.generate_account() # account that holds reserves for this asset
+void main() async {
+  final mnemonic =
+      'such chapter crane ugly uncover fun kitten duty culture giant skirt '
+      'reunion pizza pill web monster upon dolphin aunt close marble dune '
+      'kangaroo ability merit';
 
-fee_per_byte = 10
-first_valid_round = 1000
-last_valid_round = 2000
-genesis_hash = "SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI="
+  final managerPrivateKey = to_private_key(mnemonic);
+  final managerAddress = address_from_private_key(managerPrivateKey);
 
-index = 1234 # identifying index of the asset
+  final newFreeze = generate_account();
+  final newManager = generate_account();
+  final newClawback = generate_account();
+  final newReserve = generate_account();
 
-# create the asset config transaction
-txn = transaction.AssetConfigTxn(manager_address, fee_per_byte, first_valid_round,
-            last_valid_round, genesis_hash, manager=new_manager, reserve=new_reserve,
-            freeze=new_freeze, clawback=new_clawback, index=index)
+  final feePerByte = 10;
+  final firstValidRound = 1000;
+  final lastValidRound = 2000;
+  final genesisHash = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=';
 
-# sign the transaction
-signed_txn = txn.sign(manager_private_key)
+  final index = 1234; // identifying index of the asset
+
+  // create the asset config transaction
+  final txn = AssetConfigTxn(
+    sender: managerAddress,
+    fee: feePerByte,
+    first_valid_round: firstValidRound,
+    last_valid_round: lastValidRound,
+    genesis_hash: genesisHash,
+    manager: newManager.address,
+    reserve: newReserve.address,
+    freeze: newFreeze.address,
+    clawback: newClawback.address,
+    index: index
+  );
+
+  // sign the transction
+  final signedTxn = txn.sign(managerPrivateKey);
+}
 ```
 
 #### destroying an asset
 This transaction must be sent from the creator's account.
-```python
-from algosdk import account, transaction
+```dart
+import 'package:dart_algorand/dart_algorand.dart';
+import 'package:dart_algorand/src/asset_config_txn.dart';
 
-creator_private_key = "creator private key"
-creator_address = "creator address"
+void main() async {
+  final mnemonic =
+      'such chapter crane ugly uncover fun kitten duty culture giant skirt '
+      'reunion pizza pill web monster upon dolphin aunt close marble dune '
+      'kangaroo ability merit';
 
-fee_per_byte = 10
-first_valid_round = 1000
-last_valid_round = 2000
-genesis_hash = "SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI="
+  final creatorPrivateKey = to_private_key(mnemonic);
+  final creatorAddress = address_from_private_key(creatorPrivateKey);
 
-index = 1234 # identifying index of the asset
+  final feePerByte = 10;
+  final firstValidRound = 1000;
+  final lastValidRound = 2000;
+  final genesisHash = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=';
 
-# create the asset destroy transaction
-txn = transaction.AssetConfigTxn(creator_address, fee_per_byte, first_valid_round, last_valid_round, genesis_hash,
-                                         index=index, strict_empty_address_check=False)
-# sign the transaction
-signed_txn = txn.sign(creator_private_key)
+  final index = 1234; // identifying index of the asset
+
+  // create the asset config transaction
+  final txn = AssetConfigTxn(
+    sender: creatorAddress,
+    fee: feePerByte,
+    first_valid_round: firstValidRound,
+    last_valid_round: lastValidRound,
+    genesis_hash: genesisHash,
+    index: index,
+    strict_empty_address_check: false
+  );
+
+  // sign the transction
+  final signedTxn = txn.sign(creatorPrivateKey);
+}
 ```
 
 #### freezing or unfreezing an account
 This transaction must be sent from the account specified as the freeze manager for the asset.
-```python
-from algosdk import account, transaction
+```dart
+import 'package:dart_algorand/dart_algorand.dart';
+import 'package:dart_algorand/src/asset_config_txn.dart';
 
-freeze_private_key = "freeze private key"
-freeze_address = "freeze address"
+void main() async {
+  final mnemonic =
+      'such chapter crane ugly uncover fun kitten duty culture giant skirt '
+      'reunion pizza pill web monster upon dolphin aunt close marble dune '
+      'kangaroo ability merit';
 
-fee_per_byte = 10
-first_valid_round = 1000
-last_valid_round = 2000
-genesis_hash = "SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI="
-freeze_target = "address to be frozen or unfrozen"
+  final freezePrivateKey = to_private_key(mnemonic);
+  final freezeAddress = address_from_private_key(freezePrivateKey);
 
-index = 1234 # identifying index of the asset
+  final feePerByte = 10;
+  final firstValidRound = 1000;
+  final lastValidRound = 2000;
+  final genesisHash = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=';
 
-# create the asset freeze transaction
-txn = transaction.AssetFreezeTxn(freeze_address, fee_per_byte, first_valid_round,
-            last_valid_round, genesis_hash, index=index, target=freeze_target,
-            new_freeze_state=True)
+  final index = 1234; // identifying index of the asset
+  final freezeTarget = generate_account(); // address to be frozen or unfrozen
 
-# sign the transaction
-signed_txn = txn.sign(freeze_private_key)
+  // create the asset config transaction
+  final txn = AssetFreezeTxn(
+    sender: freezeAddress,
+    fee: feePerByte,
+    first_valid_round: firstValidRound,
+    last_valid_round: lastValidRound,
+    genesis_hash: genesisHash,
+    index: index,
+    target: freezeTarget.address,
+    new_freeze_state: true,
+  );
+
+  // sign the transction
+  final signedTxn = txn.sign(freezePrivateKey);
+}
 ```
 
 #### sending assets
-```python
-from algosdk import account, transaction
+```dart
+import 'package:dart_algorand/dart_algorand.dart';
 
-sender_private_key = "freeze private key"
-sender_address = "freeze address"
+void main() async {
+  final mnemonic =
+      'such chapter crane ugly uncover fun kitten duty culture giant skirt '
+      'reunion pizza pill web monster upon dolphin aunt close marble dune '
+      'kangaroo ability merit';
 
-fee_per_byte = 10
-first_valid_round = 1000
-last_valid_round = 2000
-genesis_hash = "SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI="
-close_assets_to = "account to close assets to"
-receiver = "account to receive assets"
-amount = 100 # amount of assets to transfer
+  final senderPrivateKey = to_private_key(mnemonic);
+  final senderAddress = address_from_private_key(senderPrivateKey);
 
-index = 1234 # identifying index of the asset
+  final feePerByte = 10;
+  final firstValidRound = 1000;
+  final lastValidRound = 2000;
+  final genesisHash = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=';
+  final receiver = generate_account();
+  final closeAssetsTo = generate_account();
 
-# create the asset transfer transaction
-txn = transaction.AssetTransferTxn(sender_address, fee_per_byte, 
-                first_valid_round, last_valid_round, genesis_hash,
-                receiver, amount, index, close_assets_to)
+  final index = 1234; // identifying index of the asset
 
-# sign the transaction
-signed_txn = txn.sign(sender_private_key)
+  // create the asset config transaction
+  final txn = AssetTransferTxn(
+    sender: senderAddress,
+    fee: feePerByte,
+    first_valid_round: firstValidRound,
+    last_valid_round: lastValidRound,
+    genesis_hash: genesisHash,
+    index: index,
+    receiver: receiver.address,
+    amt: 100,
+    close_assets_to: closeAssetsTo.address
+  );
+
+  // sign the transction
+  final signedTxn = txn.sign(senderPrivateKey);
+}
 ```
 
 #### accepting assets
-```python
-from algosdk import account, transaction
+```dart
+import 'package:dart_algorand/dart_algorand.dart';
 
-private_key = "freeze private key"
-address = "freeze address"
+void main() async {
+  final mnemonic =
+      'such chapter crane ugly uncover fun kitten duty culture giant skirt '
+      'reunion pizza pill web monster upon dolphin aunt close marble dune '
+      'kangaroo ability merit';
 
-fee_per_byte = 10
-first_valid_round = 1000
-last_valid_round = 2000
-genesis_hash = "SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI="
-receiver = address # to start accepting assets, set receiver to sender
-amount = 0 # to start accepting assets, set amount to 0
+  final senderPrivateKey = to_private_key(mnemonic);
+  final senderAddress = address_from_private_key(senderPrivateKey);
 
-index = 1234 # identifying index of the asset
+  final feePerByte = 10;
+  final firstValidRound = 1000;
+  final lastValidRound = 2000;
+  final genesisHash = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=';
+  final index = 1234; // identifying index of the asset
 
-# create the asset accept transaction
-txn = transaction.AssetTransferTxn(address, fee_per_byte, 
-                first_valid_round, last_valid_round, genesis_hash,
-                receiver, amount, index)
+  // create the asset config transaction
+  final txn = AssetTransferTxn(
+    sender: senderAddress,
+    fee: feePerByte,
+    first_valid_round: firstValidRound,
+    last_valid_round: lastValidRound,
+    genesis_hash: genesisHash,
+    index: index,
+    receiver: senderAddress, // to start accepting assets, set receiver to sender
+    amt: 0, // to start accepting assets, set amount to 0
+  );
 
-# sign the transaction
-signed_txn = txn.sign(private_key)
+  // sign the transction
+  final signedTxn = txn.sign(senderPrivateKey);
+}
 ```
 
 #### revoking assets
 This transaction must be sent by the asset's clawback manager.
-```python
-from algosdk import account, transaction
+```dart
+import 'package:dart_algorand/dart_algorand.dart';
 
-clawback_private_key = "clawback private key"
-clawback_address = "clawback address"
+void main() async {
+  final mnemonic =
+      'such chapter crane ugly uncover fun kitten duty culture giant skirt '
+      'reunion pizza pill web monster upon dolphin aunt close marble dune '
+      'kangaroo ability merit';
 
-fee_per_byte = 10
-first_valid_round = 1000
-last_valid_round = 2000
-genesis_hash = "SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI="
-receiver = "receiver address" # where to send the revoked assets
-target = "revocation target" # address to revoke assets from
-amount = 100
+  final clawbackPrivateKey = to_private_key(mnemonic);
+  final clawbackAddress = address_from_private_key(clawbackPrivateKey);
 
-index = 1234 # identifying index of the asset
+  final feePerByte = 10;
+  final firstValidRound = 1000;
+  final lastValidRound = 2000;
+  final genesisHash = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=';
+  final index = 1234; // identifying index of the asset
+  final receiver = generate_account(); // where to send the revoked assets
+  final targetAddress =
+      'WO3QIJ6T4DZHBX5PWJH26JLHFSRT7W7M2DJOULPXDTUS6TUX7ZRIO4KDFY'; // address to revoke assets from.
 
-# create the asset transfer transaction
-txn = transaction.AssetTransferTxn(clawback_address, fee_per_byte, 
-                first_valid_round, last_valid_round, genesis_hash,
-                receiver, amount, index, revocation_target=target)
+  // create the asset config transaction
+  final txn = AssetTransferTxn(
+    sender: clawbackAddress,
+    fee: feePerByte,
+    first_valid_round: firstValidRound,
+    last_valid_round: lastValidRound,
+    genesis_hash: genesisHash,
+    index: index,
+    receiver: receiver.address,
+    amt: 100,
+    revocation_target: targetAddress,
+  );
 
-# sign the transaction
-signed_txn = txn.sign(clawback_private_key)
+  // sign the transction
+  final signedTxn = txn.sign(clawbackPrivateKey);
+}
 ```
 
 ## Documentation
-Documentation for the Python SDK is available at [py-algorand-sdk.readthedocs.io](https://py-algorand-sdk.readthedocs.io/en/latest/).
+Documentation for the Dart SDK is available at TBD.
 
 ## License
-py-algorand-sdk is licensed under a MIT license. See the [LICENSE](https://github.com/algorand/py-algorand-sdk/blob/master/LICENSE) file for details.
+Dart Algorand SDK is licensed under a MIT license. See the LICENSE file for details.
