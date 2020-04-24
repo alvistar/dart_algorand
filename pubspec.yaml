@@ -1,8 +1,8 @@
 name: dart_algorand
-description: A starting point for Dart libraries or applications.
-# version: 1.0.0
-# homepage: https://www.example.com
-# author: Alessandro Viganò <alvistar@gmail.com>
+description: Algorand SDK in Dart
+# version: 0.9.0
+# homepage: https://github.com/alvistar/dart_algorand
+# author: Alessandro Viganò <alvistar@gmail.com>
 
 environment:
   sdk: '>=2.5.0 <3.0.0'
@@ -14,15 +14,9 @@ dependencies:
   pinenacl: ^0.1.2
   collection: ^1.14.11
   dio: ^3.0.9
-#    git:
-#      url: git://github.com/flutterchina/dio.git
-#      path: dio
-#      ref: master
   built_value: ^7.0.9
   built_collection: ^4.3.2
   equatable: ^1.1.0
-
-#  path: ^1.6.0
 
 dev_dependencies:
   build_runner: ^1.7.4
