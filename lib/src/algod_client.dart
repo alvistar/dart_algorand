@@ -106,4 +106,9 @@ class AlgodClient {
       {@required String address, @required String transactionID}) async {
     return (await api.transactionInformation(address, transactionID)).data;
   }
+
+  // Return null if node is running
+  Future<void> health() async {
+    await api.healthCheck();
+  }
 }

@@ -484,5 +484,9 @@ void main() {
       // test releasing the handle
       await w.releaseHandle();
     });
+
+    test('health', () async {
+      await algodClient.health();
+    });
   });
 }
