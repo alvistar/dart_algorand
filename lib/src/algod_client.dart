@@ -101,14 +101,19 @@ class AlgodClient {
         .data;
   }
 
-  // Return transaction information.
+  /// Return transaction information.
   Future<algod.Transaction> transactionInfo(
       {@required String address, @required String transactionID}) async {
     return (await api.transactionInformation(address, transactionID)).data;
   }
 
-  // Return null if node is running
+  /// Return null if node is running
   Future<void> health() async {
     await api.healthCheck();
+  }
+
+  /// Return node status
+  Future<NodeStatus> status() async {
+    return (await api.getStatus()).data;
   }
 }

@@ -354,11 +354,11 @@ void main() {
       expect(list_keys, contains(address0));
 
       // test multisig
-      final list_multisig = await kmdClient.listMultiSig(handle);
+      await kmdClient.listMultiSig(handle);
       // either addresses are listed or there are no multisig accounts
 
       // test getting the master derivation key
-      final mdk = await kmdClient.exportMasterDerivationKey(
+      await kmdClient.exportMasterDerivationKey(
           handle: handle, walletPassword: walletPasswd);
     });
 
@@ -488,5 +488,14 @@ void main() {
     test('health', () async {
       await algodClient.health();
     });
+
+    test('status after block', () async {
+      final lastRound = (await algodClient.status()).lastRound;
+      final currRound =
+          (await algodClient.statusAfterBlock(lastRound)).lastRound;
+      expect(lastRound +1, currRound);
+    });
+
+    
   });
 }
