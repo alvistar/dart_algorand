@@ -493,7 +493,7 @@ void main() {
       final lastRound = (await algodClient.status()).lastRound;
       final currRound =
           (await algodClient.statusAfterBlock(lastRound)).lastRound;
-      expect(lastRound +1, currRound);
+      expect(lastRound + 1, currRound);
     });
 
     test('test pending transactions', () async {
@@ -507,7 +507,7 @@ void main() {
     test('ledger supply', () async {
       await algodClient.ledgerSupply();
     });
-    
+
     test('block info', () async {
       final lastRound = (await algodClient.status()).lastRound;
       final result = await algodClient.blockInfo(lastRound);
@@ -524,7 +524,47 @@ void main() {
       expect(result.fee, greaterThan(0));
     });
 
-    
+    test('transaction group', () async {
+      // get the wallet id
+      final walletID = await getWalletId();
 
+      // get a new handle for the wallet
+      final handle = await kmdClient.initWalletHandleToken(
+          walledId: walletID, walletPassword: walletPasswd);
+
+      // get private key
+      final privateKey0 = await kmdClient.exportKey(handle: handle,
+          password: walletPasswd, address: address0);
+
+      // get suggested parmas and fee
+      final params = await algodClient.transactionParams();
+
+      // create transaction
+      final txn = PaymentTxn(
+          sender: address0,
+          fee: params.fee,
+          first_valid_round: params.lastRound,
+          last_valid_round: params.lastRound + 100,
+          genesis_hash: params.genesishashb64,
+          genesis_id: params.genesisID,
+          receiver: address0,
+          amt: 1000);
+
+      // calculate group id
+      final gid = calculate_group_id([txn]);
+      txn.group = gid;
+
+      // sign using kmd
+      final stxn1 = await kmdClient.signTransaction(handle: handle,
+          password: walletPasswd, transaction: txn);
+
+      // sign offline
+      final stxn2 = txn.sign(privateKey0);
+      // check that they are the same
+      expect(msgpack_encode(stxn1), msgpack_encode(stxn2));
+
+      final send = await algodClient.sendTransactions([stxn1]);
+      expect(send, txn.get_txid());
+    });
   });
 }

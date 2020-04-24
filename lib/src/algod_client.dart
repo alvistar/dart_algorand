@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:dart_algorand/algod/model/block.dart';
 import 'package:dart_algorand/algod/model/node_status.dart';
@@ -66,6 +67,16 @@ class AlgodClient {
         .txId;
   }
 
+  /// Broadcast list of a signed transaction objects to the network.
+  /// Returns first transaction id
+  Future<String> sendTransactions(List<SignedTransaction> txns) async {
+    final serialized =<int>[];
+    for (var txn in txns) {
+      serialized.addAll(base64Decode(msgpack_encode(txn)));
+    }
+    return (await api.rawTransaction(Uint8List.fromList(serialized))).data.txId;
+  }
+
   /// Return transaction information for a pending transaction.
   Future<algod.Transaction> pendingTransactionInfo(String transactionID) async {
     return (await api.pendingTransactionInformation(transactionID)).data;
@@ -73,7 +84,6 @@ class AlgodClient {
 
   /// Return node status immediately after blocknum
   Future<NodeStatus> statusAfterBlock(int blockNum) async {
-
     return (await api.waitForBlock(blockNum)).data;
   }
 
@@ -125,7 +135,7 @@ class AlgodClient {
   /// Return pending transactions.
   /// [maxTxns] is maximumnumber of transactions to return;
   ///   if [maxTxns] is 0, return all pending transactions
-  Future<PendingTransactions> pendingTransactions([int maxTxns=0]) async{
+  Future<PendingTransactions> pendingTransactions([int maxTxns = 0]) async {
     return (await api.getPendingTransactions(max: maxTxns)).data;
   }
 
