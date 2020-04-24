@@ -514,5 +514,10 @@ void main() {
       expect(result.hash, isNotEmpty);
     });
 
+    test('kmd version', () async {
+      final result = await kmdClient.getVersion();
+      expect(result.versions, contains('v1'));
+    });
+
   });
 }
