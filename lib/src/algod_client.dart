@@ -1,13 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:dart_algorand/algod/model/block.dart';
-import 'package:dart_algorand/algod/model/node_status.dart';
-import 'package:dart_algorand/algod/model/pending_transactions.dart';
-import 'package:dart_algorand/algod/model/supply.dart';
-import 'package:dart_algorand/algod/model/transaction_fee.dart';
-import 'package:dart_algorand/algod/model/transaction_params.dart';
-import 'package:dart_algorand/algod/model/version.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 
@@ -54,7 +47,7 @@ class AlgodClient {
   }
 
   /// Get parameters for constructing a new transaction
-  Future<TransactionParams> transactionParams() async {
+  Future<algod.TransactionParams> transactionParams() async {
     return (await api.transactionParams()).data;
   }
 
@@ -82,7 +75,7 @@ class AlgodClient {
   }
 
   /// Return node status immediately after blocknum
-  Future<NodeStatus> statusAfterBlock(int blockNum) async {
+  Future<algod.NodeStatus> statusAfterBlock(int blockNum) async {
     return (await api.waitForBlock(blockNum)).data;
   }
 
@@ -127,34 +120,35 @@ class AlgodClient {
   }
 
   /// Return node status
-  Future<NodeStatus> status() async {
+  Future<algod.NodeStatus> status() async {
     return (await api.getStatus()).data;
   }
 
   /// Return pending transactions.
   /// [maxTxns] is maximumnumber of transactions to return;
   ///   if [maxTxns] is 0, return all pending transactions
-  Future<PendingTransactions> pendingTransactions([int maxTxns = 0]) async {
+  Future<algod.PendingTransactions> pendingTransactions(
+      [int maxTxns = 0]) async {
     return (await api.getPendingTransactions(max: maxTxns)).data;
   }
 
   /// Return algod versions.
-  Future<Version> versions() async {
+  Future<algod.Version> versions() async {
     return (await api.getVersion()).data;
   }
 
   /// Return supply details for node's ledger
-  Future<Supply> ledgerSupply() async {
+  Future<algod.Supply> ledgerSupply() async {
     return (await api.getSupply()).data;
   }
 
   /// Return block information of block number [round]
-  Future<Block> blockInfo(int round) async {
+  Future<algod.Block> blockInfo(int round) async {
     return (await api.getBlock(round)).data;
   }
 
   /// Return suggested transaction fee.
-  Future<TransactionFee> suggestedFee() async {
+  Future<algod.TransactionFee> suggestedFee() async {
     return (await api.suggestedFee()).data;
   }
 }

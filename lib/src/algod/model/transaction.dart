@@ -1,12 +1,12 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:dart_algorand/algod/model/payment_transaction_type.dart';
-import 'package:dart_algorand/algod/model/transaction_results.dart';
 
 import 'asset_config_transaction_type.dart';
 import 'asset_freeze_transaction_type.dart';
 import 'asset_transfer_transaction_type.dart';
 import 'keyreg_transaction_type.dart';
+import 'payment_transaction_type.dart';
+import 'transaction_results.dart';
 
 part 'transaction.g.dart';
 

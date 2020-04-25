@@ -1,9 +1,7 @@
-library serializers;
-
 import 'package:built_value/serializer.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:dart_algorand/algod/model/asset_holding.dart';
+import 'model/asset_holding.dart';
 import 'model/account.dart';
 import 'model/asset.dart';
 import 'model/asset_config_transaction_type.dart';

@@ -1,5 +1,5 @@
 import 'package:built_collection/built_collection.dart';
-import '../model/apiv1_wallet.dart';
+import 'apiv1_wallet.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

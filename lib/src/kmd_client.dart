@@ -1,33 +1,10 @@
 import 'dart:convert';
-
 import 'package:built_collection/built_collection.dart';
-import 'package:dart_algorand/dart_algorand.dart';
-import 'package:dart_algorand/kmd/model/apiv1_wallet.dart';
-import 'package:dart_algorand/kmd/model/apiv1_wallet_handle.dart';
-import 'package:dart_algorand/kmd/model/create_wallet_request.dart';
-import 'package:dart_algorand/kmd/model/delete_key_request.dart';
-import 'package:dart_algorand/kmd/model/export_key_request.dart';
-import 'package:dart_algorand/kmd/model/export_master_key_request.dart';
-import 'package:dart_algorand/kmd/model/export_multisig_request.dart';
-import 'package:dart_algorand/kmd/model/generate_key_request.dart';
-import 'package:dart_algorand/kmd/model/import_key_request.dart';
-import 'package:dart_algorand/kmd/model/import_multisig_request.dart';
-import 'package:dart_algorand/kmd/model/init_wallet_handle_token_request.dart';
-import 'package:dart_algorand/kmd/model/list_keys_request.dart';
-import 'package:dart_algorand/kmd/model/list_multisig_request.dart';
-import 'package:dart_algorand/kmd/model/multisig_sig.dart' as model;
-import 'package:dart_algorand/kmd/model/multisig_subsig.dart' as model;
-import 'package:dart_algorand/kmd/model/release_wallet_handle_token_request.dart';
-import 'package:dart_algorand/kmd/model/rename_wallet_request.dart';
-import 'package:dart_algorand/kmd/model/renew_wallet_handle_token_request.dart';
-import 'package:dart_algorand/kmd/model/sign_multisig_request.dart';
-import 'package:dart_algorand/kmd/model/sign_transaction_request.dart';
-import 'package:dart_algorand/kmd/model/versions_response.dart';
-import 'package:dart_algorand/kmd/model/wallet_info_request.dart';
-import 'package:dart_algorand/src/multisig_txn.dart';
 import 'package:dio/dio.dart';
-import 'package:dart_algorand/kmd.dart';
 import 'package:meta/meta.dart';
+
+import '../dart_algorand.dart' hide MultisigSubsig;
+import '../kmd.dart';
 
 class KmdClient {
   KmdApi api;
@@ -258,17 +235,17 @@ class KmdClient {
       @required MultisigTransaction mtx}) async {
     final subsigs = [
       for (var ss in mtx.multisig.subsigs)
-        model.MultisigSubsig((b) => b
+        MultisigSubsig((b) => b
           ..sig = ss.signature != null ? base64Encode(ss.signature) : null
           ..key = base64Encode(ss.public_key))
     ];
 
-    final partial = model.MultisigSig((b) => b
+    final partial = MultisigSig((b) => b
       ..threshold = mtx.multisig.threshold
       ..version = mtx.multisig.version
       ..subsigs = ListBuilder(subsigs));
 
-    final partialBuilder = model.MultisigSigBuilder();
+    final partialBuilder = MultisigSigBuilder();
     partialBuilder.replace(partial);
 
     final request = SignMultisigRequest((b) => b

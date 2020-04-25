@@ -1,5 +1,3 @@
-library openapi.api;
-
 import 'package:dio/dio.dart';
 import 'package:built_value/serializer.dart';
 import 'serializers.dart';

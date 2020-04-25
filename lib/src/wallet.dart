@@ -1,10 +1,9 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:dart_algorand/dart_algorand.dart';
-import 'package:dart_algorand/kmd/model/apiv1_wallet.dart';
-import 'package:dart_algorand/kmd/model/apiv1_wallet_handle.dart';
 import 'package:dart_algorand/src/multisig_txn.dart';
 import 'package:meta/meta.dart';
 
+import '../dart_algorand.dart';
+import '../kmd.dart';
 import 'kmd_client.dart';
 
 /// Represents a wallet.
@@ -151,7 +150,7 @@ class Wallet {
   }
 
   /// Sign a multisig transaction [mtx] for the given public key [publicKey].
-  /// [publickKey] is base32 address that is signing the transaction
+  /// [publicKey] is base32 address that is signing the transaction
   /// [mtx] contains unsigned or partially signed multisig
   /// Returns multisig transaction with added signature
   Future<MultisigTransaction> signMultisigTransaction(

@@ -1,5 +1,5 @@
 import 'package:built_collection/built_collection.dart';
-import '../model/multisig_subsig.dart';
+import 'multisig_subsig.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
