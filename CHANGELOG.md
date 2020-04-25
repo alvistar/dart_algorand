@@ -7,3 +7,6 @@
 
 ## 0.9.4
 - Refactoring of file structure for better documentation
+
+## 0.9.5
+- Deleted old example
