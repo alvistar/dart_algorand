@@ -10,3 +10,6 @@
 
 ## 0.9.5
 - Deleted old example
+
+## 0.9.6
+- Added additional model exports to algod library
