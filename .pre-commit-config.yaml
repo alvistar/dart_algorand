@@ -3,3 +3,9 @@ repos:
     rev: master
     hooks:
       - id: dartfmt
+
+  - repo: https://github.com/alvistar/embedmd-precommit
+    rev: master
+    hooks:
+      - id: embedmd
+        files: ^README.md$
