@@ -7,6 +7,9 @@ A Dart library for interacting with the Algorand network.
 Installation details can be found on
 [pub.dev](https://pub.dev/packages/dart_algorand#-installing-tab-)
 
+This is a port of Algorand Python SDK, function names and functionality is
+very similar.
+
 ## Quick start
 
 Here's a simple example you can run without a node.
