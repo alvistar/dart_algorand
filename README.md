@@ -1,10 +1,11 @@
-Dart Algorand SDK 
+Dart Algorand SDK
 
 A Dart library for interacting with the Algorand network.
 
 ## Installation
 
-Installation details can be found on [pub.dev](https://pub.dev/packages/dart_algorand#-installing-tab-)
+Installation details can be found on
+[pub.dev](https://pub.dev/packages/dart_algorand#-installing-tab-)
 
 ## Quick start
 
@@ -33,42 +34,59 @@ void main () {
 
 ## Node setup
 
-Follow the instructions in Algorand's [developer resources](https://developer.algorand.org/docs/build-apps/setup/) to setup your workspace.
+Follow the instructions in Algorand's
+[developer resources](https://developer.algorand.org/docs/build-apps/setup/) to
+setup your workspace.
 
 ## Running example.py
 
-To run `examples/example.py`, you need to install a node on your computer. Using a [third-party API service](https://developer.algorand.org/docs/build-apps/setup/#1-use-a-third-party-service) will not be sufficient as it does not provide access to `kmd`.
-You have two options:
+To run `examples/example.py`, you need to install a node on your computer. Using
+a
+[third-party API service](https://developer.algorand.org/docs/build-apps/setup/#1-use-a-third-party-service)
+will not be sufficient as it does not provide access to `kmd`. You have two
+options:
 
-1. Either use [sandbox](https://github.com/algorand/sandbox). This is simpler and faster to setup but should only be used for development. If you are using sandbox, prefix all the commands below with `/path/to/sandbox/sandbox`.
-2. Or [install your own node](https://developer.algorand.org/docs/build-apps/setup/#3-run-your-own-node). We assume that the `$ALGORAND_DATA` environment variable is properly set up, Algorand binaries are in the PATH, and the node is synced up with TestNet.
+1. Either use [sandbox](https://github.com/algorand/sandbox). This is simpler
+   and faster to setup but should only be used for development. If you are using
+   sandbox, prefix all the commands below with `/path/to/sandbox/sandbox`.
+2. Or
+   [install your own node](https://developer.algorand.org/docs/build-apps/setup/#3-run-your-own-node).
+   We assume that the `$ALGORAND_DATA` environment variable is properly set up,
+   Algorand binaries are in the PATH, and the node is synced up with TestNet.
 
 Before running `examples/example.dart`, start `kmd`:
+
 ```
 $ goal kmd start
 ```
+
 (or `$ /path/to/sandbox/sandbox goal kmd start` with sandbox)
 
 Next, create a wallet and an account:
+
 ```
 $ goal wallet new [wallet name]
 $ goal account new -w [wallet name]
 ```
-where `[wallet name]` should be replaced by an arbitrary name such as `mywallet`.
 
-Visit the [Algorand dispenser](https://bank.testnet.algorand.network/) and enter the account address to fund your account.
+where `[wallet name]` should be replaced by an arbitrary name such as
+`mywallet`.
+
+Visit the [Algorand dispenser](https://bank.testnet.algorand.network/) and enter
+the account address to fund your account.
 
 Next, in `examples/example.dart` update the const to reflect your params.
 
 You're now ready to run `example.dart`:
-```
-
-```
 
 ## More examples
 
 ### using the Wallet class
-Instead of always having to keep track of handles, IDs, and passwords for wallets, create a Wallet object to manage everything for you.
+
+Instead of always having to keep track of handles, IDs, and passwords for
+wallets, create a Wallet object to manage everything for you.
+
+[embedmd]:# (example/wallet_class_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 
@@ -86,7 +104,7 @@ void main() async {
 
   // get wallet information
   final info = await wallet.info();
-  print ('Wallet name: ${info.wallet.name}');
+  print('Wallet name: ${info.wallet.name}');
 
   // create an account
   final address = await wallet.generateKey();
@@ -100,6 +118,7 @@ void main() async {
 
 ### backing up a wallet with mnemonic
 
+[embedmd]:# (example/backing_up_wallet_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 
@@ -124,8 +143,34 @@ void main() async {
   print('Wallet backup phrase: ${backup}');
 }
 ```
+
 You can also back up accounts using from_private_key().
+
 ### recovering a wallet using a backup phrase
+
+[embedmd]:# (example/recover_wallet_example.dart)
+```dart
+import 'package:dart_algorand/dart_algorand.dart';
+
+import 'params.dart';
+
+void main() async {
+  // create a kmd client
+  final kcl = KmdClient(token: kmdToken, url: kmdUrl);
+
+  // get the master derivation key from the mnemonic
+  final backup =
+      'such chapter crane ugly uncover fun kitten duty culture giant skirt '
+      'reunion pizza pill web monster upon dolphin aunt close marble dune '
+      'kangaroo ability merit';
+
+  final mdk = to_master_derivation_key(backup);
+
+  // recover the wallet by passing mdk when creating a wallet
+  await kcl.createWallet(
+      name: 'new_wallet', password: 'pass', masterDerivKey: mdk);
+}
+```
 
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
@@ -149,10 +194,12 @@ void main() async {
       name: 'new_wallet', password: 'pass', masterDerivKey: mdk);
 }
 ```
+
 You can also recover accounts using to_private_key().
 
 ### manipulating multisig transactions
 
+[embedmd]:# (example/manipulating_multisig_txns_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 
@@ -170,7 +217,8 @@ void main() async {
   // create a multisig account
   final version = 1; // multisig version
   final threshold = 2; //  how many signatures are necessary
-  final msig = Multisig(version: version,
+  final msig = Multisig(
+      version: version,
       threshold: threshold,
       addresses: [account1.address, account2.address]);
 
@@ -179,15 +227,14 @@ void main() async {
 
   // create transaction
   final txn = PaymentTxn(
-    sender: msig.address(),
-    fee: params.fee,
-    first_valid_round: params.lastRound,
-    last_valid_round: params.lastRound + 100,
-    genesis_hash: params.genesishashb64,
-    receiver: account3.address,
-    genesis_id: params.genesisID,
-    amt: 10000
-  );
+      sender: msig.address(),
+      fee: params.fee,
+      first_valid_round: params.lastRound,
+      last_valid_round: params.lastRound + 100,
+      genesis_hash: params.genesishashb64,
+      receiver: account3.address,
+      genesis_id: params.genesisID,
+      amt: 10000);
 
   // create a SignedTransaction object
   final mtx = MultisigTransaction(transaction: txn, multisig: msig);
@@ -202,8 +249,12 @@ void main() async {
 ```
 
 ### working with NoteField
-We can put things in the "note" field of a transaction; here's an example with an auction bid. Note that you can put any bytes you want in the "note" field; you don't have to use the NoteField object.
 
+We can put things in the "note" field of a transaction; here's an example with
+an auction bid. Note that you can put any bytes you want in the "note" field;
+you don't have to use the NoteField object.
+
+[embedmd]:# (example/notefield_example.dart)
 ```dart
 import 'dart:convert';
 
@@ -216,9 +267,9 @@ void main() async {
   final acl = AlgodClient(token: algodToken, url: algodUrl);
 
   final mnemonic =
-      'teach chat health avocado broken avocado trick adapt parade '
-      'witness damp gift behave harbor maze truth figure below scatter taste '
-      'slow sustain aspect absorb nuclear';
+      'such chapter crane ugly uncover fun kitten duty culture giant skirt '
+      'reunion pizza pill web monster upon dolphin aunt close marble dune '
+      'kangaroo ability merit';
 
   // convert passphrase to secret key
   final sk = to_private_key(mnemonic);
@@ -240,15 +291,16 @@ void main() async {
       receiver: account1.address,
       genesis_id: params.genesisID,
       note: utf8.encode('Some Text'),
-      amt: 10000
-  );
-  
+      amt: 10000);
+
   // sign it
   txn.sign(sk);
 }
 ```
 
 ### working with transaction group
+
+[embedmd]:# (example/transaction_group_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 
@@ -274,8 +326,7 @@ void main() async {
       genesis_hash: params.genesishashb64,
       receiver: receiver.address,
       genesis_id: params.genesisID,
-      amt: 10000
-  );
+      amt: 10000);
 
   final txn2 = PaymentTxn(
       sender: receiver.address,
@@ -285,8 +336,7 @@ void main() async {
       genesis_hash: params.genesishashb64,
       receiver: sender.address,
       genesis_id: params.genesisID,
-      amt: 10000
-  );
+      amt: 10000);
 
   // get group id and assign it to transactions
   final gid = calculate_group_id([txn1, txn2]);
@@ -304,8 +354,10 @@ void main() async {
 
 ### working with logic sig
 
-Example below creates a LogicSig transaction signed by a program that never approves the transfer.
+Example below creates a LogicSig transaction signed by a program that never
+approves the transfer.
 
+[embedmd]:# (example/logic_sig_example.dart)
 ```dart
 import 'dart:typed_data';
 
@@ -336,14 +388,13 @@ void main() async {
       genesis_hash: params.genesishashb64,
       receiver: account1.address,
       genesis_id: params.genesisID,
-      amt: 10000
-  );
+      amt: 10000);
 
   // note, transaction is signed by logic only (no delegation)
   // that means sender address must match to program hash
 
   final lstx = LogicSigTransaction(transaction: txn, lsig: lsig);
-  assert (lstx.verify());
+  assert(lstx.verify());
 
   // send them over the network
   // await acl.sendTransaction(lstx);
@@ -351,13 +402,18 @@ void main() async {
 ```
 
 ### working with assets
-Assets can be managed by sending three types of transactions: AssetConfigTxn, AssetFreezeTxn, and AssetTransferTxn. Shown below are examples of how to use these transactions.
+
+Assets can be managed by sending three types of transactions: AssetConfigTxn,
+AssetFreezeTxn, and AssetTransferTxn. Shown below are examples of how to use
+these transactions.
+
 #### creating an asset
+
+[embedmd]:# (example/asset_create_example.dart)
 ```dart
 import 'dart:convert';
 
 import 'package:dart_algorand/dart_algorand.dart';
-import 'package:dart_algorand/src/asset_config_txn.dart';
 
 void main() async {
   final creator = generate_account();
@@ -397,15 +453,18 @@ void main() async {
       asset_name: assetName,
       url: url,
       metadata_hash: metadata,
-      default_frozen: defaultFrozen
-  );
+      default_frozen: defaultFrozen);
 
 // sign the transaction
   final signed_txn = txn.sign(creator.private_key);
 }
 ```
+
 #### updating asset configuration
+
 This transaction must be sent from the manager's account.
+
+[embedmd]:# (example/asset_update_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/asset_config_txn.dart';
@@ -433,17 +492,16 @@ void main() async {
 
   // create the asset config transaction
   final txn = AssetConfigTxn(
-    sender: managerAddress,
-    fee: feePerByte,
-    first_valid_round: firstValidRound,
-    last_valid_round: lastValidRound,
-    genesis_hash: genesisHash,
-    manager: newManager.address,
-    reserve: newReserve.address,
-    freeze: newFreeze.address,
-    clawback: newClawback.address,
-    index: index
-  );
+      sender: managerAddress,
+      fee: feePerByte,
+      first_valid_round: firstValidRound,
+      last_valid_round: lastValidRound,
+      genesis_hash: genesisHash,
+      manager: newManager.address,
+      reserve: newReserve.address,
+      freeze: newFreeze.address,
+      clawback: newClawback.address,
+      index: index);
 
   // sign the transction
   final signedTxn = txn.sign(managerPrivateKey);
@@ -451,7 +509,10 @@ void main() async {
 ```
 
 #### destroying an asset
+
 This transaction must be sent from the creator's account.
+
+[embedmd]:# (example/asset_destroy_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/asset_config_txn.dart';
@@ -474,14 +535,13 @@ void main() async {
 
   // create the asset config transaction
   final txn = AssetConfigTxn(
-    sender: creatorAddress,
-    fee: feePerByte,
-    first_valid_round: firstValidRound,
-    last_valid_round: lastValidRound,
-    genesis_hash: genesisHash,
-    index: index,
-    strict_empty_address_check: false
-  );
+      sender: creatorAddress,
+      fee: feePerByte,
+      first_valid_round: firstValidRound,
+      last_valid_round: lastValidRound,
+      genesis_hash: genesisHash,
+      index: index,
+      strict_empty_address_check: false);
 
   // sign the transction
   final signedTxn = txn.sign(creatorPrivateKey);
@@ -489,7 +549,11 @@ void main() async {
 ```
 
 #### freezing or unfreezing an account
-This transaction must be sent from the account specified as the freeze manager for the asset.
+
+This transaction must be sent from the account specified as the freeze manager
+for the asset.
+
+[embedmd]:# (example/asset_freeze_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/asset_config_txn.dart';
@@ -529,6 +593,8 @@ void main() async {
 ```
 
 #### sending assets
+
+[embedmd]:# (example/asset_send_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 
@@ -552,16 +618,15 @@ void main() async {
 
   // create the asset config transaction
   final txn = AssetTransferTxn(
-    sender: senderAddress,
-    fee: feePerByte,
-    first_valid_round: firstValidRound,
-    last_valid_round: lastValidRound,
-    genesis_hash: genesisHash,
-    index: index,
-    receiver: receiver.address,
-    amt: 100,
-    close_assets_to: closeAssetsTo.address
-  );
+      sender: senderAddress,
+      fee: feePerByte,
+      first_valid_round: firstValidRound,
+      last_valid_round: lastValidRound,
+      genesis_hash: genesisHash,
+      index: index,
+      receiver: receiver.address,
+      amt: 100,
+      close_assets_to: closeAssetsTo.address);
 
   // sign the transction
   final signedTxn = txn.sign(senderPrivateKey);
@@ -569,6 +634,8 @@ void main() async {
 ```
 
 #### accepting assets
+
+[embedmd]:# (example/asset_accept_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 
@@ -595,7 +662,8 @@ void main() async {
     last_valid_round: lastValidRound,
     genesis_hash: genesisHash,
     index: index,
-    receiver: senderAddress, // to start accepting assets, set receiver to sender
+    receiver:
+        senderAddress, // to start accepting assets, set receiver to sender
     amt: 0, // to start accepting assets, set amount to 0
   );
 
@@ -605,7 +673,10 @@ void main() async {
 ```
 
 #### revoking assets
+
 This transaction must be sent by the asset's clawback manager.
+
+[embedmd]:# (example/asset_revoke_example.dart)
 ```dart
 import 'package:dart_algorand/dart_algorand.dart';
 
@@ -646,7 +717,11 @@ void main() async {
 ```
 
 ## Documentation
-Documentation for Algorand Dart SDK API is available at [pub.dev](https://pub.dev/documentation/dart_algorand/latest/).
+
+Documentation for Algorand Dart SDK API is available at
+[pub.dev](https://pub.dev/documentation/dart_algorand/latest/).
 
 ## License
-Dart Algorand SDK is licensed under a MIT license. See the LICENSE.txt file for details.
+
+Dart Algorand SDK is licensed under a MIT license. See the LICENSE.txt file for
+details.
