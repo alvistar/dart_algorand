@@ -1,9 +1,11 @@
-// Change these consts
+// Change these parameters if you are not using Sandbox (https://github.com/algorand/sandbox)
 const kmdUrl = 'http://localhost:4002';
 const kmdToken =
     'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const algodUrl = 'http://localhost:4001';
 const algodToken =
     'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-const existingWalletName = 'default';
+
+// Change these parameters with your wallet name, wallet password, and the address of your account
+const existingWalletName = 'mywallet';
 const existingWalletPassword = '';
