@@ -22,6 +22,7 @@ class Mappable {
   }
 }
 
+/// Superclass for various transaction types.
 class Transaction implements Mappable {
   String sender;
   int fee;
@@ -212,6 +213,8 @@ class Transaction implements Mappable {
     return txn;
   }
 
+  /// Sign the transaction with [private_key].
+  /// Returns signed transaction with the signature
   SignedTransaction sign(String private_key) {
     final sig = raw_sign(private_key);
     final b64sig = base64Encode(sig);
@@ -219,6 +222,8 @@ class Transaction implements Mappable {
     return stx;
   }
 
+  /// Sign the transaction with [private_key].
+  /// Returns signature in bytes
   Uint8List raw_sign(String private_key) {
     final pkey = base64Decode(private_key);
     final txn = msgpack_encode(this);
@@ -244,11 +249,38 @@ class Transaction implements Mappable {
   }
 }
 
+/// Represents a payment transaction.
 class PaymentTxn extends Transaction {
   String receiver;
   int amt;
   String close_remainder_to;
 
+  /// [sender]: address of the sender
+  ///
+  /// [fee]: transaction fee (per byte if flat_fee is false)
+  ///
+  /// [first_valid_round]: first round for which the transaction is valid
+  ///
+  /// [last_valid_round]: last round for which the transaction is valid
+  ///
+  /// [gh]: genesis_hash
+  ///
+  /// [receiver]: address of the receiver
+  ///
+  /// [amt]: amount in microAlgos to be sent
+  ///
+  /// [close_remainder_to]: if nonempty, account will be closed
+  ///       and remaining algos will be sent to this address
+  ///
+  /// [note]: arbitrary optional bytes
+  ///
+  /// [gen]: genesis_id
+  ///
+  /// [flat_fee]: whether the specified fee is a flat fee
+  ///
+  /// [lease]: specifies a lease, and no other transaction
+  ///       with the same sender and lease can be confirmed in this
+  ///       transaction's valid rounds
   PaymentTxn({
     String sender,
     int fee,
@@ -303,10 +335,13 @@ class PaymentTxn extends Transaction {
 
 abstract class SignedTransactionBase {}
 
+///   Represents a signed transaction.
 class SignedTransaction implements Mappable, SignedTransactionBase {
   String signature;
   Transaction transaction;
 
+  /// Creates a SignedTransaction using [transaction] that was signed
+  /// and [signature] of a single address
   SignedTransaction({this.signature, this.transaction});
 
   factory SignedTransaction.from(SignedTransaction st) {
@@ -335,6 +370,11 @@ class SignedTransaction implements Mappable, SignedTransactionBase {
 class TxGroup {
   List<Uint8List> txns;
 
+  ///  Transactions specifies a list of transactions that must appear
+  ///  together, sequentially, in a block in order for the group to be
+  ///  valid.  Each hash in the list is a hash of a transaction with
+  ///  the `Group` field omitted.
+
   TxGroup(this.txns) {
     if (txns.length > TX_GROUP_LIMIT) {
       throw TransactionGroupSizeError();
@@ -352,6 +392,9 @@ class TxGroup {
   }
 }
 
+/// Calculate group id for a given list of unsigned transactions [txns]
+///
+/// Returns checksum value representing the group id
 Uint8List calculate_group_id(List<Transaction> txns) {
   if (txns.length > TX_GROUP_LIMIT) {
     throw TransactionGroupSizeError();
@@ -458,12 +501,11 @@ class KeyregTxn extends Transaction {
   }
 }
 
-/// Assign group id to a given list of unsigned transactions
-///
-/// txns: list of unsigned transactions
-/// address: optional sender address specifying which transaction return
-/// Returns:
-/// txns: list of unsigned transactions with group property set
+/// Assign group id to a given list of unsigned transactions [txns]
+
+/// [address] is optional sender address specifying which transaction return
+
+/// Returns list of unsigned transactions with group property set
 List<Transaction> assign_group_id(
     {@required List<Transaction> txns, String address}) {
   if (txns.length > TX_GROUP_LIMIT) {

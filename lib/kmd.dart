@@ -1,3 +1,4 @@
+/// Dart client library for kmd
 library kmd;
 
 export 'src/kmd/api/kmd_api.dart';

@@ -1,3 +1,4 @@
+/// Dart client library for algod
 library algod;
 
 export 'src/algod/api.dart';

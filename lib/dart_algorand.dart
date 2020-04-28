@@ -1,6 +1,4 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
+/// Dart Algorand SDK library
 library dart_algorand;
 
 export 'src/constants.dart';
