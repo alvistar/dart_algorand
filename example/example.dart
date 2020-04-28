@@ -3,9 +3,6 @@ import 'package:dart_algorand/dart_algorand.dart';
 import 'params.dart';
 
 void main() async {
-  const existingAccount =
-      'BRVVARSOMTESZXHYXI4EVP4VH7GWEAEIGKP72KKWYI3DLZCOIXBUSICXUM';
-
   const newWalletName = 'wallet';
   const newWalletPassword = 'password';
 

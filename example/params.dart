@@ -7,3 +7,4 @@ const algodToken =
     'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const existingWalletName = 'default';
 const existingWalletPassword = '';
+const existingAccount = 'BVXSLHPFVSNBFHQGNYV4PK2LLROOCTYMNFGBL6L2M4EQV22EJ4KFWAHZVQ';
