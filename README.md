@@ -33,31 +33,37 @@ void main () {
 
 ## Node setup
 
-Follow the instructions in Algorand's [developer resources](https://developer.algorand.org/docs/introduction-installing-node) to install a node on your computer.
+Follow the instructions in Algorand's [developer resources](https://developer.algorand.org/docs/build-apps/setup/) to setup your workspace.
 
 ## Running example.py
 
-Before running examples/example.dart, start kmd:
+To run `examples/example.py`, you need to install a node on your computer. Using a [third-party API service](https://developer.algorand.org/docs/build-apps/setup/#1-use-a-third-party-service) will not be sufficient as it does not provide access to `kmd`.
+You have two options:
 
+1. Either use [sandbox](https://github.com/algorand/sandbox). This is simpler and faster to setup but should only be used for development. If you are using sandbox, prefix all the commands below with `/path/to/sandbox/sandbox`.
+2. Or [install your own node](https://developer.algorand.org/docs/build-apps/setup/#3-run-your-own-node). We assume that the `$ALGORAND_DATA` environment variable is properly set up, Algorand binaries are in the PATH, and the node is synced up with TestNet.
+
+Before running `examples/example.dart`, start `kmd`:
 ```
-$ ./goal kmd start -d [data directory]
+$ goal kmd start
 ```
+(or `$ /path/to/sandbox/sandbox goal kmd start` with sandbox)
 
 Next, create a wallet and an account:
-
 ```
-$ ./goal wallet new [wallet name] -d [data directory]
+$ goal wallet new [wallet name]
+$ goal account new -w [wallet name]
 ```
-
-```
-$ ./goal account new -d [data directory] -w [wallet name]
-```
+where `[wallet name]` should be replaced by an arbitrary name such as `mywallet`.
 
 Visit the [Algorand dispenser](https://bank.testnet.algorand.network/) and enter the account address to fund your account.
 
-Next, in examples/example.dart update the const to reflect your params.
+Next, in `examples/example.dart` update the const to reflect your params.
 
-You're now ready to run example.dart!
+You're now ready to run `example.dart`:
+```
+
+```
 
 ## More examples
 
