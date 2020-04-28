@@ -59,7 +59,12 @@ class Wallet {
 
     // Create wallet
     if (wallet.id == null) {
-      throw UnimplementedError();
+      final w = await kmdClient.createWallet(
+          name: walletName,
+          password: walletPassword,
+          driverName: driverName,
+          masterDerivKey: mdk);
+      wallet.id = w.id;
     }
 
     wallet._handle = await kmdClient.initWalletHandleToken(

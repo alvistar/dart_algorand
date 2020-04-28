@@ -8,7 +8,7 @@ import 'package:dart_algorand/src/wallet.dart';
 import 'package:test/test.dart';
 import 'package:dart_algorand/src/kmd_client.dart';
 
-const walletName = 'default';
+const walletName = 'sartropo';
 const walletPasswd = '';
 
 void main() {
@@ -41,6 +41,8 @@ void main() {
 
       final keys = await wallet.listKeys();
 
+      assert(keys != null, 'There are no keys in wallet');
+
       var max_balance = -1;
 
       for (var k in keys) {
@@ -52,7 +54,6 @@ void main() {
       }
     });
     test('firstTest', () async {
-      // final version = await api_instance.getVersion();
       final version = await kmdClient.getVersion();
       expect(version.versions[0], 'v1');
     });
