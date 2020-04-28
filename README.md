@@ -4,7 +4,7 @@ A Dart library for interacting with the Algorand network.
 
 ## Installation
 
-TBD
+Installation details can be found on [pub.dev](https://pub.dev/packages/dart_algorand#-installing-tab-)
 
 ## Quick start
 
@@ -646,7 +646,7 @@ void main() async {
 ```
 
 ## Documentation
-Documentation for the Dart SDK is available at TBD.
+Documentation for Algorand Dart SDK API is available at [pub.dev](https://pub.dev/documentation/dart_algorand/latest/).
 
 ## License
-Dart Algorand SDK is licensed under a MIT license. See the LICENSE file for details.
+Dart Algorand SDK is licensed under a MIT license. See the LICENSE.txt file for details.
