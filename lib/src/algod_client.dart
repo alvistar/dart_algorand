@@ -10,7 +10,10 @@ import '../dart_algorand.dart';
 class AlgodClient {
   algod.AlgodApi api;
 
-  AlgodClient({@required String token, @required String url}) {
+  AlgodClient(
+      {@required String token,
+      @required String url,
+      Map<String, dynamic> headers = const {}}) {
     final options = BaseOptions(
       baseUrl: url,
       connectTimeout: 5000,
@@ -20,11 +23,9 @@ class AlgodClient {
     final dio = Dio(options);
     dio.interceptors.add(InterceptorsWrapper(onRequest: (Options options) {
       options.headers['X-Algo-API-Token'] = token;
+      options.headers.addAll(headers);
     }, onError: (DioError e) {
       if (e.response != null) {
-//        print(e.response.data);
-//        print(e.response.headers);
-//        print(e.response.request);
         throw ClientError(
             request: e.request,
             response: e.response,
