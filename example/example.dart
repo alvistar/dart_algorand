@@ -59,7 +59,7 @@ void main() async {
   await kcl.importKey(handle: handle, privateKey: account1.private_key);
 
   // generate account with kmd
-  final address2 = kcl.generateKey(handle: handle, displayMnemonic: false);
+  final address2 = await kcl.generateKey(handle: handle, displayMnemonic: false);
   print('Second account: ${address2}');
 
   // get the mnemonic for address1
