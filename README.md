@@ -1,4 +1,4 @@
-Dart Algorand SDK
+# Dart Algorand SDK
 
 A Dart library for interacting with the Algorand network.
 
@@ -7,7 +7,7 @@ A Dart library for interacting with the Algorand network.
 Installation details can be found on
 [pub.dev](https://pub.dev/packages/dart_algorand#-installing-tab-)
 
-This is a port of Algorand Python SDK, function names and functionality is
+This is a port of [Algorand Python SDK](https://github.com/algorand/py-algorand-sdk), function names and functionality are
 very similar.
 
 ## Quick start
