@@ -1,3 +1,7 @@
+// This integration tests assume that you are running sandbox https://github.com/algorand/sandbox
+// and that you created a wallet with ${walletName}, created an account in this wallet,
+// and funded it using the TestNet dispenser
+
 import 'dart:convert';
 
 import 'package:dart_algorand/dart_algorand.dart';
@@ -41,7 +45,9 @@ void main() {
 
       final keys = await wallet.listKeys();
 
-      assert(keys != null, 'There are no keys in wallet');
+      if (keys == null || keys.isEmpty) {
+        throw FormatException('There are no keys in wallet `${walletName}` or the wallet does not exist. Create the wallet, add a key for tests to work, and fund it using the dispenser.');
+      }
 
       var max_balance = -1;
 
