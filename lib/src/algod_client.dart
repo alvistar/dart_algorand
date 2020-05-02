@@ -11,7 +11,7 @@ class AlgodClient {
   algod.AlgodApi api;
 
   AlgodClient(
-      {@required String token,
+      {String token,
       @required String url,
       Map<String, dynamic> headers = const {}}) {
     final options = BaseOptions(
@@ -22,7 +22,9 @@ class AlgodClient {
 
     final dio = Dio(options);
     dio.interceptors.add(InterceptorsWrapper(onRequest: (Options options) {
-      options.headers['X-Algo-API-Token'] = token;
+      if (token != null) {
+        options.headers['X-Algo-API-Token'] = token;
+      }
       options.headers.addAll(headers);
     }, onError: (DioError e) {
       if (e.response != null) {
