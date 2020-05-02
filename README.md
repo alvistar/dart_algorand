@@ -43,7 +43,7 @@ setup your workspace.
 
 ## Running example.py
 
-To run `examples/example.py`, you need to install a node on your computer. Using
+To run `example/example.py`, you need to install a node on your computer. Using
 a
 [third-party API service](https://developer.algorand.org/docs/build-apps/setup/#1-use-a-third-party-service)
 will not be sufficient as it does not provide access to `kmd`. You have two
@@ -57,7 +57,7 @@ options:
    We assume that the `$ALGORAND_DATA` environment variable is properly set up,
    Algorand binaries are in the PATH, and the node is synced up with TestNet.
 
-Before running `examples/example.dart`, start `kmd`:
+Before running `example/example.dart`, start `kmd`:
 
 ```
 $ goal kmd start
@@ -78,9 +78,13 @@ where `[wallet name]` should be replaced by an arbitrary name such as
 Visit the [Algorand dispenser](https://bank.testnet.algorand.network/) and enter
 the account address to fund your account.
 
-Next, in `examples/example.dart` update the const to reflect your params.
+Next, in `example/example.dart` update the const to reflect your params.
 
 You're now ready to run `example.dart`:
+```
+$ pub get
+$ dart example/example.dart
+```
 
 ## More examples
 
