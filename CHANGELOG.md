@@ -13,3 +13,6 @@
 
 ## 0.9.6
 - Added additional model exports to algod library
+
+## 0.9.7
+- Added assetInfo method for algod

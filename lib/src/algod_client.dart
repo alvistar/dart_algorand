@@ -154,4 +154,9 @@ class AlgodClient {
   Future<algod.TransactionFee> suggestedFee() async {
     return (await api.suggestedFee()).data;
   }
+
+  /// Return information for asset with [index] id.
+  Future<algod.AssetParams> assetInfo(int index) async {
+    return (await api.assetInformation(index)).data;
+  }
 }
