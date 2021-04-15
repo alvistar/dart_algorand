@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dart_algorand/dart_algorand.dart';
-import 'package:pinenacl/api.dart';
+import 'package:pinenacl/ed25519.dart';
 
 class AlgoAccount {
   String private_key;

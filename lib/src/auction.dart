@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 
 import 'package:dart_algorand/dart_algorand.dart';
-import 'package:pinenacl/api.dart';
+import 'package:pinenacl/ed25519.dart';
 
 /// Represents a bid in an auction.
 class Bid {

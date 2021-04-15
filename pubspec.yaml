@@ -4,17 +4,17 @@ description: >
 
                Algorand is an open source permissionless public blockchain based on
                a pure proof-of-stake consensus protocol.
-version: 0.9.7
+version: 0.9.8
 homepage: https://github.com/alvistar/dart_algorand
 
 environment:
   sdk: '>=2.5.0 <3.0.0'
 
 dependencies:
-  msgpack_dart: ^0.0.6
+  msgpack_dart: ^1.0.0
   base32: ^1.1.1
-  pointycastle: ^1.0.2
-  pinenacl: ^0.1.2
+  pointycastle: ^3.0.1
+  pinenacl: ^0.2.0
   collection: ^1.14.11
   dio: ^3.0.9
   built_value: ^7.0.9

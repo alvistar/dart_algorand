@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/wordlist.dart';
-import 'package:pinenacl/api.dart';
+import 'package:pinenacl/ed25519.dart';
 
 /// Return the mnemonic for the master derivation key.
 String from_master_derivation_key(String key) {

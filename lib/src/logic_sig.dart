@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:dart_algorand/src/logic.dart';
 import 'package:pinenacl/api.dart';
-import 'package:pinenacl/signing.dart';
+import 'package:pinenacl/ed25519.dart';
 
 class _MultiSigResult {
   int index;

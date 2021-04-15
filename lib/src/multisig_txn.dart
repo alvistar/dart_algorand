@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:dart_algorand/dart_algorand.dart';
 import 'package:meta/meta.dart';
-import 'package:pinenacl/signing.dart';
+import 'package:pinenacl/ed25519.dart';
 import 'package:collection/collection.dart';
 
 import 'encoding.dart';
@@ -197,7 +197,10 @@ class Multisig {
       return false;
     }
 
-    final counter = [for (var s in subsigs) if (s.signature != null) s].length;
+    final counter = [
+      for (var s in subsigs)
+        if (s.signature != null) s
+    ].length;
 
     if (counter < threshold) {
       return false;

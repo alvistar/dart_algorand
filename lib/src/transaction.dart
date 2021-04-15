@@ -8,7 +8,7 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:dart_algorand/dart_algorand.dart';
-import 'package:pinenacl/api.dart';
+import 'package:pinenacl/ed25519.dart';
 import 'package:base32/base32.dart';
 
 import 'account.dart';
