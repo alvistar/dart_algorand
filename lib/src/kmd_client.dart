@@ -17,25 +17,25 @@ class KmdClient {
     );
 
     final dio = Dio(options);
-    dio.interceptors.add(InterceptorsWrapper(onRequest: (Options options) {
+    dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
       options.headers['X-KMD-API-Token'] = token;
-    }, onError: (DioError e) {
+    }, onError: (DioError e, handler) {
       if (e.response != null) {
 //        print(e.response.data);
 //        print(e.response.headers);
 //        print(e.response.request);
         throw ClientError(
-            request: e.request,
+            request: e.requestOptions,
             response: e.response,
             type: e.type,
             error: e.error);
       } else {
         // Something happened in setting up or sending the request that triggered an Error
-        print(e.request);
+        print(e.requestOptions);
         print(e.message);
       }
 
-      return e;
+      return handler.next(e);
     }));
 
     api = Openapi(dio: dio).getKmdApi();

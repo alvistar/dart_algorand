@@ -65,7 +65,7 @@ class AlgodApi {
       return Response<Account>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -115,7 +115,7 @@ class AlgodApi {
       return Response<AssetParams>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -167,7 +167,7 @@ class AlgodApi {
       return Response<AssetList>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -216,7 +216,7 @@ class AlgodApi {
       return Response<Block>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -266,7 +266,7 @@ class AlgodApi {
       return Response<PendingTransactions>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -318,7 +318,7 @@ class AlgodApi {
       return Response<PendingTransactions>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -366,7 +366,7 @@ class AlgodApi {
       return Response<NodeStatus>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -414,7 +414,7 @@ class AlgodApi {
       return Response<Supply>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -462,7 +462,7 @@ class AlgodApi {
       return Response<Version>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -576,7 +576,7 @@ class AlgodApi {
       return Response<Transaction>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -631,7 +631,7 @@ class AlgodApi {
       return Response<TransactionID>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -679,7 +679,7 @@ class AlgodApi {
       return Response<TransactionFee>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -727,7 +727,7 @@ class AlgodApi {
       return Response<String>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -777,7 +777,7 @@ class AlgodApi {
       return Response<Transaction>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -829,7 +829,7 @@ class AlgodApi {
       return Response<Transaction>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -877,7 +877,7 @@ class AlgodApi {
       return Response<TransactionParams>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -937,7 +937,7 @@ class AlgodApi {
       return Response<TransactionList>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -971,8 +971,7 @@ class AlgodApi {
       _path,
       queryParameters: queryParams,
       data: bodyData,
-      options: RequestOptions(
-        connectTimeout: -1,
+      options: Options(
         method: 'get'.toUpperCase(),
         headers: headerParams,
         contentType:
@@ -988,7 +987,7 @@ class AlgodApi {
       return Response<NodeStatus>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,

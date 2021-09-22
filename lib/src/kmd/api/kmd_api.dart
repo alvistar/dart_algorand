@@ -97,7 +97,7 @@ class KmdApi {
       return Response<APIV1POSTWalletResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -151,7 +151,7 @@ class KmdApi {
       return Response<APIV1DELETEKeyResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -205,7 +205,7 @@ class KmdApi {
       return Response<APIV1DELETEMultisigResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -260,7 +260,7 @@ class KmdApi {
       return Response<APIV1POSTKeyExportResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -315,7 +315,7 @@ class KmdApi {
       return Response<APIV1POSTMasterKeyExportResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -370,7 +370,7 @@ class KmdApi {
       return Response<APIV1POSTMultisigExportResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -424,7 +424,7 @@ class KmdApi {
       return Response<APIV1POSTKeyResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -470,7 +470,7 @@ class KmdApi {
       return Response<VersionsResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -525,7 +525,7 @@ class KmdApi {
       return Response<APIV1POSTWalletInfoResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -580,7 +580,7 @@ class KmdApi {
       return Response<APIV1POSTKeyImportResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -635,7 +635,7 @@ class KmdApi {
       return Response<APIV1POSTMultisigImportResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -691,7 +691,7 @@ class KmdApi {
       return Response<APIV1POSTWalletInitResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -745,7 +745,7 @@ class KmdApi {
       return Response<APIV1POSTKeyListResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -800,7 +800,7 @@ class KmdApi {
       return Response<APIV1POSTMultisigListResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -846,7 +846,7 @@ class KmdApi {
       return Response<APIV1GETWalletsResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -902,7 +902,7 @@ class KmdApi {
       return Response<APIV1POSTWalletReleaseResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -957,7 +957,7 @@ class KmdApi {
       return Response<APIV1POSTWalletRenameResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -1013,7 +1013,7 @@ class KmdApi {
       return Response<APIV1POSTWalletRenewResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -1068,7 +1068,7 @@ class KmdApi {
       return Response<APIV1POSTMultisigProgramSignResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -1125,7 +1125,7 @@ class KmdApi {
       return Response<APIV1POSTMultisigTransactionSignResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -1179,7 +1179,7 @@ class KmdApi {
       return Response<APIV1POSTProgramSignResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -1234,7 +1234,7 @@ class KmdApi {
       return Response<APIV1POSTTransactionSignResponse>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
@@ -1282,7 +1282,7 @@ class KmdApi {
       return Response<String>(
         data: data,
         headers: response.headers,
-        request: response.request,
+        requestOptions: response.requestOptions,
         redirects: response.redirects,
         statusCode: response.statusCode,
         statusMessage: response.statusMessage,
