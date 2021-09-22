@@ -18,41 +18,45 @@ class _$BuildVersionSerializer implements StructuredSerializer<BuildVersion> {
   Iterable<Object> serialize(Serializers serializers, BuildVersion object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.branch != null) {
+    Object value;
+    value = object.branch;
+    if (value != null) {
       result
         ..add('branch')
-        ..add(serializers.serialize(object.branch,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.buildNumber != null) {
+    value = object.buildNumber;
+    if (value != null) {
       result
         ..add('build_number')
-        ..add(serializers.serialize(object.buildNumber,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.channel != null) {
+    value = object.channel;
+    if (value != null) {
       result
         ..add('channel')
-        ..add(serializers.serialize(object.channel,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.commitHash != null) {
+    value = object.commitHash;
+    if (value != null) {
       result
         ..add('commit_hash')
-        ..add(serializers.serialize(object.commitHash,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.major != null) {
+    value = object.major;
+    if (value != null) {
       result
         ..add('major')
-        ..add(serializers.serialize(object.major,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.minor != null) {
+    value = object.minor;
+    if (value != null) {
       result
         ..add('minor')
-        ..add(serializers.serialize(object.minor,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -66,7 +70,7 @@ class _$BuildVersionSerializer implements StructuredSerializer<BuildVersion> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'branch':
           result.branch = serializers.deserialize(value,
@@ -200,13 +204,14 @@ class BuildVersionBuilder
   BuildVersionBuilder();
 
   BuildVersionBuilder get _$this {
-    if (_$v != null) {
-      _branch = _$v.branch;
-      _buildNumber = _$v.buildNumber;
-      _channel = _$v.channel;
-      _commitHash = _$v.commitHash;
-      _major = _$v.major;
-      _minor = _$v.minor;
+    final $v = _$v;
+    if ($v != null) {
+      _branch = $v.branch;
+      _buildNumber = $v.buildNumber;
+      _channel = $v.channel;
+      _commitHash = $v.commitHash;
+      _major = $v.major;
+      _minor = $v.minor;
       _$v = null;
     }
     return this;
@@ -214,9 +219,7 @@ class BuildVersionBuilder
 
   @override
   void replace(BuildVersion other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BuildVersion;
   }
 
@@ -240,4 +243,4 @@ class BuildVersionBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

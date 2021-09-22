@@ -24,40 +24,47 @@ class _$SignProgramMultisigRequestSerializer
       Serializers serializers, SignProgramMultisigRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.address != null) {
+    Object value;
+    value = object.address;
+    if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(object.address,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.data != null) {
+    value = object.data;
+    if (value != null) {
       result
         ..add('data')
-        ..add(serializers.serialize(object.data,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.partialMultisig != null) {
+    value = object.partialMultisig;
+    if (value != null) {
       result
         ..add('partial_multisig')
-        ..add(serializers.serialize(object.partialMultisig,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(MultisigSig)));
     }
-    if (object.publicKey != null) {
+    value = object.publicKey;
+    if (value != null) {
       result
         ..add('public_key')
-        ..add(serializers.serialize(object.publicKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, [FullType(int)])));
     }
-    if (object.walletHandleToken != null) {
+    value = object.walletHandleToken;
+    if (value != null) {
       result
         ..add('wallet_handle_token')
-        ..add(serializers.serialize(object.walletHandleToken,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.walletPassword != null) {
+    value = object.walletPassword;
+    if (value != null) {
       result
         ..add('wallet_password')
-        ..add(serializers.serialize(object.walletPassword,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -73,7 +80,7 @@ class _$SignProgramMultisigRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -216,13 +223,14 @@ class SignProgramMultisigRequestBuilder
   SignProgramMultisigRequestBuilder();
 
   SignProgramMultisigRequestBuilder get _$this {
-    if (_$v != null) {
-      _address = _$v.address;
-      _data = _$v.data;
-      _partialMultisig = _$v.partialMultisig?.toBuilder();
-      _publicKey = _$v.publicKey?.toBuilder();
-      _walletHandleToken = _$v.walletHandleToken;
-      _walletPassword = _$v.walletPassword;
+    final $v = _$v;
+    if ($v != null) {
+      _address = $v.address;
+      _data = $v.data;
+      _partialMultisig = $v.partialMultisig?.toBuilder();
+      _publicKey = $v.publicKey?.toBuilder();
+      _walletHandleToken = $v.walletHandleToken;
+      _walletPassword = $v.walletPassword;
       _$v = null;
     }
     return this;
@@ -230,9 +238,7 @@ class SignProgramMultisigRequestBuilder
 
   @override
   void replace(SignProgramMultisigRequest other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignProgramMultisigRequest;
   }
 
@@ -271,4 +277,4 @@ class SignProgramMultisigRequestBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

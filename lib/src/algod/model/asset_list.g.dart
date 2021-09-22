@@ -18,10 +18,12 @@ class _$AssetListSerializer implements StructuredSerializer<AssetList> {
   Iterable<Object> serialize(Serializers serializers, AssetList object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.assets != null) {
+    Object value;
+    value = object.assets;
+    if (value != null) {
       result
         ..add('assets')
-        ..add(serializers.serialize(object.assets,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, [FullType(Asset)])));
     }
     return result;
@@ -36,7 +38,7 @@ class _$AssetListSerializer implements StructuredSerializer<AssetList> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'assets':
           result.assets.replace(serializers.deserialize(value,
@@ -94,8 +96,9 @@ class AssetListBuilder implements Builder<AssetList, AssetListBuilder> {
   AssetListBuilder();
 
   AssetListBuilder get _$this {
-    if (_$v != null) {
-      _assets = _$v.assets?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _assets = $v.assets?.toBuilder();
       _$v = null;
     }
     return this;
@@ -103,9 +106,7 @@ class AssetListBuilder implements Builder<AssetList, AssetListBuilder> {
 
   @override
   void replace(AssetList other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetList;
   }
 
@@ -135,4 +136,4 @@ class AssetListBuilder implements Builder<AssetList, AssetListBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

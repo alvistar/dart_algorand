@@ -18,24 +18,26 @@ class _$MultisigSigSerializer implements StructuredSerializer<MultisigSig> {
   Iterable<Object> serialize(Serializers serializers, MultisigSig object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.subsigs != null) {
+    Object value;
+    value = object.subsigs;
+    if (value != null) {
       result
         ..add('subsig')
-        ..add(serializers.serialize(object.subsigs,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, [FullType(MultisigSubsig)])));
     }
-    if (object.threshold != null) {
+    value = object.threshold;
+    if (value != null) {
       result
         ..add('thr')
-        ..add(serializers.serialize(object.threshold,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.version != null) {
+    value = object.version;
+    if (value != null) {
       result
         ..add('v')
-        ..add(serializers.serialize(object.version,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -49,7 +51,7 @@ class _$MultisigSigSerializer implements StructuredSerializer<MultisigSig> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'subsig':
           result.subsigs.replace(serializers.deserialize(value,
@@ -136,10 +138,11 @@ class MultisigSigBuilder implements Builder<MultisigSig, MultisigSigBuilder> {
   MultisigSigBuilder();
 
   MultisigSigBuilder get _$this {
-    if (_$v != null) {
-      _subsigs = _$v.subsigs?.toBuilder();
-      _threshold = _$v.threshold;
-      _version = _$v.version;
+    final $v = _$v;
+    if ($v != null) {
+      _subsigs = $v.subsigs?.toBuilder();
+      _threshold = $v.threshold;
+      _version = $v.version;
       _$v = null;
     }
     return this;
@@ -147,9 +150,7 @@ class MultisigSigBuilder implements Builder<MultisigSig, MultisigSigBuilder> {
 
   @override
   void replace(MultisigSig other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MultisigSig;
   }
 
@@ -183,4 +184,4 @@ class MultisigSigBuilder implements Builder<MultisigSig, MultisigSigBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

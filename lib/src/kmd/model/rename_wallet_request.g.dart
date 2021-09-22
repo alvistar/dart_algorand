@@ -24,22 +24,26 @@ class _$RenameWalletRequestSerializer
       Serializers serializers, RenameWalletRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.walletId != null) {
+    Object value;
+    value = object.walletId;
+    if (value != null) {
       result
         ..add('wallet_id')
-        ..add(serializers.serialize(object.walletId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.walletName != null) {
+    value = object.walletName;
+    if (value != null) {
       result
         ..add('wallet_name')
-        ..add(serializers.serialize(object.walletName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.walletPassword != null) {
+    value = object.walletPassword;
+    if (value != null) {
       result
         ..add('wallet_password')
-        ..add(serializers.serialize(object.walletPassword,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -55,7 +59,7 @@ class _$RenameWalletRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'wallet_id':
           result.walletId = serializers.deserialize(value,
@@ -145,10 +149,11 @@ class RenameWalletRequestBuilder
   RenameWalletRequestBuilder();
 
   RenameWalletRequestBuilder get _$this {
-    if (_$v != null) {
-      _walletId = _$v.walletId;
-      _walletName = _$v.walletName;
-      _walletPassword = _$v.walletPassword;
+    final $v = _$v;
+    if ($v != null) {
+      _walletId = $v.walletId;
+      _walletName = $v.walletName;
+      _walletPassword = $v.walletPassword;
       _$v = null;
     }
     return this;
@@ -156,9 +161,7 @@ class RenameWalletRequestBuilder
 
   @override
   void replace(RenameWalletRequest other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RenameWalletRequest;
   }
 
@@ -179,4 +182,4 @@ class RenameWalletRequestBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

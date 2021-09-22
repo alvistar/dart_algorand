@@ -20,41 +20,45 @@ class _$TransactionParamsSerializer
   Iterable<Object> serialize(Serializers serializers, TransactionParams object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.consensusVersion != null) {
+    Object value;
+    value = object.consensusVersion;
+    if (value != null) {
       result
         ..add('consensusVersion')
-        ..add(serializers.serialize(object.consensusVersion,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.fee != null) {
+    value = object.fee;
+    if (value != null) {
       result
         ..add('fee')
-        ..add(serializers.serialize(object.fee,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.genesisID != null) {
+    value = object.genesisID;
+    if (value != null) {
       result
         ..add('genesisID')
-        ..add(serializers.serialize(object.genesisID,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.genesishashb64 != null) {
+    value = object.genesishashb64;
+    if (value != null) {
       result
         ..add('genesishashb64')
-        ..add(serializers.serialize(object.genesishashb64,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.lastRound != null) {
+    value = object.lastRound;
+    if (value != null) {
       result
         ..add('lastRound')
-        ..add(serializers.serialize(object.lastRound,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.minFee != null) {
+    value = object.minFee;
+    if (value != null) {
       result
         ..add('minFee')
-        ..add(serializers.serialize(object.minFee,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -69,7 +73,7 @@ class _$TransactionParamsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'consensusVersion':
           result.consensusVersion = serializers.deserialize(value,
@@ -207,13 +211,14 @@ class TransactionParamsBuilder
   TransactionParamsBuilder();
 
   TransactionParamsBuilder get _$this {
-    if (_$v != null) {
-      _consensusVersion = _$v.consensusVersion;
-      _fee = _$v.fee;
-      _genesisID = _$v.genesisID;
-      _genesishashb64 = _$v.genesishashb64;
-      _lastRound = _$v.lastRound;
-      _minFee = _$v.minFee;
+    final $v = _$v;
+    if ($v != null) {
+      _consensusVersion = $v.consensusVersion;
+      _fee = $v.fee;
+      _genesisID = $v.genesisID;
+      _genesishashb64 = $v.genesishashb64;
+      _lastRound = $v.lastRound;
+      _minFee = $v.minFee;
       _$v = null;
     }
     return this;
@@ -221,9 +226,7 @@ class TransactionParamsBuilder
 
   @override
   void replace(TransactionParams other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TransactionParams;
   }
 
@@ -247,4 +250,4 @@ class TransactionParamsBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

@@ -18,124 +18,140 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
   Iterable<Object> serialize(Serializers serializers, Transaction object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.curcfg != null) {
+    Object value;
+    value = object.curcfg;
+    if (value != null) {
       result
         ..add('curcfg')
-        ..add(serializers.serialize(object.curcfg,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(AssetConfigTransactionType)));
     }
-    if (object.curfrz != null) {
+    value = object.curfrz;
+    if (value != null) {
       result
         ..add('curfrz')
-        ..add(serializers.serialize(object.curfrz,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(AssetFreezeTransactionType)));
     }
-    if (object.curxfer != null) {
+    value = object.curxfer;
+    if (value != null) {
       result
         ..add('curxfer')
-        ..add(serializers.serialize(object.curxfer,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(AssetTransferTransactionType)));
     }
-    if (object.fee != null) {
+    value = object.fee;
+    if (value != null) {
       result
         ..add('fee')
-        ..add(serializers.serialize(object.fee,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.firstRound != null) {
+    value = object.firstRound;
+    if (value != null) {
       result
         ..add('first-round')
-        ..add(serializers.serialize(object.firstRound,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.from != null) {
+    value = object.from;
+    if (value != null) {
       result
         ..add('from')
-        ..add(serializers.serialize(object.from,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.fromrewards != null) {
+    value = object.fromrewards;
+    if (value != null) {
       result
         ..add('fromrewards')
-        ..add(serializers.serialize(object.fromrewards,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.genesisID != null) {
+    value = object.genesisID;
+    if (value != null) {
       result
         ..add('genesisID')
-        ..add(serializers.serialize(object.genesisID,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.genesishashb64 != null) {
+    value = object.genesishashb64;
+    if (value != null) {
       result
         ..add('genesishashb64')
-        ..add(serializers.serialize(object.genesishashb64,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.group != null) {
+    value = object.group;
+    if (value != null) {
       result
         ..add('group')
-        ..add(serializers.serialize(object.group,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.keyreg != null) {
+    value = object.keyreg;
+    if (value != null) {
       result
         ..add('keyreg')
-        ..add(serializers.serialize(object.keyreg,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(KeyregTransactionType)));
     }
-    if (object.lastRound != null) {
+    value = object.lastRound;
+    if (value != null) {
       result
         ..add('last-round')
-        ..add(serializers.serialize(object.lastRound,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.lease != null) {
+    value = object.lease;
+    if (value != null) {
       result
         ..add('lease')
-        ..add(serializers.serialize(object.lease,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.noteb64 != null) {
+    value = object.noteb64;
+    if (value != null) {
       result
         ..add('noteb64')
-        ..add(serializers.serialize(object.noteb64,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.payment != null) {
+    value = object.payment;
+    if (value != null) {
       result
         ..add('payment')
-        ..add(serializers.serialize(object.payment,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(PaymentTransactionType)));
     }
-    if (object.poolerror != null) {
+    value = object.poolerror;
+    if (value != null) {
       result
         ..add('poolerror')
-        ..add(serializers.serialize(object.poolerror,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.round != null) {
+    value = object.round;
+    if (value != null) {
       result
         ..add('round')
-        ..add(serializers.serialize(object.round,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.tx != null) {
+    value = object.tx;
+    if (value != null) {
       result
         ..add('tx')
-        ..add(serializers.serialize(object.tx,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.txresults != null) {
+    value = object.txresults;
+    if (value != null) {
       result
         ..add('txresults')
-        ..add(serializers.serialize(object.txresults,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(TransactionResults)));
     }
-    if (object.type != null) {
+    value = object.type;
+    if (value != null) {
       result
         ..add('type')
-        ..add(serializers.serialize(object.type,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -150,7 +166,7 @@ class _$TransactionSerializer implements StructuredSerializer<Transaction> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'curcfg':
           result.curcfg.replace(serializers.deserialize(value,
@@ -513,27 +529,28 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
   TransactionBuilder();
 
   TransactionBuilder get _$this {
-    if (_$v != null) {
-      _curcfg = _$v.curcfg?.toBuilder();
-      _curfrz = _$v.curfrz?.toBuilder();
-      _curxfer = _$v.curxfer?.toBuilder();
-      _fee = _$v.fee;
-      _firstRound = _$v.firstRound;
-      _from = _$v.from;
-      _fromrewards = _$v.fromrewards;
-      _genesisID = _$v.genesisID;
-      _genesishashb64 = _$v.genesishashb64;
-      _group = _$v.group;
-      _keyreg = _$v.keyreg?.toBuilder();
-      _lastRound = _$v.lastRound;
-      _lease = _$v.lease;
-      _noteb64 = _$v.noteb64;
-      _payment = _$v.payment?.toBuilder();
-      _poolerror = _$v.poolerror;
-      _round = _$v.round;
-      _tx = _$v.tx;
-      _txresults = _$v.txresults?.toBuilder();
-      _type = _$v.type;
+    final $v = _$v;
+    if ($v != null) {
+      _curcfg = $v.curcfg?.toBuilder();
+      _curfrz = $v.curfrz?.toBuilder();
+      _curxfer = $v.curxfer?.toBuilder();
+      _fee = $v.fee;
+      _firstRound = $v.firstRound;
+      _from = $v.from;
+      _fromrewards = $v.fromrewards;
+      _genesisID = $v.genesisID;
+      _genesishashb64 = $v.genesishashb64;
+      _group = $v.group;
+      _keyreg = $v.keyreg?.toBuilder();
+      _lastRound = $v.lastRound;
+      _lease = $v.lease;
+      _noteb64 = $v.noteb64;
+      _payment = $v.payment?.toBuilder();
+      _poolerror = $v.poolerror;
+      _round = $v.round;
+      _tx = $v.tx;
+      _txresults = $v.txresults?.toBuilder();
+      _type = $v.type;
       _$v = null;
     }
     return this;
@@ -541,9 +558,7 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
 
   @override
   void replace(Transaction other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Transaction;
   }
 
@@ -607,4 +622,4 @@ class TransactionBuilder implements Builder<Transaction, TransactionBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

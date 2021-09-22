@@ -19,34 +19,37 @@ class _$ParticipationSerializer implements StructuredSerializer<Participation> {
   Iterable<Object> serialize(Serializers serializers, Participation object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.partpkb64 != null) {
+    Object value;
+    value = object.partpkb64;
+    if (value != null) {
       result
         ..add('partpkb64')
-        ..add(serializers.serialize(object.partpkb64,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.votefst != null) {
+    value = object.votefst;
+    if (value != null) {
       result
         ..add('votefst')
-        ..add(serializers.serialize(object.votefst,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.votekd != null) {
+    value = object.votekd;
+    if (value != null) {
       result
         ..add('votekd')
-        ..add(serializers.serialize(object.votekd,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.votelst != null) {
+    value = object.votelst;
+    if (value != null) {
       result
         ..add('votelst')
-        ..add(serializers.serialize(object.votelst,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.vrfpkb64 != null) {
+    value = object.vrfpkb64;
+    if (value != null) {
       result
         ..add('vrfpkb64')
-        ..add(serializers.serialize(object.vrfpkb64,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -62,7 +65,7 @@ class _$ParticipationSerializer implements StructuredSerializer<Participation> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'partpkb64':
           result.partpkb64 = serializers.deserialize(value,
@@ -177,12 +180,13 @@ class ParticipationBuilder
   ParticipationBuilder();
 
   ParticipationBuilder get _$this {
-    if (_$v != null) {
-      _partpkb64 = _$v.partpkb64;
-      _votefst = _$v.votefst;
-      _votekd = _$v.votekd;
-      _votelst = _$v.votelst;
-      _vrfpkb64 = _$v.vrfpkb64;
+    final $v = _$v;
+    if ($v != null) {
+      _partpkb64 = $v.partpkb64;
+      _votefst = $v.votefst;
+      _votekd = $v.votekd;
+      _votelst = $v.votelst;
+      _vrfpkb64 = $v.vrfpkb64;
       _$v = null;
     }
     return this;
@@ -190,9 +194,7 @@ class ParticipationBuilder
 
   @override
   void replace(Participation other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Participation;
   }
 
@@ -215,4 +217,4 @@ class ParticipationBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

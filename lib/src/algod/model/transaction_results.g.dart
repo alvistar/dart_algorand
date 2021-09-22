@@ -20,11 +20,12 @@ class _$TransactionResultsSerializer
   Iterable<Object> serialize(Serializers serializers, TransactionResults object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.createdasset != null) {
+    Object value;
+    value = object.createdasset;
+    if (value != null) {
       result
         ..add('createdasset')
-        ..add(serializers.serialize(object.createdasset,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -39,7 +40,7 @@ class _$TransactionResultsSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'createdasset':
           result.createdasset = serializers.deserialize(value,
@@ -101,8 +102,9 @@ class TransactionResultsBuilder
   TransactionResultsBuilder();
 
   TransactionResultsBuilder get _$this {
-    if (_$v != null) {
-      _createdasset = _$v.createdasset;
+    final $v = _$v;
+    if ($v != null) {
+      _createdasset = $v.createdasset;
       _$v = null;
     }
     return this;
@@ -110,9 +112,7 @@ class TransactionResultsBuilder
 
   @override
   void replace(TransactionResults other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$TransactionResults;
   }
 
@@ -129,4 +129,4 @@ class TransactionResultsBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

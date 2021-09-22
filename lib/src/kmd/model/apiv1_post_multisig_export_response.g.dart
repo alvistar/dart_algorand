@@ -25,35 +25,39 @@ class _$APIV1POSTMultisigExportResponseSerializer
       Serializers serializers, APIV1POSTMultisigExportResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.error != null) {
+    Object value;
+    value = object.error;
+    if (value != null) {
       result
         ..add('error')
-        ..add(serializers.serialize(object.error,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.message != null) {
+    value = object.message;
+    if (value != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(object.message,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.multisigVersion != null) {
+    value = object.multisigVersion;
+    if (value != null) {
       result
         ..add('multisig_version')
-        ..add(serializers.serialize(object.multisigVersion,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.pks != null) {
+    value = object.pks;
+    if (value != null) {
       result
         ..add('pks')
-        ..add(serializers.serialize(object.pks,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, [FullType(String)])));
     }
-    if (object.threshold != null) {
+    value = object.threshold;
+    if (value != null) {
       result
         ..add('threshold')
-        ..add(serializers.serialize(object.threshold,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -68,7 +72,7 @@ class _$APIV1POSTMultisigExportResponseSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'error':
           result.error = serializers.deserialize(value,
@@ -195,12 +199,13 @@ class APIV1POSTMultisigExportResponseBuilder
   APIV1POSTMultisigExportResponseBuilder();
 
   APIV1POSTMultisigExportResponseBuilder get _$this {
-    if (_$v != null) {
-      _error = _$v.error;
-      _message = _$v.message;
-      _multisigVersion = _$v.multisigVersion;
-      _pks = _$v.pks?.toBuilder();
-      _threshold = _$v.threshold;
+    final $v = _$v;
+    if ($v != null) {
+      _error = $v.error;
+      _message = $v.message;
+      _multisigVersion = $v.multisigVersion;
+      _pks = $v.pks?.toBuilder();
+      _threshold = $v.threshold;
       _$v = null;
     }
     return this;
@@ -208,9 +213,7 @@ class APIV1POSTMultisigExportResponseBuilder
 
   @override
   void replace(APIV1POSTMultisigExportResponse other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$APIV1POSTMultisigExportResponse;
   }
 
@@ -246,4 +249,4 @@ class APIV1POSTMultisigExportResponseBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

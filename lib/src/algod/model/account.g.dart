@@ -18,65 +18,71 @@ class _$AccountSerializer implements StructuredSerializer<Account> {
   Iterable<Object> serialize(Serializers serializers, Account object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.address != null) {
+    Object value;
+    value = object.address;
+    if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(object.address,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.amount != null) {
+    value = object.amount;
+    if (value != null) {
       result
         ..add('amount')
-        ..add(serializers.serialize(object.amount,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.amountwithoutpendingrewards != null) {
+    value = object.amountwithoutpendingrewards;
+    if (value != null) {
       result
         ..add('amountwithoutpendingrewards')
-        ..add(serializers.serialize(object.amountwithoutpendingrewards,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.assets != null) {
+    value = object.assets;
+    if (value != null) {
       result
         ..add('assets')
-        ..add(serializers.serialize(object.assets,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 BuiltMap, [FullType(String), FullType(AssetHolding)])));
     }
-    if (object.participation != null) {
+    value = object.participation;
+    if (value != null) {
       result
         ..add('participation')
-        ..add(serializers.serialize(object.participation,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(Participation)));
     }
-    if (object.pendingrewards != null) {
+    value = object.pendingrewards;
+    if (value != null) {
       result
         ..add('pendingrewards')
-        ..add(serializers.serialize(object.pendingrewards,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.rewards != null) {
+    value = object.rewards;
+    if (value != null) {
       result
         ..add('rewards')
-        ..add(serializers.serialize(object.rewards,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.round != null) {
+    value = object.round;
+    if (value != null) {
       result
         ..add('round')
-        ..add(serializers.serialize(object.round,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.thisassettotal != null) {
+    value = object.thisassettotal;
+    if (value != null) {
       result
         ..add('thisassettotal')
-        ..add(serializers.serialize(object.thisassettotal,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 BuiltMap, [FullType(String), FullType(AssetParams)])));
     }
@@ -92,7 +98,7 @@ class _$AccountSerializer implements StructuredSerializer<Account> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -297,17 +303,18 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
   AccountBuilder();
 
   AccountBuilder get _$this {
-    if (_$v != null) {
-      _address = _$v.address;
-      _amount = _$v.amount;
-      _amountwithoutpendingrewards = _$v.amountwithoutpendingrewards;
-      _assets = _$v.assets?.toBuilder();
-      _participation = _$v.participation?.toBuilder();
-      _pendingrewards = _$v.pendingrewards;
-      _rewards = _$v.rewards;
-      _round = _$v.round;
-      _status = _$v.status;
-      _thisassettotal = _$v.thisassettotal?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _address = $v.address;
+      _amount = $v.amount;
+      _amountwithoutpendingrewards = $v.amountwithoutpendingrewards;
+      _assets = $v.assets?.toBuilder();
+      _participation = $v.participation?.toBuilder();
+      _pendingrewards = $v.pendingrewards;
+      _rewards = $v.rewards;
+      _round = $v.round;
+      _status = $v.status;
+      _thisassettotal = $v.thisassettotal?.toBuilder();
       _$v = null;
     }
     return this;
@@ -315,9 +322,7 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
 
   @override
   void replace(Account other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Account;
   }
 
@@ -363,4 +368,4 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

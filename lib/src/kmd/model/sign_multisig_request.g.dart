@@ -24,34 +24,40 @@ class _$SignMultisigRequestSerializer
       Serializers serializers, SignMultisigRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.partialMultisig != null) {
+    Object value;
+    value = object.partialMultisig;
+    if (value != null) {
       result
         ..add('partial_multisig')
-        ..add(serializers.serialize(object.partialMultisig,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(MultisigSig)));
     }
-    if (object.publicKey != null) {
+    value = object.publicKey;
+    if (value != null) {
       result
         ..add('public_key')
-        ..add(serializers.serialize(object.publicKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.transaction != null) {
+    value = object.transaction;
+    if (value != null) {
       result
         ..add('transaction')
-        ..add(serializers.serialize(object.transaction,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.walletHandleToken != null) {
+    value = object.walletHandleToken;
+    if (value != null) {
       result
         ..add('wallet_handle_token')
-        ..add(serializers.serialize(object.walletHandleToken,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.walletPassword != null) {
+    value = object.walletPassword;
+    if (value != null) {
       result
         ..add('wallet_password')
-        ..add(serializers.serialize(object.walletPassword,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -67,7 +73,7 @@ class _$SignMultisigRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'partial_multisig':
           result.partialMultisig.replace(serializers.deserialize(value,
@@ -193,12 +199,13 @@ class SignMultisigRequestBuilder
   SignMultisigRequestBuilder();
 
   SignMultisigRequestBuilder get _$this {
-    if (_$v != null) {
-      _partialMultisig = _$v.partialMultisig?.toBuilder();
-      _publicKey = _$v.publicKey;
-      _transaction = _$v.transaction;
-      _walletHandleToken = _$v.walletHandleToken;
-      _walletPassword = _$v.walletPassword;
+    final $v = _$v;
+    if ($v != null) {
+      _partialMultisig = $v.partialMultisig?.toBuilder();
+      _publicKey = $v.publicKey;
+      _transaction = $v.transaction;
+      _walletHandleToken = $v.walletHandleToken;
+      _walletPassword = $v.walletPassword;
       _$v = null;
     }
     return this;
@@ -206,9 +213,7 @@ class SignMultisigRequestBuilder
 
   @override
   void replace(SignMultisigRequest other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SignMultisigRequest;
   }
 
@@ -244,4 +249,4 @@ class SignMultisigRequestBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

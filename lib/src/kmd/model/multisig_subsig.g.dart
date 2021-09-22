@@ -20,16 +20,19 @@ class _$MultisigSubsigSerializer
   Iterable<Object> serialize(Serializers serializers, MultisigSubsig object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.key != null) {
+    Object value;
+    value = object.key;
+    if (value != null) {
       result
         ..add('pk')
-        ..add(serializers.serialize(object.key,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.sig != null) {
+    value = object.sig;
+    if (value != null) {
       result
         ..add('s')
-        ..add(serializers.serialize(object.sig,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -45,7 +48,7 @@ class _$MultisigSubsigSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'pk':
           result.key = serializers.deserialize(value,
@@ -115,9 +118,10 @@ class MultisigSubsigBuilder
   MultisigSubsigBuilder();
 
   MultisigSubsigBuilder get _$this {
-    if (_$v != null) {
-      _key = _$v.key;
-      _sig = _$v.sig;
+    final $v = _$v;
+    if ($v != null) {
+      _key = $v.key;
+      _sig = $v.sig;
       _$v = null;
     }
     return this;
@@ -125,9 +129,7 @@ class MultisigSubsigBuilder
 
   @override
   void replace(MultisigSubsig other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MultisigSubsig;
   }
 
@@ -144,4 +146,4 @@ class MultisigSubsigBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

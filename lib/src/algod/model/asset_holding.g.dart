@@ -39,7 +39,7 @@ class _$AssetHoldingSerializer implements StructuredSerializer<AssetHolding> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'creator':
           result.creator = serializers.deserialize(value,
@@ -72,15 +72,9 @@ class _$AssetHolding extends AssetHolding {
       (AssetHoldingBuilder()..update(updates)).build();
 
   _$AssetHolding._({this.creator, this.amount, this.frozen}) : super._() {
-    if (creator == null) {
-      throw BuiltValueNullFieldError('AssetHolding', 'creator');
-    }
-    if (amount == null) {
-      throw BuiltValueNullFieldError('AssetHolding', 'amount');
-    }
-    if (frozen == null) {
-      throw BuiltValueNullFieldError('AssetHolding', 'frozen');
-    }
+    BuiltValueNullFieldError.checkNotNull(creator, 'AssetHolding', 'creator');
+    BuiltValueNullFieldError.checkNotNull(amount, 'AssetHolding', 'amount');
+    BuiltValueNullFieldError.checkNotNull(frozen, 'AssetHolding', 'frozen');
   }
 
   @override
@@ -134,10 +128,11 @@ class AssetHoldingBuilder
   AssetHoldingBuilder();
 
   AssetHoldingBuilder get _$this {
-    if (_$v != null) {
-      _creator = _$v.creator;
-      _amount = _$v.amount;
-      _frozen = _$v.frozen;
+    final $v = _$v;
+    if ($v != null) {
+      _creator = $v.creator;
+      _amount = $v.amount;
+      _frozen = $v.frozen;
       _$v = null;
     }
     return this;
@@ -145,9 +140,7 @@ class AssetHoldingBuilder
 
   @override
   void replace(AssetHolding other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetHolding;
   }
 
@@ -159,10 +152,16 @@ class AssetHoldingBuilder
   @override
   _$AssetHolding build() {
     final _$result = _$v ??
-        _$AssetHolding._(creator: creator, amount: amount, frozen: frozen);
+        _$AssetHolding._(
+            creator: BuiltValueNullFieldError.checkNotNull(
+                creator, 'AssetHolding', 'creator'),
+            amount: BuiltValueNullFieldError.checkNotNull(
+                amount, 'AssetHolding', 'amount'),
+            frozen: BuiltValueNullFieldError.checkNotNull(
+                frozen, 'AssetHolding', 'frozen'));
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

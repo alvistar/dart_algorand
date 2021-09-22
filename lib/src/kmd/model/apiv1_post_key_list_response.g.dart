@@ -24,22 +24,26 @@ class _$APIV1POSTKeyListResponseSerializer
       Serializers serializers, APIV1POSTKeyListResponse object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.addresses != null) {
+    Object value;
+    value = object.addresses;
+    if (value != null) {
       result
         ..add('addresses')
-        ..add(serializers.serialize(object.addresses,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, [FullType(String)])));
     }
-    if (object.error != null) {
+    value = object.error;
+    if (value != null) {
       result
         ..add('error')
-        ..add(serializers.serialize(object.error,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.message != null) {
+    value = object.message;
+    if (value != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(object.message,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -55,7 +59,7 @@ class _$APIV1POSTKeyListResponseSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'addresses':
           result.addresses.replace(serializers.deserialize(value,
@@ -147,10 +151,11 @@ class APIV1POSTKeyListResponseBuilder
   APIV1POSTKeyListResponseBuilder();
 
   APIV1POSTKeyListResponseBuilder get _$this {
-    if (_$v != null) {
-      _addresses = _$v.addresses?.toBuilder();
-      _error = _$v.error;
-      _message = _$v.message;
+    final $v = _$v;
+    if ($v != null) {
+      _addresses = $v.addresses?.toBuilder();
+      _error = $v.error;
+      _message = $v.message;
       _$v = null;
     }
     return this;
@@ -158,9 +163,7 @@ class APIV1POSTKeyListResponseBuilder
 
   @override
   void replace(APIV1POSTKeyListResponse other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$APIV1POSTKeyListResponse;
   }
 
@@ -192,4 +195,4 @@ class APIV1POSTKeyListResponseBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

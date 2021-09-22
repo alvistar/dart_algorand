@@ -24,28 +24,31 @@ class _$ImportMultisigRequestSerializer
       Serializers serializers, ImportMultisigRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.multisigVersion != null) {
+    Object value;
+    value = object.multisigVersion;
+    if (value != null) {
       result
         ..add('multisig_version')
-        ..add(serializers.serialize(object.multisigVersion,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.pks != null) {
+    value = object.pks;
+    if (value != null) {
       result
         ..add('pks')
-        ..add(serializers.serialize(object.pks,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, [FullType(String)])));
     }
-    if (object.threshold != null) {
+    value = object.threshold;
+    if (value != null) {
       result
         ..add('threshold')
-        ..add(serializers.serialize(object.threshold,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.walletHandleToken != null) {
+    value = object.walletHandleToken;
+    if (value != null) {
       result
         ..add('wallet_handle_token')
-        ..add(serializers.serialize(object.walletHandleToken,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -61,7 +64,7 @@ class _$ImportMultisigRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'multisig_version':
           result.multisigVersion = serializers.deserialize(value,
@@ -168,11 +171,12 @@ class ImportMultisigRequestBuilder
   ImportMultisigRequestBuilder();
 
   ImportMultisigRequestBuilder get _$this {
-    if (_$v != null) {
-      _multisigVersion = _$v.multisigVersion;
-      _pks = _$v.pks?.toBuilder();
-      _threshold = _$v.threshold;
-      _walletHandleToken = _$v.walletHandleToken;
+    final $v = _$v;
+    if ($v != null) {
+      _multisigVersion = $v.multisigVersion;
+      _pks = $v.pks?.toBuilder();
+      _threshold = $v.threshold;
+      _walletHandleToken = $v.walletHandleToken;
       _$v = null;
     }
     return this;
@@ -180,9 +184,7 @@ class ImportMultisigRequestBuilder
 
   @override
   void replace(ImportMultisigRequest other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ImportMultisigRequest;
   }
 
@@ -217,4 +219,4 @@ class ImportMultisigRequestBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

@@ -18,53 +18,58 @@ class _$NodeStatusSerializer implements StructuredSerializer<NodeStatus> {
   Iterable<Object> serialize(Serializers serializers, NodeStatus object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.catchupTime != null) {
+    Object value;
+    value = object.catchupTime;
+    if (value != null) {
       result
         ..add('catchupTime')
-        ..add(serializers.serialize(object.catchupTime,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.hasSyncedSinceStartup != null) {
+    value = object.hasSyncedSinceStartup;
+    if (value != null) {
       result
         ..add('hasSyncedSinceStartup')
-        ..add(serializers.serialize(object.hasSyncedSinceStartup,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.lastConsensusVersion != null) {
+    value = object.lastConsensusVersion;
+    if (value != null) {
       result
         ..add('lastConsensusVersion')
-        ..add(serializers.serialize(object.lastConsensusVersion,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.lastRound != null) {
+    value = object.lastRound;
+    if (value != null) {
       result
         ..add('lastRound')
-        ..add(serializers.serialize(object.lastRound,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.nextConsensusVersion != null) {
+    value = object.nextConsensusVersion;
+    if (value != null) {
       result
         ..add('nextConsensusVersion')
-        ..add(serializers.serialize(object.nextConsensusVersion,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.nextConsensusVersionRound != null) {
+    value = object.nextConsensusVersionRound;
+    if (value != null) {
       result
         ..add('nextConsensusVersionRound')
-        ..add(serializers.serialize(object.nextConsensusVersionRound,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.nextConsensusVersionSupported != null) {
+    value = object.nextConsensusVersionSupported;
+    if (value != null) {
       result
         ..add('nextConsensusVersionSupported')
-        ..add(serializers.serialize(object.nextConsensusVersionSupported,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.timeSinceLastRound != null) {
+    value = object.timeSinceLastRound;
+    if (value != null) {
       result
         ..add('timeSinceLastRound')
-        ..add(serializers.serialize(object.timeSinceLastRound,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -78,7 +83,7 @@ class _$NodeStatusSerializer implements StructuredSerializer<NodeStatus> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'catchupTime':
           result.catchupTime = serializers.deserialize(value,
@@ -250,15 +255,16 @@ class NodeStatusBuilder implements Builder<NodeStatus, NodeStatusBuilder> {
   NodeStatusBuilder();
 
   NodeStatusBuilder get _$this {
-    if (_$v != null) {
-      _catchupTime = _$v.catchupTime;
-      _hasSyncedSinceStartup = _$v.hasSyncedSinceStartup;
-      _lastConsensusVersion = _$v.lastConsensusVersion;
-      _lastRound = _$v.lastRound;
-      _nextConsensusVersion = _$v.nextConsensusVersion;
-      _nextConsensusVersionRound = _$v.nextConsensusVersionRound;
-      _nextConsensusVersionSupported = _$v.nextConsensusVersionSupported;
-      _timeSinceLastRound = _$v.timeSinceLastRound;
+    final $v = _$v;
+    if ($v != null) {
+      _catchupTime = $v.catchupTime;
+      _hasSyncedSinceStartup = $v.hasSyncedSinceStartup;
+      _lastConsensusVersion = $v.lastConsensusVersion;
+      _lastRound = $v.lastRound;
+      _nextConsensusVersion = $v.nextConsensusVersion;
+      _nextConsensusVersionRound = $v.nextConsensusVersionRound;
+      _nextConsensusVersionSupported = $v.nextConsensusVersionSupported;
+      _timeSinceLastRound = $v.timeSinceLastRound;
       _$v = null;
     }
     return this;
@@ -266,9 +272,7 @@ class NodeStatusBuilder implements Builder<NodeStatus, NodeStatusBuilder> {
 
   @override
   void replace(NodeStatus other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NodeStatus;
   }
 
@@ -294,4 +298,4 @@ class NodeStatusBuilder implements Builder<NodeStatus, NodeStatusBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

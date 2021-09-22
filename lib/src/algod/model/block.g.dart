@@ -18,118 +18,129 @@ class _$BlockSerializer implements StructuredSerializer<Block> {
   Iterable<Object> serialize(Serializers serializers, Block object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.currentProtocol != null) {
+    Object value;
+    value = object.currentProtocol;
+    if (value != null) {
       result
         ..add('currentProtocol')
-        ..add(serializers.serialize(object.currentProtocol,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.frac != null) {
+    value = object.frac;
+    if (value != null) {
       result
         ..add('frac')
-        ..add(serializers.serialize(object.frac,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.hash != null) {
+    value = object.hash;
+    if (value != null) {
       result
         ..add('hash')
-        ..add(serializers.serialize(object.hash,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.nextProtocol != null) {
+    value = object.nextProtocol;
+    if (value != null) {
       result
         ..add('nextProtocol')
-        ..add(serializers.serialize(object.nextProtocol,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.nextProtocolApprovals != null) {
+    value = object.nextProtocolApprovals;
+    if (value != null) {
       result
         ..add('nextProtocolApprovals')
-        ..add(serializers.serialize(object.nextProtocolApprovals,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.nextProtocolSwitchOn != null) {
+    value = object.nextProtocolSwitchOn;
+    if (value != null) {
       result
         ..add('nextProtocolSwitchOn')
-        ..add(serializers.serialize(object.nextProtocolSwitchOn,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.nextProtocolVoteBefore != null) {
+    value = object.nextProtocolVoteBefore;
+    if (value != null) {
       result
         ..add('nextProtocolVoteBefore')
-        ..add(serializers.serialize(object.nextProtocolVoteBefore,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.period != null) {
+    value = object.period;
+    if (value != null) {
       result
         ..add('period')
-        ..add(serializers.serialize(object.period,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.previousBlockHash != null) {
+    value = object.previousBlockHash;
+    if (value != null) {
       result
         ..add('previousBlockHash')
-        ..add(serializers.serialize(object.previousBlockHash,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.proposer != null) {
+    value = object.proposer;
+    if (value != null) {
       result
         ..add('proposer')
-        ..add(serializers.serialize(object.proposer,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.rate != null) {
+    value = object.rate;
+    if (value != null) {
       result
         ..add('rate')
-        ..add(serializers.serialize(object.rate,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.reward != null) {
+    value = object.reward;
+    if (value != null) {
       result
         ..add('reward')
-        ..add(serializers.serialize(object.reward,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.round != null) {
+    value = object.round;
+    if (value != null) {
       result
         ..add('round')
-        ..add(serializers.serialize(object.round,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.seed != null) {
+    value = object.seed;
+    if (value != null) {
       result
         ..add('seed')
-        ..add(serializers.serialize(object.seed,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.timestamp != null) {
+    value = object.timestamp;
+    if (value != null) {
       result
         ..add('timestamp')
-        ..add(serializers.serialize(object.timestamp,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.txnRoot != null) {
+    value = object.txnRoot;
+    if (value != null) {
       result
         ..add('txnRoot')
-        ..add(serializers.serialize(object.txnRoot,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.txns != null) {
+    value = object.txns;
+    if (value != null) {
       result
         ..add('txns')
-        ..add(serializers.serialize(object.txns,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(TransactionList)));
     }
-    if (object.upgradeApprove != null) {
+    value = object.upgradeApprove;
+    if (value != null) {
       result
         ..add('upgradeApprove')
-        ..add(serializers.serialize(object.upgradeApprove,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.upgradePropose != null) {
+    value = object.upgradePropose;
+    if (value != null) {
       result
         ..add('upgradePropose')
-        ..add(serializers.serialize(object.upgradePropose,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -144,7 +155,7 @@ class _$BlockSerializer implements StructuredSerializer<Block> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'currentProtocol':
           result.currentProtocol = serializers.deserialize(value,
@@ -492,26 +503,27 @@ class BlockBuilder implements Builder<Block, BlockBuilder> {
   BlockBuilder();
 
   BlockBuilder get _$this {
-    if (_$v != null) {
-      _currentProtocol = _$v.currentProtocol;
-      _frac = _$v.frac;
-      _hash = _$v.hash;
-      _nextProtocol = _$v.nextProtocol;
-      _nextProtocolApprovals = _$v.nextProtocolApprovals;
-      _nextProtocolSwitchOn = _$v.nextProtocolSwitchOn;
-      _nextProtocolVoteBefore = _$v.nextProtocolVoteBefore;
-      _period = _$v.period;
-      _previousBlockHash = _$v.previousBlockHash;
-      _proposer = _$v.proposer;
-      _rate = _$v.rate;
-      _reward = _$v.reward;
-      _round = _$v.round;
-      _seed = _$v.seed;
-      _timestamp = _$v.timestamp;
-      _txnRoot = _$v.txnRoot;
-      _txns = _$v.txns?.toBuilder();
-      _upgradeApprove = _$v.upgradeApprove;
-      _upgradePropose = _$v.upgradePropose;
+    final $v = _$v;
+    if ($v != null) {
+      _currentProtocol = $v.currentProtocol;
+      _frac = $v.frac;
+      _hash = $v.hash;
+      _nextProtocol = $v.nextProtocol;
+      _nextProtocolApprovals = $v.nextProtocolApprovals;
+      _nextProtocolSwitchOn = $v.nextProtocolSwitchOn;
+      _nextProtocolVoteBefore = $v.nextProtocolVoteBefore;
+      _period = $v.period;
+      _previousBlockHash = $v.previousBlockHash;
+      _proposer = $v.proposer;
+      _rate = $v.rate;
+      _reward = $v.reward;
+      _round = $v.round;
+      _seed = $v.seed;
+      _timestamp = $v.timestamp;
+      _txnRoot = $v.txnRoot;
+      _txns = $v.txns?.toBuilder();
+      _upgradeApprove = $v.upgradeApprove;
+      _upgradePropose = $v.upgradePropose;
       _$v = null;
     }
     return this;
@@ -519,9 +531,7 @@ class BlockBuilder implements Builder<Block, BlockBuilder> {
 
   @override
   void replace(Block other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Block;
   }
 
@@ -570,4 +580,4 @@ class BlockBuilder implements Builder<Block, BlockBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

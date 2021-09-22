@@ -24,41 +24,44 @@ class _$PaymentTransactionTypeSerializer
       Serializers serializers, PaymentTransactionType object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.amount != null) {
+    Object value;
+    value = object.amount;
+    if (value != null) {
       result
         ..add('amount')
-        ..add(serializers.serialize(object.amount,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.close != null) {
+    value = object.close;
+    if (value != null) {
       result
         ..add('close')
-        ..add(serializers.serialize(object.close,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.closeamount != null) {
+    value = object.closeamount;
+    if (value != null) {
       result
         ..add('closeamount')
-        ..add(serializers.serialize(object.closeamount,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.closerewards != null) {
+    value = object.closerewards;
+    if (value != null) {
       result
         ..add('closerewards')
-        ..add(serializers.serialize(object.closerewards,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.to != null) {
+    value = object.to;
+    if (value != null) {
       result
         ..add('to')
-        ..add(serializers.serialize(object.to,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.torewards != null) {
+    value = object.torewards;
+    if (value != null) {
       result
         ..add('torewards')
-        ..add(serializers.serialize(object.torewards,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -73,7 +76,7 @@ class _$PaymentTransactionTypeSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'amount':
           result.amount = serializers.deserialize(value,
@@ -210,13 +213,14 @@ class PaymentTransactionTypeBuilder
   PaymentTransactionTypeBuilder();
 
   PaymentTransactionTypeBuilder get _$this {
-    if (_$v != null) {
-      _amount = _$v.amount;
-      _close = _$v.close;
-      _closeamount = _$v.closeamount;
-      _closerewards = _$v.closerewards;
-      _to = _$v.to;
-      _torewards = _$v.torewards;
+    final $v = _$v;
+    if ($v != null) {
+      _amount = $v.amount;
+      _close = $v.close;
+      _closeamount = $v.closeamount;
+      _closerewards = $v.closerewards;
+      _to = $v.to;
+      _torewards = $v.torewards;
       _$v = null;
     }
     return this;
@@ -224,9 +228,7 @@ class PaymentTransactionTypeBuilder
 
   @override
   void replace(PaymentTransactionType other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PaymentTransactionType;
   }
 
@@ -250,4 +252,4 @@ class PaymentTransactionTypeBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

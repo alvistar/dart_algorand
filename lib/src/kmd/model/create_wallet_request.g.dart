@@ -24,28 +24,33 @@ class _$CreateWalletRequestSerializer
       Serializers serializers, CreateWalletRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.masterDerivationKey != null) {
+    Object value;
+    value = object.masterDerivationKey;
+    if (value != null) {
       result
         ..add('master_derivation_key')
-        ..add(serializers.serialize(object.masterDerivationKey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.walletDriverName != null) {
+    value = object.walletDriverName;
+    if (value != null) {
       result
         ..add('wallet_driver_name')
-        ..add(serializers.serialize(object.walletDriverName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.walletName != null) {
+    value = object.walletName;
+    if (value != null) {
       result
         ..add('wallet_name')
-        ..add(serializers.serialize(object.walletName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.walletPassword != null) {
+    value = object.walletPassword;
+    if (value != null) {
       result
         ..add('wallet_password')
-        ..add(serializers.serialize(object.walletPassword,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -61,7 +66,7 @@ class _$CreateWalletRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'master_derivation_key':
           result.masterDerivationKey = serializers.deserialize(value,
@@ -173,11 +178,12 @@ class CreateWalletRequestBuilder
   CreateWalletRequestBuilder();
 
   CreateWalletRequestBuilder get _$this {
-    if (_$v != null) {
-      _masterDerivationKey = _$v.masterDerivationKey;
-      _walletDriverName = _$v.walletDriverName;
-      _walletName = _$v.walletName;
-      _walletPassword = _$v.walletPassword;
+    final $v = _$v;
+    if ($v != null) {
+      _masterDerivationKey = $v.masterDerivationKey;
+      _walletDriverName = $v.walletDriverName;
+      _walletName = $v.walletName;
+      _walletPassword = $v.walletPassword;
       _$v = null;
     }
     return this;
@@ -185,9 +191,7 @@ class CreateWalletRequestBuilder
 
   @override
   void replace(CreateWalletRequest other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateWalletRequest;
   }
 
@@ -209,4 +213,4 @@ class CreateWalletRequestBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

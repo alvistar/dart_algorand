@@ -18,76 +18,87 @@ class _$AssetParamsSerializer implements StructuredSerializer<AssetParams> {
   Iterable<Object> serialize(Serializers serializers, AssetParams object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.assetname != null) {
+    Object value;
+    value = object.assetname;
+    if (value != null) {
       result
         ..add('assetname')
-        ..add(serializers.serialize(object.assetname,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.clawbackaddr != null) {
+    value = object.clawbackaddr;
+    if (value != null) {
       result
         ..add('clawbackaddr')
-        ..add(serializers.serialize(object.clawbackaddr,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.creator != null) {
+    value = object.creator;
+    if (value != null) {
       result
         ..add('creator')
-        ..add(serializers.serialize(object.creator,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.decimals != null) {
+    value = object.decimals;
+    if (value != null) {
       result
         ..add('decimals')
-        ..add(serializers.serialize(object.decimals,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.defaultfrozen != null) {
+    value = object.defaultfrozen;
+    if (value != null) {
       result
         ..add('defaultfrozen')
-        ..add(serializers.serialize(object.defaultfrozen,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.freezeaddr != null) {
+    value = object.freezeaddr;
+    if (value != null) {
       result
         ..add('freezeaddr')
-        ..add(serializers.serialize(object.freezeaddr,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.managerkey != null) {
+    value = object.managerkey;
+    if (value != null) {
       result
         ..add('managerkey')
-        ..add(serializers.serialize(object.managerkey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.metadatahash != null) {
+    value = object.metadatahash;
+    if (value != null) {
       result
         ..add('metadatahash')
-        ..add(serializers.serialize(object.metadatahash,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.reserveaddr != null) {
+    value = object.reserveaddr;
+    if (value != null) {
       result
         ..add('reserveaddr')
-        ..add(serializers.serialize(object.reserveaddr,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.total != null) {
+    value = object.total;
+    if (value != null) {
       result
         ..add('total')
-        ..add(serializers.serialize(object.total,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.unitname != null) {
+    value = object.unitname;
+    if (value != null) {
       result
         ..add('unitname')
-        ..add(serializers.serialize(object.unitname,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.url != null) {
+    value = object.url;
+    if (value != null) {
       result
         ..add('url')
-        ..add(serializers.serialize(object.url,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -102,7 +113,7 @@ class _$AssetParamsSerializer implements StructuredSerializer<AssetParams> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'assetname':
           result.assetname = serializers.deserialize(value,
@@ -328,19 +339,20 @@ class AssetParamsBuilder implements Builder<AssetParams, AssetParamsBuilder> {
   AssetParamsBuilder();
 
   AssetParamsBuilder get _$this {
-    if (_$v != null) {
-      _assetname = _$v.assetname;
-      _clawbackaddr = _$v.clawbackaddr;
-      _creator = _$v.creator;
-      _decimals = _$v.decimals;
-      _defaultfrozen = _$v.defaultfrozen;
-      _freezeaddr = _$v.freezeaddr;
-      _managerkey = _$v.managerkey;
-      _metadatahash = _$v.metadatahash;
-      _reserveaddr = _$v.reserveaddr;
-      _total = _$v.total;
-      _unitname = _$v.unitname;
-      _url = _$v.url;
+    final $v = _$v;
+    if ($v != null) {
+      _assetname = $v.assetname;
+      _clawbackaddr = $v.clawbackaddr;
+      _creator = $v.creator;
+      _decimals = $v.decimals;
+      _defaultfrozen = $v.defaultfrozen;
+      _freezeaddr = $v.freezeaddr;
+      _managerkey = $v.managerkey;
+      _metadatahash = $v.metadatahash;
+      _reserveaddr = $v.reserveaddr;
+      _total = $v.total;
+      _unitname = $v.unitname;
+      _url = $v.url;
       _$v = null;
     }
     return this;
@@ -348,9 +360,7 @@ class AssetParamsBuilder implements Builder<AssetParams, AssetParamsBuilder> {
 
   @override
   void replace(AssetParams other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetParams;
   }
 
@@ -380,4 +390,4 @@ class AssetParamsBuilder implements Builder<AssetParams, AssetParamsBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

@@ -20,16 +20,19 @@ class _$GenerateKeyRequestSerializer
   Iterable<Object> serialize(Serializers serializers, GenerateKeyRequest object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.displayMnemonic != null) {
+    Object value;
+    value = object.displayMnemonic;
+    if (value != null) {
       result
         ..add('display_mnemonic')
-        ..add(serializers.serialize(object.displayMnemonic,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.walletHandleToken != null) {
+    value = object.walletHandleToken;
+    if (value != null) {
       result
         ..add('wallet_handle_token')
-        ..add(serializers.serialize(object.walletHandleToken,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -45,7 +48,7 @@ class _$GenerateKeyRequestSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'display_mnemonic':
           result.displayMnemonic = serializers.deserialize(value,
@@ -124,9 +127,10 @@ class GenerateKeyRequestBuilder
   GenerateKeyRequestBuilder();
 
   GenerateKeyRequestBuilder get _$this {
-    if (_$v != null) {
-      _displayMnemonic = _$v.displayMnemonic;
-      _walletHandleToken = _$v.walletHandleToken;
+    final $v = _$v;
+    if ($v != null) {
+      _displayMnemonic = $v.displayMnemonic;
+      _walletHandleToken = $v.walletHandleToken;
       _$v = null;
     }
     return this;
@@ -134,9 +138,7 @@ class GenerateKeyRequestBuilder
 
   @override
   void replace(GenerateKeyRequest other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GenerateKeyRequest;
   }
 
@@ -156,4 +158,4 @@ class GenerateKeyRequestBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

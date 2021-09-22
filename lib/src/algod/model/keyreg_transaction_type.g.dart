@@ -24,35 +24,38 @@ class _$KeyregTransactionTypeSerializer
       Serializers serializers, KeyregTransactionType object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.selkey != null) {
+    Object value;
+    value = object.selkey;
+    if (value != null) {
       result
         ..add('selkey')
-        ..add(serializers.serialize(object.selkey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.votefst != null) {
+    value = object.votefst;
+    if (value != null) {
       result
         ..add('votefst')
-        ..add(serializers.serialize(object.votefst,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.votekd != null) {
+    value = object.votekd;
+    if (value != null) {
       result
         ..add('votekd')
-        ..add(serializers.serialize(object.votekd,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.votekey != null) {
+    value = object.votekey;
+    if (value != null) {
       result
         ..add('votekey')
-        ..add(serializers.serialize(object.votekey,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.votelst != null) {
+    value = object.votelst;
+    if (value != null) {
       result
         ..add('votelst')
-        ..add(serializers.serialize(object.votelst,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -67,7 +70,7 @@ class _$KeyregTransactionTypeSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'selkey':
           result.selkey = serializers.deserialize(value,
@@ -185,12 +188,13 @@ class KeyregTransactionTypeBuilder
   KeyregTransactionTypeBuilder();
 
   KeyregTransactionTypeBuilder get _$this {
-    if (_$v != null) {
-      _selkey = _$v.selkey;
-      _votefst = _$v.votefst;
-      _votekd = _$v.votekd;
-      _votekey = _$v.votekey;
-      _votelst = _$v.votelst;
+    final $v = _$v;
+    if ($v != null) {
+      _selkey = $v.selkey;
+      _votefst = $v.votefst;
+      _votekd = $v.votekd;
+      _votekey = $v.votekey;
+      _votelst = $v.votelst;
       _$v = null;
     }
     return this;
@@ -198,9 +202,7 @@ class KeyregTransactionTypeBuilder
 
   @override
   void replace(KeyregTransactionType other) {
-    if (other == null) {
-      throw ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$KeyregTransactionType;
   }
 
@@ -223,4 +225,4 @@ class KeyregTransactionTypeBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
