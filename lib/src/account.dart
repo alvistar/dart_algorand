@@ -13,7 +13,7 @@ class AlgoAccount {
 /// Generate an account.
 AlgoAccount generate_account() {
   final sk = SigningKey.generate();
-  final a = encode_address(sk.verifyKey);
+  final a = encode_address(sk.verifyKey.toUint8List());
   final private_key = base64Encode(sk);
   return AlgoAccount(private_key: private_key, address: a);
 }

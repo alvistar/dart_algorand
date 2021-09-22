@@ -227,10 +227,11 @@ class Transaction implements Mappable {
   Uint8List raw_sign(String private_key) {
     final pkey = base64Decode(private_key);
     final txn = msgpack_encode(this);
-    final to_sign = Utf8Encoder().convert(TXID_PREFIX) + base64Decode(txn);
+    final to_sign = Uint8List.fromList(
+        Utf8Encoder().convert(TXID_PREFIX) + base64Decode(txn));
     final signing_key = SigningKey.fromSeed(pkey.sublist(0, KEY_LEN_BYTES));
     final signed = signing_key.sign(to_sign);
-    return signed.signature;
+    return signed.signature.toUint8List();
   }
 
   ///  Get the transaction's ID.

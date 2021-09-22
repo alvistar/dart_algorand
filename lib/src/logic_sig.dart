@@ -76,7 +76,8 @@ class LogicSig {
       return false;
     }
 
-    final to_sign = Utf8Encoder().convert(LOGIC_PREFIX) + program;
+    final to_sign =
+        Uint8List.fromList(Utf8Encoder().convert(LOGIC_PREFIX) + program);
 
     if (sig == null && msig == null) {
       final chksum = checksum(Uint8List.fromList(to_sign));
@@ -106,7 +107,8 @@ class LogicSig {
   static String sign_program(Uint8List program, String private_key) {
     final pkey = base64Decode(private_key);
     final signing_key = SigningKey(seed: pkey.sublist(0, KEY_LEN_BYTES));
-    final to_sign = Utf8Encoder().convert(LOGIC_PREFIX) + program;
+    final to_sign =
+        Uint8List.fromList(Utf8Encoder().convert(LOGIC_PREFIX) + program);
     final signed = signing_key.sign(to_sign);
     return base64Encode(signed.signature);
   }
