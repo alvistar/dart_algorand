@@ -9,6 +9,7 @@ import '../dart_algorand.dart';
 
 class AlgodClient {
   algod.AlgodApi api;
+  Dio dio;
 
   AlgodClient(
       {String token,
@@ -20,12 +21,13 @@ class AlgodClient {
       receiveTimeout: 3000,
     );
 
-    final dio = Dio(options);
+    dio = Dio(options);
     dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
       if (token != null) {
         options.headers['X-Algo-API-Token'] = token;
       }
       options.headers.addAll(headers);
+      return handler.next(options);
     }, onError: (DioError e, handler) {
       if (e.response != null) {
         throw ClientError(
